@@ -108,27 +108,22 @@
 
           <div class="col-lg-8 mt-5 mt-lg-0">
 
-            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+            <form method="post">
               <div class="row">
-                <div class="col-md-6 form-group">
+                <!-- <div class="col-md-6 form-group">
                   <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
                 </div>
                 <div class="col-md-6 form-group mt-3 mt-md-0">
                   <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
-                </div>
+                </div> -->
               </div>
               <div class="form-group mt-3">
                 <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
               </div>
               <div class="form-group mt-3">
-                <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
+                <textarea class="form-control" id="message" name="message" rows="5" placeholder="Message" required></textarea>
               </div>
-              <div class="my-3">
-                <div class="loading">Loading</div>
-                <div class="error-message"></div>
-                <div class="sent-message">Your message has been sent. Thank you!</div>
-              </div>
-              <div class="text-center"><button type="submit">Send Message</button></div>
+              <div class="text-center"><p  onclick="formString()">Send Message</p></div>
             </form>
 
           </div>
@@ -164,7 +159,32 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
-
+  <script>
+    function formString(){
+      // var name = document.getElementById("name").value;
+      // if(name == ""){
+      //   window.alert("Please add your name");
+      //   return;
+      // }
+      // var email = document.getElementById("email").value;
+      // if(email == ""){
+      //   window.alert("Please add your email");
+      //   return;
+      // } 
+      var subject = document.getElementById("subject").value;
+      if(subject == ""){
+        window.alert("Please add a subject");
+        return;
+      }
+      var message = document.getElementById("message").value;
+      if(message == ""){
+        window.alert("Please add a message");
+        return;
+      }
+      message = "Message from Portfolio %0D%0A" + message;
+      window.location.href = "mailto:khushboochandnani21@gmail.com?subject="+subject+"&body="+message;
+    }
+  </script>
 </body>
 
 </html>
