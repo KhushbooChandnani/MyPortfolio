@@ -1334,3 +1334,10 @@ section {
   background: #3dc8b7;
   color:#fff;
 }
+
+@media screen and (max-width: 960px){ 
+  #hero {
+  /* background-color: #1C314C;  */
+  background-image: none; 
+  }
+}
