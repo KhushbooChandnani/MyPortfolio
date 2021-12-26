@@ -1335,9 +1335,8 @@ section {
   color:#fff;
 }
 
-@media screen and (max-width: 960px){ 
+@media screen and (max-width: 1366px){ 
   #hero {
-  /* background-color: #1C314C;  */
-  background-image: none; 
+  background: none; 
   }
 }
