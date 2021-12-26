@@ -1339,4 +1339,13 @@ section {
   #hero {
   background: none; 
   }
+  .mobile-container{
+    left: 10px !important;
+  }
+}
+
+@media screen and (max-width: 600px){ 
+  .mobile-container{
+    left: 10px !important;
+  }
 }
