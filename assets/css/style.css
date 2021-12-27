@@ -1348,6 +1348,7 @@ section {
 .btn-download:hover {
   background: #3dc8b7;
   color:#fff;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 1366px){ 
