@@ -36,11 +36,11 @@
       <img src="assets/img/logo.png" weight="40px"; height="40px" style="margin-left:100px,0px,0px,0px;">
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
-          <li><a class="active" href="index.html">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#portfolio">Portfolio</a></li>
-          <li><a href="#testimonials">Testimonials</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a class="active" href="#hero" onclick="toggleActive(this)">Home</a></li>
+          <li><a href="#about" onclick="toggleActive(this)">About</a></li>
+          <li><a href="#portfolio" onclick="toggleActive(this)">Portfolio</a></li>
+          <li><a href="#testimonials" onclick="toggleActive(this)">Testimonials</a></li>
+          <li><a href="#contact" onclick="toggleActive(this)">Contact</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
@@ -88,7 +88,7 @@
               </div>
               <div class="col-lg-6">
                 <ul>
-                  <li><i class="bi bi-rounded-right"></i> <strong>Website : </strong> <a href="https://khushboochandnani.github.io/MyPortfolio/" target="_blank"> khushboochandnani.github.io/MyPortfolio/</a></li>
+                  <li><i class="bi bi-rounded-right"></i> <strong>Website : </strong> <a href="https://www.khushboochandnani.ml" target="_blank"> www.khushboochandnani.ml</a></li>
                   <li><i class="bi bi-rounded-right"></i> <strong>LinkedIn:</strong><a href="https://www.linkedin.com/in/khushboo-chandnani/" target="_blank"> khushboo-chandnani</a></li>
                   <li><i class="bi bi-rounded-right"></i> <strong>Email:</strong> <a href="mailto:khushboochandnani21@gmail.com"> khushboochandnani21@gmail.com</a></li>
                   
@@ -646,7 +646,15 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+  <!-- Custom Script -->
+  <script>
+    function toggleActive(targetElement){
+      var currentElement = document.getElementsByClassName("active");
+      currentElement[0].classList.remove('active');
+      targetElement.className += " active";
+    }
 
+  </script>
 </body>
 
 </html>
