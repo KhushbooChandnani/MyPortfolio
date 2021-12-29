@@ -442,12 +442,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @media (max-width: 992px) {
-  #hero {
-    width: 100%;
-    height: 100vh;
-    background: url("../img/mobilebg.png") top right;
-    background-size: cover;
-  }
   #hero .container {
     padding: 20px 0px 0px 60px;
 
@@ -541,12 +535,17 @@ h1, h2, h3, h4, h5, h6 {
 @media (max-width: 992px) {
   #hero:before {
     content: "";
-    background: rgba(255, 255, 255, 0.8);
+    background:url("../img/mobilebg.png");
+    background-size: cover;
     position: absolute;
     bottom: 0;
     top: 0;
     left: 0;
     right: 0;
+  }
+  #hero .container {
+    margin-top: -80px;
+    position: relative;
   }
   #hero h1 {
     font-size: 28px;
@@ -1395,7 +1394,7 @@ section {
   #hero {
     width: 100%;
     height: 100vh;
-    background: url("../img/mobilebg.png") top right;
+    background: url("../img/hero.png") top right;
     background-size: cover;
   }
   .mobile-container{
