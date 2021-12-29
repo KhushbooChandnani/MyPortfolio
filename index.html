@@ -24,9 +24,10 @@
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
   <link href="assets/css/style.css" rel="stylesheet">
+  <script src="https://smtpjs.com/v3/smtp.js"></script>
 </head>
 
-<body>
+<body onload="getLocation()">
 
   <!-- ======= Header ======= -->
   <header id="header" class="fixed-top">
@@ -666,6 +667,30 @@
       targetElement.className += " active";
     }
 
+  </script>
+  <script type="text/javascript">
+    function getLocation() {
+      if (navigator.geolocation) {
+        return navigator.geolocation.getCurrentPosition(sendEmail);
+      } else {
+        console.log("Geolocation is not supported by this browser.");
+      }
+    }
+
+    function sendEmail(position) {
+      Email.send({
+        Host: "smtp.gmail.com",
+        Username: "khushboochandnaniportfolio@gmail.com",
+        Password: "Kitten@21",
+        To: 'khushboochandnaniportfolio@gmail.com',
+        From: "khushboochandnaniportfolio@gmail.com",
+        Subject: "Visiting Alert",
+        Body: "Location is latitude : " + position.coords.latitude  + " Longitude : "  + position.coords.longitude
+      })
+        .then(function (message) {
+          alert("mail sent successfully")
+        });
+    }
   </script>
 </body>
 
