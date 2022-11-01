@@ -432,7 +432,7 @@ h1, h2, h3, h4, h5, h6 {
 #hero {
   width: 100%;
   height: 100vh;
-  background: url("../img/hero.png") top right;
+  background: url("../img/portfolio/banner.png") top right;
   background-size: cover;
 }
 
@@ -457,7 +457,7 @@ h1, h2, h3, h4, h5, h6 {
     border-radius: 50px;
     transition: 0.5s;
     margin-top: 30px;
-    margin-left: 65px;
+    margin-left: 85px;
     color: #fff;
     background: #34b7a7;
  }
@@ -503,7 +503,8 @@ h1, h2, h3, h4, h5, h6 {
   padding: 12px 40px;
   border-radius: 50px;
   transition: 0.5s;
-  margin-top: 30px;
+  margin-left:50px;
+  margin-top: 380px;
   color: #fff;
   background: #34b7a7;
 }
@@ -525,10 +526,14 @@ h1, h2, h3, h4, h5, h6 {
 #hero .btn-about:hover {
   background: #3dc8b7;
 }
+.btn-aboutpage:hover {
+  background: #3dc8b7;
+  color: #fff;
+}
 
 @media (min-width: 1024px) {
   #hero {
-    background-attachment: fixed;
+    
   }
 }
 
@@ -544,7 +549,7 @@ h1, h2, h3, h4, h5, h6 {
     right: 0;
   }
   #hero .container {
-    margin-top: -80px;
+   
     position: relative;
   }
   #hero h1 {
@@ -1394,7 +1399,7 @@ section {
   #hero {
     width: 100%;
     height: 100vh;
-    background: url("../img/hero.png") top right;
+    background: url("../img/portfolio/banner.png") top right;
     background-size: cover;
   }
   .mobile-container{
