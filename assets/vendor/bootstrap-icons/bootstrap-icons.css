@@ -924,6 +924,7 @@ url("./fonts/bootstrap-icons.woff?856008caa5eb66df68595e734e59580d") format("wof
 .bi-menu-button-wide-fill::before { content: "\f488"; }
 .bi-menu-button-wide::before { content: "\f489"; }
 .bi-menu-button::before { content: "\f48a"; }
+.bi-mortarboard-fill::before { content: "\f6fd"; }
 .bi-menu-down::before { content: "\f48b"; }
 .bi-menu-up::before { content: "\f48c"; }
 .bi-mic-fill::before { content: "\f48d"; }
