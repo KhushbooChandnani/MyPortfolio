@@ -43,8 +43,7 @@
     <embed src="assets/img/portfolio/fitgamer_casestudy.png" width="100%" muted>
   </div>
   <div class="embedElementCenter" style="margin-top:-2%;">
-   
-    <video width="100%" autoplay muted playsinline loop>
+    <video class="video_element_test" width="100%" playsinline autoplay muted loop preload="yes">
       <source src="assets/img/portfolio/logo.mp4" type="video/mp4"/>
     </video>
     <video width="100%" playsinline loop>
@@ -139,7 +138,17 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
-
+  <script>
+    // Code to capture all videos on the page
+    const videos = document.querySelectorAll(".embedElementCenter .video_element_test");
+    
+    //Code to force autoplay on all devices
+    for (const video of videos) {
+         video.setAttribute("playsinline", "");
+         video.setAttribute("muted", "");
+         video.play();
+    }
+    </script>
 </body>
 
 </html>
