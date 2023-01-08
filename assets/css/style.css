@@ -222,7 +222,7 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-family: "Raleway", sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-size: 15px;
   font-weight: 600;
   color: #888888;
@@ -441,13 +441,13 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
 }
 
-@media (max-width: 992px) {
+@media (max-width: 992px) { 
   #hero .container {
     padding: 20px 0px 0px 60px;
 
   }
   #hero .container .btn-about {
-    font-family: "Raleway", sans-serif;
+    font-family: "Open Sans", sans-serif;
     text-transform: uppercase;
     font-weight: 600;
     font-size: 12px;
@@ -462,7 +462,7 @@ h1, h2, h3, h4, h5, h6 {
     background: #34b7a7;
  }
  .btn-aboutpage {
-  font-family: "Raleway", sans-serif;
+  font-family: "Open Sans", sans-serif;
   text-transform: uppercase;
   font-weight: 600;
   font-size: 12px;
@@ -494,7 +494,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #hero .btn-about {
-  font-family: "Raleway", sans-serif;
+  font-family: "Open Sans", sans-serif;
   text-transform: uppercase;
   font-weight: 600;
   font-size: 12px;
@@ -509,7 +509,7 @@ h1, h2, h3, h4, h5, h6 {
   background: #34b7a7;
 }
 .btn-aboutpage {
-  font-family: "Raleway", sans-serif;
+  font-family: "Open Sans", sans-serif;
   text-transform: uppercase;
   font-weight: 600;
   font-size: 12px;
@@ -622,7 +622,7 @@ section {
 }
 
 .cta .cta-btn {
-  font-family: "Raleway", sans-serif;
+  font-family: "Open Sans", sans-serif;
   text-transform: uppercase;
   font-weight: 500;
   font-size: 16px;
@@ -731,7 +731,7 @@ section {
 .facts .counters p {
   padding: 0;
   margin: 0 0 20px 0;
-  font-family: "Raleway", sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-size: 14px;
 }
 
@@ -1376,7 +1376,7 @@ section {
 
 
 .btn-download{
-  font-family: "Raleway", sans-serif;
+  font-family: "Open Sans", sans-serif;
   text-transform: uppercase;
   font-weight: 600;
   font-size: 12px;
