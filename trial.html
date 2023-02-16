@@ -22,150 +22,11 @@
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
+
   <link href="assets/css/style.css" rel="stylesheet">
-  <style>
-  /* Define standard variables and values for website */
-/* Define standard variables and values for website */
-/* Use the variables */
-body {
-  background-color: white;
-  color: #242424;
-  font-size: 17px;
-  font-family: "Open Sans", sans-serif;
-  position: relative;
-  z-index: 1;
-  margin: 0;
-  overflow-x:hidden;
-}
-.hero-banner {
-  background: url("assets/img/hero.png");
-  width: 100%;
-  height: 100vh;
-  position: relative;
-  padding-top: 82px;
-}
-.image-left{ 
-  height: 100vh;
-  padding: 0 1rem;
-  z-index: 11;
-  position: relative;
-}
-.hero-banner .h-center {
-  margin-left:360px;
-  height: 100vh;
-  margin-top:-100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-flow: column;
-  position: relative;
-}
-
-.hero-banner .h-center h2{
-  font-size: 64px;
-  color: #242424;
-  margin: 0px;
-  display: flex;
-}
-
-
-.hero-banner .h-center .banner-content{
-  font-family: "Open Sans", sans-serif;
-  color:#000;
-  font-weight: 500;
-  font-size: 2.5vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  <link rel="stylesheet" href="dist/css/style.css">
   
-}
-
-.wrapper {
-  display: inline-block;
-  vertical-align: middle;
-  width: 25px;
-  height: 135px;
-  position: relative;
-  margin: 0 10px;
-}
-.wrapper svg {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-}
-.wrapper svg rect {
-  width: 120px;
-  height: 260px;
-  x: 33;
-  y: -160;
-}
-.wrapper svg circle {
-  cx: 100;
-  cy: -300;
-  r: 90px;
-}
-.wrapper svg .bounce {
-  animation: bounce 0.4s;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
-}
-
-@keyframes bounce {
-  from {
-    transform: translate3d(0, 0, 0);
-  }
-  to {
-    transform: translate3d(0, -45px, 0);
-  }
-}
-@media screen and (min-width: 767px) {
-  
-  .navbar-toggler {
-    display: none;
-  }
-
-  section.spring-main {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  
-  
-
-}
-@media screen and (max-width: 1440px) {
-  .image-left img{ 
-    margin-top:35px;
-}
-}
-
-@media screen and (max-width: 767px) {
-  nav {
-    justify-content: space-between;
-  }
-  nav ul {
-    display: none;
-  }
-
-  .hero-banner .h-center h2 {
-    font-size: 45px;
-  }
-
-  .wrapper svg rect {
-    height: 200px;
-  }
-  .hero-banner .h-center .banner-content{
-  font-family: "Open Sans", sans-serif;
-  color:#000;
-  font-weight: 500;
-  font-size: 1.5vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  
-}
-}
-  </style>
+ 
 </head>
 
 <body>
@@ -195,7 +56,37 @@ body {
     </div>
 
   </header><!-- End Header -->
-  
+  <section class="hero">
+    <div class="container">
+        <div class="hero-inner">
+            <div class="hero-copy">
+                <h1 class="hero-title mt-0">Landing template for startups</h1>
+                <p class="hero-paragraph">Our landing page template works on all devices, so you only have to set it up once, and get beautiful results forever.</p>
+                <div class="hero-cta">
+                    <a class="button button-primary" href="#">Buy it now</a>
+                    <div class="lights-toggle">
+                        <input id="lights-toggle" type="checkbox" name="lights-toggle" class="switch" checked="checked">
+                        <label for="lights-toggle" class="text-xs"><span>Turn me <span class="label-text">dark</span></span></label>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-media">
+                <div class="header-illustration">
+                    <img class="header-illustration-image asset-light" src="dist/images/header-illustration-light.svg" alt="Header illustration">
+                    <img class="header-illustration-image asset-dark" src="dist/images/header-illustration-dark.svg" alt="Header illustration">
+                </div>
+                <div class="hero-media-illustration">
+                    <img class="hero-media-illustration-image asset-light" src="dist/images/hero-media-illustration-light.svg" alt="Hero media illustration">
+                    <img class="hero-media-illustration-image asset-dark" src="dist/images/hero-media-illustration-dark.svg" alt="Hero media illustration">
+                </div>
+                <div class="hero-media-container">
+                    <img class="hero-media-image asset-light" src="dist/images/about_pic.jpeg" height="200px" width="500px" alt="Hero media">
+                    <img class="hero-media-image asset-dark" src="dist/images/hero-media-dark.svg" alt="Hero media">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
   <section class="hero-banner" style="margin-top: 50px;" data-aos="fade-bottom">
     <div class="container-fluid d-flex justify-content-between align-items-center">
       <div class="row">
@@ -313,7 +204,7 @@ body {
             eB&D Spares Management system intends to digitize the entire process in form of a web application that all stakeholders can use to view the spare position and Will allow users to add new projects, add/edit budget, and equipment in real time as they participate in the procurement process.
           </p>
           
-          <a href="video_page.html" class="btn-aboutpage">View CaseStudy</a>
+          <a href="video_page.html" class="btn-aboutpage" target="_blank">View CaseStudy</a>
         </div>
       </div>
 
@@ -575,6 +466,7 @@ the very best.
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+  <script src="dist/js/main.min.js"></script>
   
 
 </body>
