@@ -1189,10 +1189,10 @@ button, input, select, textarea, label {
         height: 324px;
    }
    .hero-copy {
-        order:2
+        order:2;
     }
     .hero-media {
-        order:1
+        order:1;
     }
 }
 .features-wrap {
