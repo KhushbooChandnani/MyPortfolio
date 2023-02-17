@@ -3,83 +3,81 @@
 
 <head>
   <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-219964682-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-219964682-1');
-</script>
 
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Portfolio</title>
+  <title>Portfolio - Work</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
-  <!-- Favicons -->
-  <link href="assets/img/logo-icon2.ico" rel="icon">
-
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css?family=Heebo:400,700|IBM+Plex+Sans:600" rel="stylesheet">
+  <!-- Favicons -->
+  <link href="dist/images/KC.png" rel="icon">
   <!-- Vendor CSS Files -->
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="dist/images/KC.png" rel="icon">
+    
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="dist/css/previous_style.css">
+    <link rel="stylesheet" href="dist/css/style.css">
+  <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
 
-  <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
 </head>
 
-<body>
 
-  <!-- ======= Header ======= -->
-  <header id="header" class="fixed-top">
+  <body class="is-boxed has-animations">
+    <div class="body-wrap boxed-container">
+       
+         <!-- ======= Header ======= -->
+  <header id="header" class="site-header fixed-top">
     <div class="container-fluid d-flex justify-content-between align-items-center">
 
-      <a href="index.html"><img src="assets/img/logo-icon2.ico" weight="40px"; height="40px" style="margin-left:80px"></a>
+      <a href="index.html"><img class="header-logo-image asset-light" src="dist/images/KC.png" alt="Logo">
+     <img class="header-logo-image asset-dark" src="dist/images/KC.png" alt="Logo"></a>
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <a href="index.html" class="logo"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
       <nav id="navbar" class="navbar order-last order-lg-0">
-          <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <!-- <li><a href="resume.html">Resume</a></li>
-            <li><a href="services.html">Services</a></li> -->
-            <li><a class="active" href="#portfolio" onclick="toggleActive(this)">Projects</a></li>   
-          </ul>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <!-- <li><a href="resume.html">Resume</a></li>
+          <li><a href="services.html">Services</a></li> -->
+          <li><a class="active" href="portfolio.html">Work</a></li>
+          <li><a href="dist/images/Khushboo Chandnani_Resume.pdf">Resume</a></li>
+           
+        </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
-
-      <div>
-        <a href="assets/img/Khushboo Chandnani_Resume.pdf" class="btn-download" target="_blank"><i class="bi bi-download" style="font-size: 1.2em;"></i>&nbsp;&nbsp;Resume</a>
+      <div class="lights-toggle">
+        <input id="lights-toggle" type="checkbox" name="lights-toggle" class="switch" checked="checked">
+        <label for="lights-toggle" class="text-xs"><span>Turn me <span class="label-text">dark</span></span></label>
       </div>
-
+      <!--<div>
+        <a href="dist/images/Khushboo Chandnani_Resume.pdf" class="button button-primary">Resume</a>
+      </div>-->
     </div>
 
   </header><!-- End Header -->
 
   <main id="main">
 
-    <!-- ======= Portfolio Section ======= -->
-    <section id="portfolio" style="padding-top:25px;">
-      <section class="about">
+    <section id="portfolio" style="margin-top:-5%;">
+      <section class="about" >
         <div class="container" data-aos="fade-up">
     
           <div class="section-title">
-            <h2>Academic Projects</h2>
+            <h2 style="font-family:IBM Plex Sans, sans-serif;">Academic Projects</h2>
             
           </div>
           <div class="row">
             <div class="col-lg-4">
-              <img src="assets/img/portfolio/Cuturverse_artboard.png" class="img-fluid" alt="" style="border-radius:10px;">
+              <img src="dist/images/Cuturverse_artboard.png" class="img-fluid" alt="" style="border-radius:10px;">
             </div>
             <div class="col-lg-8 pt-4 pt-lg-0 content">
               <h3 style="color:#000">CulturVerse - Sustainable Cultural Tourism</h3> 
@@ -87,19 +85,19 @@
                 CultureVerse is a cultural tourism app for mobility-disabled people that uses Augmented Reality technology and a 360-degree view to show tourists real-world items that appear to coexist in the same location as their surroundings.
     
               </p>
-              <a href="portfolio-details-culturverse.html" class="btn-aboutpage">View CaseStudy</a>
+              <a href="portfolio-details-culturverse.html" class="button button-primary">View CaseStudy</a>
             </div>
           </div>
-          <div class="row" style="padding-top:50px;">
+          <div class="row" style="padding-top:8%">
             <div class="col-lg-4">
-              <img src="assets/img/portfolio/fitgamer_artboard.png" class="img-fluid" alt="" style="border-radius:10px;">
+              <img src="dist/images/fitgamer_artboard.png" class="img-fluid" alt="" style="border-radius:10px;">
             </div>
             <div class="col-lg-8 pt-4 pt-lg-0 content">
               <h3 style="color:#000">FitGamer - Video Game Addiction</h3> 
               <p>
                 FitGamer application focuses on person's physical health and well-being by making users aware of their gaming activity, encouraging users to take frequent breaks in their gaming sessions, and motivating users to perform physical activities.
               </p>
-              <a href="portfolio-details-fitgamer.html" class="btn-aboutpage">View CaseStudy</a>
+              <a href="portfolio-details-fitgamer.html" class="button button-primary">View CaseStudy</a>
             </div>
           </div>
     
@@ -107,26 +105,26 @@
     
         <div class="container" data-aos="fade-up">
     
-          <div class="section-title" style="padding-top:7%">
+          <div class="section-title" style="padding-top:8%;">
             <h2>Client Work</h2>
             
           </div>
           
           <div class="row">
             <div class="col-lg-4">
-              <img src="assets/img/portfolio/sierra_artboard.png" class="img-fluid" alt="" style="border-radius:10px;">
+              <img src="dist/images/sierra_artboard.png" class="img-fluid" alt="" style="border-radius:10px;">
             </div>
             <div class="col-lg-8 pt-4 pt-lg-0 content">
               <h3 style="color:#000">Sierra Leone - COVID19 App</h3> 
               <p>
                 CoronaInfo App is designed to track the status of COVID19 daily cases for Sierra Leone country. It keeps people updated with statistics of cases all over African continent and Globe, helps Sierra citizens to report covid cases nearby their locality and allows them to take a self test.
               </p>
-              <a href="portfolio-details-sierra.html" class="btn-aboutpage">View CaseStudy</a>
+              <a href="portfolio-details-sierra.html" class="button button-primary">View CaseStudy</a>
             </div>
           </div>
-          <div class="row" style="padding-top:50px;">
+          <div class="row"  style="padding-top:8%">
             <div class="col-lg-4">
-              <img src="assets/img/portfolio/sportizen_artboard.png" class="img-fluid" alt="" style="border-radius:10px;">
+              <img src="dist/images/sportizen_artboard.png" class="img-fluid" alt="" style="border-radius:10px;">
             </div>
             <div class="col-lg-8 pt-4 pt-lg-0 content">
               <h3 style="color:#000">Sportizen - Sports Social Media</h3> 
@@ -134,12 +132,12 @@
                 Sportizen is a Sports discovery product that stands for the digital revolution of the sports industry. To integrate all the Sport stakeholders across the globe on a single platform and to be one of the pioneer of this digital revolution in the Sports Ecosystem is the vision of Sportizen. 
               </p>
               
-              <a href="portfolio-details-sportizen.html" class="btn-aboutpage">View CaseStudy</a>
+              <a href="portfolio-details-sportizen.html" class="button button-primary">View CaseStudy</a>
             </div>
           </div>
-          <div class="row" style="padding-top:50px;">
+          <div class="row" style="padding-top:8%">
             <div class="col-lg-4">
-              <img src="assets/img/portfolio/indian_navy_artboard.png" class="img-fluid" alt="" style="border-radius:10px;">
+              <img src="dist/images/indian_navy_artboard.png" class="img-fluid" alt="" style="border-radius:10px;">
             </div>
             <div class="col-lg-8 pt-4 pt-lg-0 content">
               <h3 style="color:#000">Indian Navy - eB&D Spares Management System</h3> 
@@ -147,13 +145,144 @@
                 eB&D Spares Management system intends to digitize the entire process in form of a web application that all stakeholders can use to view the spare position and Will allow users to add new projects, add/edit budget, and equipment in real time as they participate in the procurement process.
               </p>
               
-              <a href="video_page.html" class="btn-aboutpage" target="_blank">View CaseStudy</a>
+              <a href="video_page.html" class="button button-primary">View CaseStudy</a>
             </div>
           </div>
     
         </div>
     
       </section> 
+    
+         
+       
+     
+    
+      <!-- ======= Portfolio Section ======= -->
+    <div style="padding-top:25px;">
+    <section class="portfolio">
+    <div class="container" data-aos="fade-up">
+    
+      <div class="section-title">
+        <h2>Design Shots</h2>
+        <p>Being a Self starter, I have made some design artboards on various topics.</p>
+      </div>
+     
+      <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
+      
+         
+    
+        <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+          <a href="dist/images/covid19.png" data-gallery="portfolioGallery" class="portfolio-lightbox">
+            <div class="portfolio-wrap">
+            <img src="dist/images/covid19.png" class="img-fluid" alt="">
+            <div class="portfolio-info">
+              <h4>COVID19 Dashboard</h4>
+            </div>
+            </div>
+          </a>
+          </div>
+        
+        <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+          <a href="dist/images/travel.png" data-gallery="portfolioGallery" class="portfolio-lightbox">
+            <div class="portfolio-wrap ">
+            <img src="dist/images/travel.png" class="img-fluid" alt="">
+            <div class="portfolio-info">
+              <h4>Travello - Travel Booking App</h4>
+              <!-- <p>Web</p> -->
+              
+            </div>
+          </div>
+          </a>
+        </div>
+        <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+          <a href="dist/images/dating.png" data-gallery="portfolioGallery" class="portfolio-lightbox">
+          <div class="portfolio-wrap">
+            <img src="dist/images/dating.png" class="img-fluid" alt="">
+            <div class="portfolio-info">
+              <h4>Dating App</h4>
+              <!-- <p>Card</p> -->
+             
+            </div>
+          </div>
+          </a>
+        </div>
+        <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+          <a href="dist/images/mcq.png" data-gallery="portfolioGallery" class="portfolio-lightbox">
+          <div class="portfolio-wrap ">
+            <img src="dist/images/mcq.png" class="img-fluid" alt="">
+            <div class="portfolio-info">
+              <h4>MCQ App</h4>
+              <!-- <p>Web</p> -->
+            </div>
+          </div>
+          </a>
+        </div>
+        <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+          <a href="dist/images/Jordan.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox">
+          <div class="portfolio-wrap">
+            <img src="dist/images/Jordan.jpg" class="img-fluid" alt="">
+            <div class="portfolio-info">
+              <h4>Jordan Poster</h4>
+              <!-- <p>App</p> -->
+              
+            </div>
+          </div>
+          </a>
+        </div>
+        <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+          <a href="dist/images/photo_gallery.png" data-gallery="portfolioGallery" class="portfolio-lightbox">
+          <div class="portfolio-wrap">
+            <img src="dist/images/photo_gallery.png" class="img-fluid" alt="">
+            <div class="portfolio-info">
+              <h4>Photo Gallery App</h4>
+              <!-- <p>App</p> -->
+              
+            </div>
+          </div>
+          </a>
+        </div>
+        <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+          <a href="dist/images/job.png" data-gallery="portfolioGallery" class="portfolio-lightbox">
+          <div class="portfolio-wrap">
+            <img src="dist/images/job.png" class="img-fluid" alt="">
+            <div class="portfolio-info">
+              <h4>Job Search App</h4>
+              <!-- <p>Card</p> -->
+              
+            </div>
+          </div>
+          </a>
+        </div>
+        <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+          <a href="dist/images/ecommerce.png" data-gallery="portfolioGallery" class="portfolio-lightbox">
+          <div class="portfolio-wrap">
+            <img src="dist/images/ecommerce.png" class="img-fluid" alt="">
+            <div class="portfolio-info">
+              <h4>Ecommerce Website</h4>
+              <!-- <p>Card</p> -->
+              
+            </div>
+          </div>
+          </a>
+        </div>
+        <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+          <a href="dist/images/todo.png" data-gallery="portfolioGallery" class="portfolio-lightbox">
+          <div class="portfolio-wrap">
+            <img src="dist/images/todo.png" class="img-fluid" alt="">
+            <div class="portfolio-info">
+              <h4>ToDo App</h4>
+              <!-- <p>Web</p> -->
+              
+            </div>
+          </div>
+          </a>
+        </div>
+      </div>
+    
+    </div>
+    </section><!-- End Portfolio Section -->
+    </div>
+    
       <!-- ======= Skills Section ======= -->
       <!--<section id="skills" class="skills">
         <div class="container" data-aos="fade-up">
@@ -224,132 +353,7 @@
       
   
      
-    <!-- ======= Portfolio Section ======= -->
- <div style="padding-top:25px;">
-  <section class="portfolio">
-   <div class="container" data-aos="fade-up">
- 
-     <div class="section-title">
-       <h2>Design Shots</h2>
-       <p>Being a Self starter, I have made some design artboards on various topics.</p>
-     </div>
     
-     <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
-     
-        
- 
-       <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-         <a href="assets/img/portfolio/covid19.png" data-gallery="portfolioGallery" class="portfolio-lightbox">
-           <div class="portfolio-wrap">
-           <img src="assets/img/portfolio/covid19.png" class="img-fluid" alt="">
-           <div class="portfolio-info">
-             <h4>COVID19 Dashboard</h4>
-           </div>
-           </div>
-         </a>
-         </div>
-       
-       <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-         <a href="assets/img/portfolio/travel.png" data-gallery="portfolioGallery" class="portfolio-lightbox">
-           <div class="portfolio-wrap ">
-           <img src="assets/img/portfolio/travel.png" class="img-fluid" alt="">
-           <div class="portfolio-info">
-             <h4>Travello - Travel Booking App</h4>
-             <!-- <p>Web</p> -->
-             
-           </div>
-         </div>
-         </a>
-       </div>
-       <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-         <a href="assets/img/portfolio/dating.png" data-gallery="portfolioGallery" class="portfolio-lightbox">
-         <div class="portfolio-wrap">
-           <img src="assets/img/portfolio/dating.png" class="img-fluid" alt="">
-           <div class="portfolio-info">
-             <h4>Dating App</h4>
-             <!-- <p>Card</p> -->
-            
-           </div>
-         </div>
-         </a>
-       </div>
-       <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-         <a href="assets/img/portfolio/mcq.png" data-gallery="portfolioGallery" class="portfolio-lightbox">
-         <div class="portfolio-wrap ">
-           <img src="assets/img/portfolio/mcq.png" class="img-fluid" alt="">
-           <div class="portfolio-info">
-             <h4>MCQ App</h4>
-             <!-- <p>Web</p> -->
-           </div>
-         </div>
-         </a>
-       </div>
-       <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-         <a href="assets/img/portfolio/Jordan.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox">
-         <div class="portfolio-wrap">
-           <img src="assets/img/portfolio/Jordan.jpg" class="img-fluid" alt="">
-           <div class="portfolio-info">
-             <h4>Jordan Poster</h4>
-             <!-- <p>App</p> -->
-             
-           </div>
-         </div>
-         </a>
-       </div>
-       <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-         <a href="assets/img/portfolio/photo_gallery.png" data-gallery="portfolioGallery" class="portfolio-lightbox">
-         <div class="portfolio-wrap">
-           <img src="assets/img/portfolio/photo_gallery.png" class="img-fluid" alt="">
-           <div class="portfolio-info">
-             <h4>Photo Gallery App</h4>
-             <!-- <p>App</p> -->
-             
-           </div>
-         </div>
-         </a>
-       </div>
-       <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-         <a href="assets/img/portfolio/job.png" data-gallery="portfolioGallery" class="portfolio-lightbox">
-         <div class="portfolio-wrap">
-           <img src="assets/img/portfolio/job.png" class="img-fluid" alt="">
-           <div class="portfolio-info">
-             <h4>Job Search App</h4>
-             <!-- <p>Card</p> -->
-             
-           </div>
-         </div>
-         </a>
-       </div>
-       <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-         <a href="assets/img/portfolio/ecommerce.png" data-gallery="portfolioGallery" class="portfolio-lightbox">
-         <div class="portfolio-wrap">
-           <img src="assets/img/portfolio/ecommerce.png" class="img-fluid" alt="">
-           <div class="portfolio-info">
-             <h4>Ecommerce Website</h4>
-             <!-- <p>Card</p> -->
-             
-           </div>
-         </div>
-         </a>
-       </div>
-       <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-         <a href="assets/img/portfolio/todo.png" data-gallery="portfolioGallery" class="portfolio-lightbox">
-         <div class="portfolio-wrap">
-           <img src="assets/img/portfolio/todo.png" class="img-fluid" alt="">
-           <div class="portfolio-info">
-             <h4>ToDo App</h4>
-             <!-- <p>Web</p> -->
-             
-           </div>
-         </div>
-         </a>
-       </div>
-     </div>
- 
-   </div>
- </section><!-- End Portfolio Section -->
- </div>
-  
  <!-- ======= Testimonials Section ======= -->
  <div id="testimonials" style="padding-top:25px;">
   <section class="testimonials" >
@@ -365,7 +369,7 @@
  
          <div class="swiper-slide">
            <div class="testimonial-item">
-             <img src="assets/img/testimonials/test5.png" class="testimonial-img" alt="">
+             <img src="dist/images/testimonials/test5.png" class="testimonial-img" alt="">
              <h3>Sachin Yadav</h3>
              <h4>Co-Founder|Product Head - Job Vacancy Result (2123 Recruiter Service Pvt. Ltd)</h4>
              <p>
@@ -381,7 +385,7 @@
  
          <div class="swiper-slide">
            <div class="testimonial-item">
-             <img src="assets/img/testimonials/test1.png" class="testimonial-img" alt="">
+             <img src="dist/images/testimonials/test1.png" class="testimonial-img" alt="">
              <h3>Chinmay Palshetkar</h3>
              <h4>Founder and CEO of a Sports Community initiative - Sportizen</h4>
              <p>
@@ -394,7 +398,7 @@
  
          <div class="swiper-slide">
            <div class="testimonial-item">
-             <img src="assets/img/testimonials/test2.png" class="testimonial-img" alt="">
+             <img src="dist/images/testimonials/test2.png" class="testimonial-img" alt="">
              <h3>Shraddha Mittal</h3>
              <h4>Senior Designer - Enquero</h4>
              <p>
@@ -408,7 +412,7 @@
          </div><!-- End testimonial item -->
           <div class="swiper-slide">
            <div class="testimonial-item">
-             <img src="assets/img/testimonials/test4.png" class="testimonial-img" alt="">
+             <img src="dist/images/testimonials/test4.png" class="testimonial-img" alt="">
              <h3>Ankur Khanna</h3>
              <h4>Managing Director - Accommodator Consultancy Services</h4>
              <p>
@@ -421,7 +425,7 @@
  
          <div class="swiper-slide">
            <div class="testimonial-item">
-             <img src="assets/img/testimonials/test3.png" class="testimonial-img" alt="">
+             <img src="dist/images/testimonials/test3.png" class="testimonial-img" alt="">
              <h3>Moses T.F. Vibbie</h3>
              <h4>Founder & CEO - CoronaInfo/Healthics</h4>
              <p>
@@ -437,29 +441,50 @@
         </div>
   </main><!-- End #main -->
 
-  <footer id="footer" style="padding:10px 0px";>
-    <div class="container">
-      <div class="copyright">
-      <p style="font-size:18px;font-weight: bold;">I'm available for UX Design Internship opportunities. Always happy to chat about your requirements. Let's connect!</p>
-        <a href="https://www.linkedin.com/in/khushboo-chandnani/"><i class="bi bi-linkedin" style="color:#34b7a7;font-size: 1.8em;"></i></a>&nbsp; &nbsp; &nbsp;&nbsp;<a href="mailto:khushboochandnanijobportfolio@gmail.com"><i class="bi bi-envelope-fill" style="font-size: 2em;color:#34b7a7;"></i></a>&nbsp; &nbsp;&nbsp;&nbsp;<a href="https://github.com/KhushbooChandnani"><i class="bi bi-github" style="font-size: 2em;color:#34b7a7;"></i></a>
-        
-     
-  </footer>
+  <section class="cta section" style="background:#182538">
+    <div class="container-sm" >
+        <div class="cta-inner section-inner">
+            <div class="cta-header text-center">
+                <h3 class="section-title mt-0">I'm looking for "UX Design Summer Internship opportunities". Always happy to chat about your requirements. Let's connect!</h3>
+                <p class="section-paragraph">Made with <span style="color:#FE9E39;"> ❤</span> by Khushboo Chandnani</p>
+                <!--<ul class="footer-social-links list-reset">
+                  <li>
+                      <a href="#">
+                          <span class="screen-reader-text">Facebook</span>
+                          <a href="https://www.linkedin.com/in/khushboo-chandnani/"><i class="bi bi-linkedin" style="margin-left:-15px;color:#fff;font-size: 1em;"></i></a>
+                      </a>
+                  </li>
+                  <li>
+                      <a href="#">
+                          <span class="screen-reader-text">Twitter</span>
+                          <a href="https://www.linkedin.com/in/khushboo-chandnani/"><i class="bi bi-github" style="color:#fff;font-size: 1em;"></i></a>
+                      </a>
+                  </li>
+                  
+              </ul>-->
+  <div class="cta-cta">
+    <a class="button button-primary" href="mailto:khushboochandnanijobportfolio@gmail.com">Contact Me!</a>
+  </div>
+  
+  </div>
+        </div>
+    </div>
+</section>
   <div id="preloader"></div>
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-  <script src="assets/vendor/purecounter/purecounter.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
-
-  <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
+   <!-- Vendor JS Files -->
+   <script src="assets/vendor/aos/aos.js"></script>
+   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+   <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+   <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+   <script src="assets/vendor/php-email-form/validate.js"></script>
+   <script src="assets/vendor/purecounter/purecounter.js"></script>
+   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+   <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
+ 
+     <script src="dist/js/main.min.js"></script>
+     <script src="dist/js/main.js"></script>
 
 </body>
 
