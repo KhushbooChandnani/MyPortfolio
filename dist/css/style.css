@@ -1137,12 +1137,7 @@ button, input, select, textarea, label {
         justify-content: center;
         
    }
-   .hero-copy {
-    order:2;
-   } 
-    .hero-media {
-        order:1;
-    }
+   
 }
 @media (min-width: 641px) {
     .hero {
