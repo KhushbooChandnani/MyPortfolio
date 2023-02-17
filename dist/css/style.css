@@ -1220,7 +1220,7 @@ button, input, select, textarea, label {
 }
 .features-image {
     position: relative;
-    margin-top: 64px;
+    margin-top: 64px; 
     margin-bottom: 112px;
 }
 .features-illustration {
