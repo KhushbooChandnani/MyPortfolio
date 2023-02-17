@@ -1048,6 +1048,7 @@ button, input, select, textarea, label {
     .site-header::before {
         display: none;
    }
+   
 }
 .hero {
     text-align: center;
@@ -1137,7 +1138,7 @@ button, input, select, textarea, label {
         justify-content: center;
         
    }
-   
+
 }
 @media (min-width: 641px) {
     .hero {
@@ -1191,6 +1192,23 @@ button, input, select, textarea, label {
         height: 324px;
    }
 }
+@media (max-width: 480px) {
+    
+.hero-inner{
+     display: flex;
+     flex-direction: column-reverse; 
+ }
+ .header-illustration-image{
+    display:none;
+ }
+ .hero-media-illustration-image{
+    display:none;
+ }
+ .site-header::before{
+    display:none;
+ }
+ 
+ }
 .features-wrap {
     max-width: 540px;
     margin: 0 auto;
