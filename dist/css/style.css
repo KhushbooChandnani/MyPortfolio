@@ -1188,6 +1188,12 @@ button, input, select, textarea, label {
         width: 1440px;
         height: 324px;
    }
+   .hero-copy {
+        order:2
+    }
+    .hero-media {
+        order:1
+    }
 }
 .features-wrap {
     max-width: 540px;
