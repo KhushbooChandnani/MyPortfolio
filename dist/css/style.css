@@ -1204,11 +1204,16 @@ button, input, select, textarea, label {
  .hero-media-illustration-image{
     display:none;
  }
+ .lights-off .hero-media-illustration{
+    display: none;
+ }
  .site-header::before{
     display:none;
  }
- 
+ .lights-off .mobile-nav-toggle{
+    color:#fff;
  }
+}
 .features-wrap {
     max-width: 540px;
     margin: 0 auto;

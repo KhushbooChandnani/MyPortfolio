@@ -680,6 +680,28 @@ body {
   .about .content p:last-child {
     margin-bottom: 0;
   }
+
+  @media (max-width: 480px) {
+    
+     .about .content h3{
+        text-align: center;
+          
+     }
+     .about .content p{
+      text-align: center;
+      
+    }
+    .about .row{
+      margin-top:10%;
+    }
+     .about .content .button {
+      display: flex;
+    }
+   
+    .about{
+      margin-top:-30%;
+    }
+  }
   
   /*--------------------------------------------------------------
   # Skills
