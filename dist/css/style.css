@@ -1135,7 +1135,14 @@ button, input, select, textarea, label {
    }
     .lights-toggle {
         justify-content: center;
+        
    }
+   .hero-copy {
+    order:2;
+   } 
+    .hero-media {
+        order:1;
+    }
 }
 @media (min-width: 641px) {
     .hero {
@@ -1188,12 +1195,6 @@ button, input, select, textarea, label {
         width: 1440px;
         height: 324px;
    }
-   .hero-copy {
-        order:2;
-    }
-    .hero-media {
-        order:1;
-    }
 }
 .features-wrap {
     max-width: 540px;
