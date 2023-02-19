@@ -981,6 +981,24 @@ button, input, select, textarea, label {
 .button-primary {
     color: #fff !important;
     background-color: #535fd7;
+
+}
+.button-grey {
+    color: #ff5e00 !important;
+    background-color: #ffebda;
+    padding:8px;
+    border-radius: 10px;
+    font-size: 16px;
+}
+.lights-off .button-grey {
+    color: #FE9E39 !important;
+    border: 1px solid #FE9E39;
+    background: none;
+    padding:8px;
+    font-family: "Open Sans", sans-serif;
+    font-weight: normal;
+    border-radius: 10px;
+    font-size: 16px;
 }
 .button-primary:hover {
     background: #5763d8;
