@@ -893,7 +893,7 @@ button, input, select, textarea, label {
 }
 .switch[type="checkbox"] + label::after {
     top: 6px;
-    left: 6px;
+    left: 34px;
     width: 24px;
     height: 24px;
     border-radius: 12px;
@@ -904,7 +904,7 @@ button, input, select, textarea, label {
     background: #535fd7;
 }
 .switch[type="checkbox"]:checked + label::after {
-    left: 34px;
+    left: 5px;
 }
 @media (min-width: 641px) {
     .field-grouped {
