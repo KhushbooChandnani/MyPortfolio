@@ -1522,6 +1522,7 @@ main {
 }
 .lights-off .proud{
     color: #8595ae !important;
+    font-family: "IBM Plex Sans", sans-serif !important;
 }
 .lights-off.is-boxed {
     background: #202d3f;
