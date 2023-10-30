@@ -1520,6 +1520,9 @@ main {
 .lights-off h1, .lights-off h2, .lights-off h3, .lights-off h4, .lights-off h5, .lights-off h6, .lights-off .h1, .lights-off .h2, .lights-off .h3, .lights-off .h4, .lights-off .h5, .lights-off .h6 {
     color: #fff !important;
 }
+.lights-off .proud{
+    color: #8595ae !important;
+}
 .lights-off.is-boxed {
     background: #202d3f;
 }
