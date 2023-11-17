@@ -897,7 +897,24 @@ body {
     background: #fff;
     border: 2px solid #34b7a7;
   }
-  
+
+  .services .icon-boxes {
+    text-align: center;
+    
+    transition: all ease-in-out 0.3s;
+    background: #fff;
+    box-shadow: 0px 0 35px 0 rgba(0, 0, 0, 0.08);
+  }
+  .qualities{
+    margin-top:15px;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 600;
+    font-size:17px;
+    line-height: 22px;
+    text-align:center;
+    color:#6B7A90,
+    
+  }
   /*--------------------------------------------------------------
   # Services
   --------------------------------------------------------------*/
