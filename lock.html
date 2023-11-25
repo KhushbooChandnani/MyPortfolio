@@ -102,6 +102,13 @@ html
 	{
 	  display:block;
 	}
+	.incorrect-text
+	{
+		text-align: center;
+	    margin-top:22%;
+		font-size: 20px;
+		font-weight: 600;
+	}
 	.fa-lock
 	{
 	  color:#5763D8;
@@ -114,15 +121,14 @@ html
 	  font-size:20px;
 	  margin-bottom:30px;
 	}
-.input-group:after
+    .input-group:after
 	{
 		content: '';
 		display: block;
 		width: 0px;
 		height: 1px;
 		background: #5763D8; /* Old browsers */
-	
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3F61F6', endColorstr='#22d2f8',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3F61F6', endColorstr='#22d2f8',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 		position: absolute;
 		bottom: 0;
 		left: 50%;
@@ -143,7 +149,7 @@ html
 	  line-height:40px;
 	  margin:25px 0px 0px;
 	  background: #5763D8; /* Old browsers */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3F61F6', endColorstr='#22d2f8',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+	  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3F61F6', endColorstr='#22d2f8',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 	}
 	.success
 	{
@@ -158,24 +164,9 @@ html
 	  z-index:100;
 	  text-align:center;
 	  transition:ease-out .5s;
-	  background: #42e695; /* Old browsers */
-	background: -moz-linear-gradient(-45deg, #42e695 0%,#3bb2b8 100%); /* FF3.6-15 */
-	background: -webkit-linear-gradient(-45deg, #42e695 0%,#3bb2b8 100%); /* Chrome10-25,Safari5.1-6 */
-	background: linear-gradient(135deg, #42e695 0%,#3bb2b8 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#42e695', endColorstr='#3bb2b8',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
-	overflow: hidden;
-	}
-	.success h2
-	{
-		text-align: center;
-		color: #fff;
-		padding: 0px;
-		margin: 0px;
-		font-size: 20px;
-		text-transform: uppercase;
-		font-weight: 600;
-		transform: translateY(-60px);
-		letter-spacing: 1px;
+	  background: white; /* Old browsers */
+	  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#42e695', endColorstr='#3bb2b8',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+	  overflow: hidden;
 	}
 	.success_active
 	{
@@ -184,7 +175,6 @@ html
 	  height:100%;
 	  border-radius:0px;
 	}
-
 	.checkmark {
 	  display: none;
 	}
@@ -271,43 +261,55 @@ html
         <div class="row">
           <div class="col-sm-offset-3 col-sm-6">
             <div class="tile">
-              <span class="close"><i class="fa fa-times"></i></span>
+              <span class="close"><i class="fa fa-times" id="closeBtn"></i></span>
               <i class="fa fa-lock"></i>
               <h3>This case study is password protected.<small>Please enter your password</small></h3>
-            <form>
+            <div>
               <div class="form-group">
-                <div class="input-group">
+                <div class="input-group" style="width: 100%;">
                   <label class="inp-label">Password</label>
-                  <input type="password" class="form-control" >
-                  <div class="input-group-addon"><i class="fa fa-eye"></i></div>
+                  <input type="password" class="form-control" id="passwordField" >
+              
                 </div>
               </div><!-- group -->
-              <div class="text-center"><label class="btn btn-primary">Unlock</label>
+              <div class="text-center"><label class="btn btn-primary" id="unlockBtn">Unlock</label>
               </div>
-            </form>
+            </div>
 
-			<a class="success" id="success" href="portfolio-details-enovationcontrols.html"></a>
-           <!--
-              <div class="success" id="success">
+			
+           <div class="success" id="success">
+	
+			<p class="incorrect-text">Incorrect Password</p>
                 <div class="circle-loader">
 					
                       <div class="checkmark draw"></div>
                   </div>
-                  <h2>Your file is ready...</h2>
+                  
+				  <label class="btn btn-primary" style="background: #ff5454;" id="tryAgainBtn">Try Again</label>
               </div>
             </div>
           </div> 
         </div>
-        </div> -->
+        </div>
 
     </body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script>
+		async function digestMessage(message){
+		const encoder = new TextEncoder();
+  		const data = encoder.encode(message);
+  		const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+		const hashArray = Array.from(new Uint8Array(hashBuffer)); // convert buffer to byte array
+  		const hashHex = hashArray
+    					.map((b) => b.toString(16).padStart(2, "0"))
+    					.join(""); // convert bytes to hex string
+  		return hashHex;
+	}
         $(".input-group-addon").on('click', function(){
             $(this).find("i").toggleClass("fa-eye fa-eye-slash");
             var type = $(this).closest('.input-group').find('.form-control').attr('type');
-            if(type=='Khushboo@ABC')
+            if(type=='password')
             {
                 $(this).closest('.input-group').find('.form-control').attr('type','text');
             }
@@ -330,10 +332,25 @@ html
           $( this ).parent(".input-group").removeClass("focusedLine");
           $( this ).parent().find(".input-group-addon").css( "border-color", "#ccc" );
         })
-    $(".btn-primary").click(function(){
-      $("#success").addClass("success_active");
-    
-      
-    })
 
+    $("#unlockBtn").click(function () {
+			var value = $("#passwordField").val();
+			digestMessage(value).then(function (result) {
+				if (result == 'ffeae4972cb3dc09ad08ead045053b23e2225b437948b0fb48dc842d0bde11a8') {
+					window.location.href = "portfolio-details-enovationcontrols.html";
+				} else {
+					$("#success").addClass("success_active");
+				}
+			});
+		});
+
+	$("#tryAgainBtn").click(function(){
+		$("#success").removeClass("success_active");
+	});
+
+	$("#closeBtn").click(function(){
+		window.location.href="index.html";
+	});
+
+	
 </script>

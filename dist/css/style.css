@@ -382,6 +382,7 @@ address {
     padding: 24px 0;
     margin: 0 0 24px;
 }
+
 pre, pre h1, pre h2, pre h3, pre h4, pre h5, pre h6, pre .h1, pre .h2, pre .h3, pre .h4, pre .h5, pre .h6 {
     font-family: "Courier 10 Pitch", Courier, monospace;
 }
@@ -1285,6 +1286,9 @@ button, input, select, textarea, label {
     left: calc(50% - 16px);
     background: #e9edf3;
 }
+
+
+  
 .lights-off .feature-title::after {
     background: #304057;
 }
