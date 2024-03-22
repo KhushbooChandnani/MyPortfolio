@@ -319,6 +319,11 @@ h4, h5, h6, .h4, .h5, .h6 {
         letter-spacing: -0.1px;
    }
 }
+@media (max-width: 640px) {
+    .company{
+        display: none;
+    }
+}
 .text-light {
     color: #8595ae;
 }
@@ -1036,6 +1041,9 @@ button, input, select, textarea, label {
 }
 .lights-off .site-header::before {
     background-image: url("../images/header-illustration-dark.svg");
+}
+.lights-off .company{
+   display: none;
 }
 .site-header-inner {
     position: relative;
