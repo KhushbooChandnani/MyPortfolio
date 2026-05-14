@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Johnson &amp; Johnson MedTech: TRUMATCH Case Study</title>
+  <meta content="UX Case Study: Designing a Facial Reconstruction Surgical Planning Platform at J&J MedTech" name="description">
+
+  <link href="dist/images/favicon.svg" rel="icon" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Heebo:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="dist/css/style.css">
+
+  <style>
+    :root {
+      --red:      #CA001B;
+      --red-lt:   #FFF0F2;
+      --red-mid:  #FFD0D6;
+      --dark:     #1A1A1A;
+      --dark2:    #333333;
+      --body-clr: #5A5A6A;
+      --border:   #E8E8EE;
+      --surface:  #F7F7FA;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: "Heebo", sans-serif; color: var(--body-clr); background: #fff; margin: 0; }
+    h1,h2,h3,h4,h5,h6 { font-family: "IBM Plex Sans", sans-serif; }
+
+    #progress { position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--red),#FF6B7A);z-index:9999;transition:width .1s; }
+
+    /* SITE NAV */
+    .site-nav { position:fixed;top:0;left:0;right:0;z-index:9000;background:rgba(255,255,255,.96);backdrop-filter:blur(18px);border-bottom:1px solid rgba(229,231,235,.8);padding:0 40px;height:64px;display:flex;align-items:center;justify-content:space-between; }
+    .site-nav-logo { display:flex;align-items:center;gap:9px;font-family:"IBM Plex Sans",sans-serif;font-weight:700;font-size:15px;color:#0D0D18;text-decoration:none; }
+    .site-nav-logo img { width:26px;height:26px;border-radius:5px; }
+    .site-nav-links { display:flex;align-items:center;gap:28px; }
+    .site-nav-links a { font-size:14px;font-weight:500;color:#6B7280;text-decoration:none;transition:color .2s; }
+    .site-nav-links a:hover,.site-nav-links a.active { color:#0D0D18;font-weight:600; }
+    .site-nav-cta { background:#0D0D18;color:#fff;font-family:"IBM Plex Sans",sans-serif;font-weight:600;font-size:13px;padding:8px 18px;border-radius:8px;text-decoration:none;transition:all .2s;white-space:nowrap; }
+    .site-nav-cta:hover { background:#CA001B;color:#fff;transform:translateY(-1px); }
+    @media(max-width:640px){ .site-nav { padding:0 20px; } .site-nav-links { display:none; } }
+
+    /* HERO */
+    .jj-hero { min-height:100vh;padding-top:64px;background:#fff;display:flex;align-items:center;position:relative;overflow:hidden;border-bottom:3px solid var(--red); }
+    .jj-hero::before { content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--red),#FF6B7A); }
+    .jj-hero-inner { max-width:1200px;margin:0 auto;padding:80px 40px;display:grid;grid-template-columns:1fr 1.1fr;gap:60px;align-items:center; }
+    .jj-eyebrow { display:inline-flex;align-items:center;gap:8px;background:var(--red-lt);border:1px solid var(--red-mid);color:var(--red);font-family:"IBM Plex Sans",sans-serif;font-size:12px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;padding:5px 14px;border-radius:4px;margin-bottom:18px; }
+    .jj-hero h1 { font-family:"IBM Plex Sans",sans-serif;font-size:clamp(30px,4vw,50px);font-weight:700;line-height:1.12;color:var(--dark);margin:0 0 20px; }
+    .jj-hero h1 span { color:var(--red); }
+    .jj-hero-desc { font-size:16px;line-height:1.8;color:var(--body-clr);margin:0 0 36px; }
+    .jj-hero-meta { display:flex;gap:32px;flex-wrap:wrap; }
+    .jj-meta-item { display:flex;flex-direction:column;gap:3px; }
+    .jj-meta-lbl { font-size:10px;text-transform:uppercase;letter-spacing:1.3px;color:#aaa;font-family:"IBM Plex Sans",sans-serif;font-weight:700; }
+    .jj-meta-val { font-size:14px;color:var(--dark);font-family:"IBM Plex Sans",sans-serif;font-weight:600; }
+
+    /* OVERVIEW STRIP */
+    .jj-strip { background:var(--dark);border-top:4px solid var(--red); }
+    .jj-strip-grid { display:grid;grid-template-columns:repeat(4,1fr);max-width:1200px;margin:0 auto; }
+    .jj-strip-item { padding:30px 28px;border-right:1px solid rgba(255,255,255,.07); }
+    .jj-strip-item:last-child { border-right:none; }
+    .jj-strip-icon { width:38px;height:38px;background:rgba(202,0,27,.15);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:17px;color:var(--red);margin-bottom:10px; }
+    .jj-strip-lbl { font-size:10px;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.38);font-family:"IBM Plex Sans",sans-serif;font-weight:700;margin-bottom:4px; }
+    .jj-strip-val { font-family:"IBM Plex Sans",sans-serif;font-size:14px;font-weight:600;color:#fff;line-height:1.5; }
+    .jj-strip-val small { font-weight:400;color:rgba(255,255,255,.45);font-size:12px;display:block; }
+
+    /* SHARED LAYOUT */
+    .jj-section { padding:80px 40px;max-width:1200px;margin:0 auto; }
+    .jj-full { padding:80px 40px; }
+    .jj-full-inner { max-width:1200px;margin:0 auto; }
+    .jj-bg-surface { background:var(--surface); }
+
+    .jj-label { font-family:"IBM Plex Sans",sans-serif;font-size:11px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:var(--red);display:block;margin-bottom:10px; }
+    .jj-title { font-family:"IBM Plex Sans",sans-serif;font-size:clamp(24px,3vw,38px);font-weight:700;color:var(--dark);line-height:1.2;margin:0 0 16px; }
+    .jj-body { font-size:15px;color:var(--body-clr);line-height:1.82;margin:0 0 20px; }
+
+    /* SPLIT */
+    .jj-split { display:grid;grid-template-columns:1fr 1.35fr;gap:52px;align-items:center; }
+    .jj-split.flip { direction:rtl; }
+    .jj-split.flip > * { direction:ltr; }
+    .jj-split.top { align-items:start; }
+
+    /* SCREEN IMAGE */
+    .jj-screen { overflow:visible; }
+    .jj-screen img { width:100%;display:block;border-radius:12px; }
+    .jj-screen-full { margin-top:32px; }
+    .jj-screen-full img { width:100%;display:block;border-radius:14px; }
+
+    /* PRODUCT BADGE */
+    .jj-product-badge { display:inline-flex;align-items:center;gap:8px;background:var(--red-lt);border:1px solid var(--red-mid);color:var(--red);font-family:"IBM Plex Sans",sans-serif;font-size:13px;font-weight:600;padding:8px 16px;border-radius:6px;margin-bottom:28px; }
+
+    /* PROBLEM BLOCK */
+    .jj-problem-block { display:flex;align-items:flex-start;gap:16px;background:#fff;border:1px solid var(--border);border-left:4px solid var(--red);border-radius:0 12px 12px 0;padding:22px 24px; }
+    .jj-problem-icon { width:40px;height:40px;background:var(--red-lt);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--red);font-size:18px;flex-shrink:0; }
+    .jj-problem-label { font-family:"IBM Plex Sans",sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--red);margin-bottom:6px; }
+    .jj-problem-text { font-size:15px;color:var(--dark2);line-height:1.7; }
+
+    /* CARDS ROW */
+    .jj-cards-row { display:grid;grid-template-columns:repeat(3,1fr);gap:18px; }
+    .jj-card { background:#fff;border:1px solid var(--border);border-radius:12px;padding:24px 20px;transition:all .25s; }
+    .jj-card:hover { border-color:var(--red);box-shadow:0 6px 24px rgba(202,0,27,.09);transform:translateY(-3px); }
+    .jj-card-icon { width:42px;height:42px;background:var(--red-lt);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--red);margin-bottom:14px; }
+    .jj-card-title { font-family:"IBM Plex Sans",sans-serif;font-size:15px;font-weight:700;color:var(--dark);margin-bottom:6px; }
+    .jj-card-desc { font-size:13px;color:var(--body-clr);line-height:1.65; }
+
+    /* RESPONSIBILITIES */
+    .jj-resp-block { background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px 28px;margin-top:28px; }
+    .jj-resp-title { font-family:"IBM Plex Sans",sans-serif;font-size:14px;font-weight:700;color:var(--dark);margin-bottom:16px;display:flex;align-items:center;gap:8px; }
+    .jj-resp-grid { display:grid;grid-template-columns:1fr 1fr;gap:10px; }
+    .jj-resp-item { display:flex;align-items:center;gap:9px;font-size:14px;color:var(--body-clr);background:#fff;border:1px solid var(--border);border-radius:8px;padding:10px 14px; }
+    .jj-resp-item .bi { color:var(--red);font-size:15px;flex-shrink:0; }
+
+    /* UX GOAL CARDS */
+    .jj-goal-grid { display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:32px; }
+    .jj-goal-card { background:#fff;border:1px solid var(--border);border-top:3px solid var(--red);border-radius:12px;padding:22px 18px;transition:all .25s; }
+    .jj-goal-card:hover { box-shadow:0 8px 28px rgba(202,0,27,.1);transform:translateY(-3px); }
+    .jj-impact-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid rgba(202,0,27,.2);border-radius:14px;overflow:hidden;margin-top:36px; }
+    .jj-impact-item { padding:32px 24px;border-right:1px solid rgba(202,0,27,.15);text-align:center;background:var(--red-lt); }
+    .jj-impact-item:last-child { border-right:none; }
+    .jj-impact-num { font-family:"IBM Plex Sans",sans-serif;font-size:44px;font-weight:700;color:var(--red);line-height:1;margin-bottom:10px; }
+    .jj-impact-desc { font-size:13px;color:var(--body-clr);line-height:1.55; }
+    @media(max-width:640px){ .jj-impact-grid { grid-template-columns:1fr; } .jj-impact-item { border-right:none;border-bottom:1px solid rgba(202,0,27,.15); } .jj-impact-item:last-child { border-bottom:none; } }
+    .jj-goal-icon { width:40px;height:40px;background:var(--red-lt);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--red);margin-bottom:12px; }
+    .jj-goal-title { font-family:"IBM Plex Sans",sans-serif;font-size:14px;font-weight:700;color:var(--dark);margin-bottom:7px; }
+    .jj-goal-desc { font-size:12px;color:var(--body-clr);line-height:1.6; }
+
+    /* CHECKLIST */
+    .jj-check { list-style:none;padding:0;margin:0; }
+    .jj-check li { display:block;position:relative;padding-left:32px;margin-bottom:12px;font-size:15px;color:var(--body-clr);line-height:1.65; }
+    .jj-check li::before { content:'';position:absolute;left:0;top:3px;width:20px;height:20px;background:var(--red);border-radius:50%;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E");background-size:12px;background-repeat:no-repeat;background-position:center; }
+
+    /* CALLOUT */
+    .jj-callout { border-left:4px solid var(--red);background:var(--surface);border-radius:0 10px 10px 0;padding:16px 20px;margin:18px 0;font-family:"IBM Plex Sans",sans-serif;font-size:15px;color:var(--dark2);line-height:1.7; }
+
+    /* VALUES GRID */
+    .jj-values-grid { display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:32px; }
+    .jj-value { background:#fff;border:1px solid var(--border);border-radius:12px;padding:24px 16px;text-align:center;transition:all .3s; }
+    .jj-value:hover { border-color:var(--red);box-shadow:0 6px 24px rgba(202,0,27,.1);transform:translateY(-3px); }
+    .jj-value-icon { font-size:26px;margin-bottom:10px;display:block; }
+    .jj-value-name { font-family:"IBM Plex Sans",sans-serif;font-size:14px;font-weight:700;color:var(--dark); }
+
+    /* PROCESS STEPS */
+    .jj-steps { display:grid;grid-template-columns:repeat(5,1fr);position:relative;margin-top:48px; }
+    .jj-steps::before { content:'';position:absolute;top:25px;left:10%;right:10%;height:2px;background:linear-gradient(90deg,var(--red),#FF6B7A,var(--red));z-index:0; }
+    .jj-step { text-align:center;position:relative;z-index:1; }
+    .jj-step-dot { width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:18px;color:#fff; }
+    .sd1{background:var(--red);} .sd2{background:#B00018;} .sd3{background:#900014;} .sd4{background:#700010;} .sd5{background:var(--dark);}
+    .jj-step-title { font-family:"IBM Plex Sans",sans-serif;font-size:13px;font-weight:700;color:var(--dark);margin-bottom:5px; }
+    .jj-step-desc { font-size:12px;color:#9a9aaa;line-height:1.5;padding:0 6px; }
+
+    /* STEP PILLS */
+    .jj-step-flow { display:flex;flex-direction:column;gap:8px;margin-top:16px; }
+    .jj-step-pill { display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--border);border-radius:8px;padding:10px 14px;font-size:14px;color:var(--dark);font-family:"IBM Plex Sans",sans-serif;font-weight:500; }
+    .jj-step-pill .num { width:26px;height:26px;background:var(--red);border-radius:50%;color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0; }
+
+    /* BEFORE/AFTER */
+    .jj-ba-grid { display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:20px; }
+    .jj-ba { border-radius:12px;padding:22px; }
+    .jj-ba.bad { background:#FFF5F5;border:1px solid #FFD0D0; }
+    .jj-ba.good { background:#F0FBF5;border:1px solid #B8EAC8; }
+    .jj-ba h3 { font-family:"IBM Plex Sans",sans-serif;font-size:15px;font-weight:700;margin:0 0 14px;display:flex;align-items:center;gap:8px; }
+    .jj-ba.bad h3 { color:#B00018; }
+    .jj-ba.good h3 { color:#1A8040; }
+    .jj-ba-item { display:flex;gap:9px;padding:9px 0;border-bottom:1px solid rgba(0,0,0,.04);font-size:14px;line-height:1.6;align-items:flex-start; }
+    .jj-ba-item:last-child { border-bottom:none; }
+    .jj-ba.bad .jj-ba-item { color:#7a1f1f; }
+    .jj-ba.good .jj-ba-item { color:#1a5e30; }
+
+    /* IMPACT */
+    .jj-impact-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:40px; }
+    .jj-impact-card { border-radius:14px;padding:32px 24px;text-align:center;border:1px solid rgba(202,0,27,.2);background:var(--red-lt); }
+    .jj-impact-num { font-family:"IBM Plex Sans",sans-serif;font-size:64px;font-weight:700;color:var(--red);line-height:1;margin-bottom:10px; }
+    .jj-impact-desc { font-size:15px;color:var(--body-clr);line-height:1.65; }
+
+    /* CHALLENGES */
+    .jj-two-col { display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:32px; }
+    .jj-list-card { border-radius:12px;padding:28px; }
+    .jj-list-card.challenges { background:#FFF5F5;border:1px solid #FFD0D0; }
+    .jj-list-card.learnings { background:var(--surface);border:1px solid var(--border); }
+    .jj-list-card h3 { font-family:"IBM Plex Sans",sans-serif;font-size:17px;font-weight:700;margin:0 0 18px;display:flex;align-items:center;gap:9px; }
+    .jj-list-card.challenges h3 { color:var(--red); }
+    .jj-list-card.learnings h3 { color:var(--dark); }
+    .jj-bullet { list-style:none;padding:0;margin:0; }
+    .jj-bullet li { padding:10px 0;border-bottom:1px solid rgba(0,0,0,.05);font-size:15px;color:var(--body-clr);line-height:1.65;display:flex;gap:10px;align-items:flex-start; }
+    .jj-bullet li:last-child { border-bottom:none; }
+    .jj-bullet .bi { flex-shrink:0;font-size:17px;margin-top:1px; }
+    .jj-list-card.challenges .bi { color:var(--red); }
+    .jj-list-card.learnings .bi { color:#1A8040; }
+
+    /* CTA */
+    .jj-cta { background:var(--dark);padding:80px 40px;text-align:center; }
+    .jj-cta h2 { font-family:"IBM Plex Sans",sans-serif;font-size:28px;font-weight:700;color:#fff;margin:0 0 12px; }
+    .jj-cta p { font-size:17px;color:rgba(255,255,255,.55);margin:0 0 30px; }
+    .jj-cta-btns { display:flex;gap:14px;justify-content:center;flex-wrap:wrap; }
+    .btn-jj-primary { background:var(--red);color:#fff;font-family:"IBM Plex Sans",sans-serif;font-weight:700;font-size:14px;padding:13px 28px;border-radius:8px;text-decoration:none;transition:all .2s;display:inline-flex;align-items:center;gap:7px; }
+    .btn-jj-primary:hover { background:#a80016;color:#fff;transform:translateY(-2px); }
+    .btn-jj-ghost { background:transparent;color:#fff;font-family:"IBM Plex Sans",sans-serif;font-weight:600;font-size:14px;padding:13px 28px;border-radius:8px;text-decoration:none;border:1px solid rgba(255,255,255,.2);transition:all .2s;display:inline-flex;align-items:center;gap:7px; }
+    .btn-jj-ghost:hover { background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.4);color:#fff; }
+
+    .back-to-top { position:fixed;visibility:hidden;opacity:0;right:22px;bottom:22px;z-index:996;background:var(--red);width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;transition:all .3s; }
+    .back-to-top i { font-size:21px;color:#fff;line-height:0; }
+    .back-to-top.active { visibility:visible;opacity:1; }
+    .back-to-top:hover { background:#a80016;transform:translateY(-2px); }
+
+    @media(max-width:992px){
+      .jj-hero-inner,.jj-split,.jj-split.flip { grid-template-columns:1fr; }
+      .jj-strip-grid { grid-template-columns:1fr 1fr; }
+      .jj-strip-item { border-right:none;border-bottom:1px solid rgba(255,255,255,.07); }
+      .jj-steps { grid-template-columns:1fr 1fr; }
+      .jj-steps::before { display:none; }
+      .jj-values-grid { grid-template-columns:repeat(3,1fr); }
+      .jj-nav .jj-tags { display:none; }
+      .jj-hero-inner > div:last-child { display:none; }
+      .jj-cards-row { grid-template-columns:1fr 1fr; }
+      .jj-goal-grid { grid-template-columns:repeat(3,1fr); }
+    }
+    @media(max-width:640px){
+      .jj-section,.jj-full { padding:52px 20px; }
+      .jj-nav { padding:11px 20px; }
+      .jj-hero-inner { padding:52px 20px; }
+      .jj-hero-meta { flex-wrap:wrap; }
+      .jj-steps,.jj-two-col,.jj-ba-grid,.jj-impact-grid,.jj-values-grid { grid-template-columns:1fr; }
+      .jj-cards-row,.jj-resp-grid,.jj-goal-grid { grid-template-columns:1fr; }
+      .jj-cta { padding:52px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<nav class="site-nav">
+  <a href="index.html" class="site-nav-logo">KC</a>
+  <div class="site-nav-links">
+    <a href="index.html">Home</a>
+    <a href="index.html#work" class="active">Work</a>
+    <a href="about.html">About</a>
+    <a href="https://www.linkedin.com/in/khushboo-chandnani" target="_blank">LinkedIn</a>
+  </div>
+  <a href="mailto:khushboochandnanijobportfolio@gmail.com" class="site-nav-cta">Let's Talk</a>
+</nav>
+
+
+<!-- ── HERO ───────────────────────────────────────────── -->
+<section class="jj-hero" id="top">
+  <div class="jj-hero-inner">
+    <div>
+      <div class="jj-eyebrow"><i class="bi bi-hospital"></i> Johnson &amp; Johnson MedTech · DePuy Synthes</div>
+      <h1>Designing a Facial<br>Reconstruction<br><span>Surgical Planning</span><br>Platform</h1>
+      <p class="jj-hero-desc">A UX-led initiative to streamline complex clinician workflows, reduce error-prone intake processes, and deliver a scalable design system for regulated healthcare software.</p>
+      
+    </div>
+    <div>
+      <div class="jj-screen">
+        <img src="dist/images/jj_screens/cover.png" alt="TRUMATCH Platform Case Study">
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── OVERVIEW STRIP ──────────────────────────────────── -->
+<div class="jj-strip">
+  <div class="jj-strip-grid">
+    <div class="jj-strip-item">
+      <div class="jj-strip-icon"><i class="bi bi-people"></i></div>
+      <div class="jj-strip-lbl">Team</div>
+      <div class="jj-strip-val">1 PM · 4 Designers · 10 Engineers <small>Me as Senior UX Designer</small></div>
+    </div>
+    <div class="jj-strip-item">
+      <div class="jj-strip-icon"><i class="bi bi-calendar3"></i></div>
+      <div class="jj-strip-lbl">Timeline</div>
+      <div class="jj-strip-val">6 Months <small>Intake &amp; Mobile Designs</small></div>
+    </div>
+    <div class="jj-strip-item">
+      <div class="jj-strip-icon"><i class="bi bi-tools"></i></div>
+      <div class="jj-strip-lbl">Tools</div>
+      <div class="jj-strip-val">Figma · Appian <small>Design Systems · Dev Handoff</small></div>
+    </div>
+    <div class="jj-strip-item">
+      <div class="jj-strip-icon"><i class="bi bi-list-check"></i></div>
+      <div class="jj-strip-lbl">Responsibilities</div>
+      <div class="jj-strip-val">End-to-End Design Process <small>Intake · Mobile · Design System</small></div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- ── PROJECT OVERVIEW ────────────────────────────────── -->
+<section class="jj-section" id="overview">
+  <span class="jj-label">Introduction</span>
+  <h2 class="jj-title">Project Overview</h2>
+
+  <div class="jj-product-badge">
+    <i class="bi bi-hospital-fill"></i>
+    TRUMATCH Facial Reconstruction Platform &nbsp;·&nbsp; DePuy Synthes
+  </div>
+
+  <div class="jj-problem-block">
+    <div class="jj-problem-icon"><i class="bi bi-exclamation-triangle-fill"></i></div>
+    <div>
+      <div class="jj-problem-label">The Problem</div>
+      <div class="jj-problem-text">Surgeons faced <strong>fragmented and inefficient workflows</strong> when creating facial reconstruction cases: every step was a potential point of failure.</div>
+    </div>
+  </div>
+
+  <div class="jj-cards-row" style="margin-top:36px;">
+    <div class="jj-card">
+      <div class="jj-card-icon"><i class="bi bi-diagram-3-fill"></i></div>
+      <div class="jj-card-title">End-to-End Planning</div>
+      <div class="jj-card-desc">Virtual planning system covering the full facial reconstruction workflow</div>
+    </div>
+    <div class="jj-card">
+      <div class="jj-card-icon"><i class="bi bi-puzzle-fill"></i></div>
+      <div class="jj-card-title">Personalized Implants</div>
+      <div class="jj-card-desc">Supports surgical planning and delivery of surgeon-recommended implants</div>
+    </div>
+    <div class="jj-card">
+      <div class="jj-card-icon"><i class="bi bi-link-45deg"></i></div>
+      <div class="jj-card-title">Digital to Physical</div>
+      <div class="jj-card-desc">Connects digital workflows with real physical surgical outcomes</div>
+    </div>
+  </div>
+
+  <div class="jj-resp-block">
+    <div class="jj-resp-title"><i class="bi bi-person-badge-fill"></i> My Responsibilities: Lead end-to-end design process</div>
+    <div class="jj-resp-grid">
+      <div class="jj-resp-item"><i class="bi bi-check2-circle"></i> Owned UX for case intake experience</div>
+      <div class="jj-resp-item"><i class="bi bi-check2-circle"></i> Designed intake form for surgeon &amp; delegate workflows</div>
+      <div class="jj-resp-item"><i class="bi bi-check2-circle"></i> Designed mobile experiences</div>
+      <div class="jj-resp-item"><i class="bi bi-check2-circle"></i> Collaborated with product, engineering, clinical &amp; regulatory teams</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── IMPACT ──────────────────────────────────────────── -->
+<section class="jj-section" id="impact">
+  <span class="jj-label">Results</span>
+  <h2 class="jj-title">Measurable Impact Delivered</h2>
+  <p class="jj-body">Outcomes validated through clinician satisfaction surveys, design system adoption metrics, and delivery velocity tracked across sprint cycles.</p>
+  <div class="jj-impact-grid">
+    <div class="jj-impact-item">
+      <div class="jj-impact-num">15%</div>
+      <div class="jj-impact-desc">Increase in clinician satisfaction scores post-redesign</div>
+    </div>
+    <div class="jj-impact-item">
+      <div class="jj-impact-num">25%</div>
+      <div class="jj-impact-desc">Faster feature delivery enabled by the scalable design system</div>
+    </div>
+    <div class="jj-impact-item">
+      <div class="jj-impact-num">1</div>
+      <div class="jj-impact-desc">Scalable design system built from the ground up, adopted across teams</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── UX GOAL ─────────────────────────────────────────── -->
+<div class="jj-bg-surface jj-full" id="goals">
+  <div class="jj-full-inner">
+    <span class="jj-label">UX Strategy</span>
+    <h2 class="jj-title">Design a low-friction, streamlined,<br>error-proof case creation flow</h2>
+    <p class="jj-body">A UX-led approach to simplify case creation, prevent errors early, and support high-stakes clinical decisions without adding cognitive or administrative burden.</p>
+    <div class="jj-goal-grid">
+      <div class="jj-goal-card">
+        <div class="jj-goal-icon"><i class="bi bi-speedometer2"></i></div>
+        <div class="jj-goal-title">Reduce Friction</div>
+        <div class="jj-goal-desc">Streamline case creation so surgeons move through steps without unnecessary complexity</div>
+      </div>
+      <div class="jj-goal-card">
+        <div class="jj-goal-icon"><i class="bi bi-shield-check"></i></div>
+        <div class="jj-goal-title">Prevent Errors</div>
+        <div class="jj-goal-desc">Prevent incomplete or incorrect submissions through inline validation and guidance</div>
+      </div>
+      <div class="jj-goal-card">
+        <div class="jj-goal-icon"><i class="bi bi-people-fill"></i></div>
+        <div class="jj-goal-title">Safe Delegation</div>
+        <div class="jj-goal-desc">Enable delegation to clinical staff without loss of control or data quality</div>
+      </div>
+      <div class="jj-goal-card">
+        <div class="jj-goal-icon"><i class="bi bi-eye-fill"></i></div>
+        <div class="jj-goal-title">Visual Clarity</div>
+        <div class="jj-goal-desc">Simplify complex clinical inputs through structured visual guidance</div>
+      </div>
+      <div class="jj-goal-card">
+        <div class="jj-goal-icon"><i class="bi bi-phone"></i></div>
+        <div class="jj-goal-title">Cross-Platform</div>
+        <div class="jj-goal-desc">Ensure consistency and confidence across desktop and mobile experiences</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ── DESIGN PROCESS ──────────────────────────────────── -->
+<section class="jj-section" id="process">
+  <span class="jj-label">Design Process</span>
+  <h2 class="jj-title">From Discovery to Delivery</h2>
+  <p class="jj-body">A structured process that moved from understanding surgeon workflows to delivering tested, developer-ready interfaces.</p>
+  <div class="jj-steps">
+    <div class="jj-step"><div class="jj-step-dot sd1"><i class="bi bi-search"></i></div><div class="jj-step-title">Discover</div><div class="jj-step-desc">Stakeholder interviews, workflow mapping, clinical research</div></div>
+    <div class="jj-step"><div class="jj-step-dot sd2"><i class="bi bi-lightbulb"></i></div><div class="jj-step-title">Ideation</div><div class="jj-step-desc">Sketches, user flows, delegate persona, architecture</div></div>
+    <div class="jj-step"><div class="jj-step-dot sd3"><i class="bi bi-grid-1x2"></i></div><div class="jj-step-title">Wireframes</div><div class="jj-step-desc">Low-fi wireframes, step navigation, error states</div></div>
+    <div class="jj-step"><div class="jj-step-dot sd4"><i class="bi bi-palette"></i></div><div class="jj-step-title">Hi-Fi Design</div><div class="jj-step-desc">Style guide, high-fidelity UI, responsive mobile</div></div>
+    <div class="jj-step"><div class="jj-step-dot sd5"><i class="bi bi-code-square"></i></div><div class="jj-step-title">Handoff</div><div class="jj-step-desc">Dev notes in Figma, component library, interaction specs</div></div>
+  </div>
+</section>
+
+
+<!-- ── INTAKE FORM ─────────────────────────────────────── -->
+<div class="jj-bg-surface jj-full" id="intake">
+  <div class="jj-full-inner">
+    <div class="jj-split top">
+      <div>
+        <span class="jj-label">Key Feature</span>
+        <h2 class="jj-title">Intake Form: Why it mattered?</h2>
+        <p class="jj-body"><strong>The intake form is the single source of truth for the entire surgical planning process.</strong></p>
+        <ul class="jj-check">
+          <li>Designed a <strong>simple 5-step intake flow</strong> to reduce cognitive load</li>
+          <li>Ensured structured, complete inputs so <strong>biomedical and surgical planning engineers</strong> can accurately design surgeon-recommended implants</li>
+          <li>Introduced a <strong>delegate persona</strong> to allow surgeons to offload intake tasks to nurses or clinical assistants when time-constrained</li>
+        </ul>
+        <div class="jj-step-flow" style="margin-top:24px;">
+          <div class="jj-step-pill"><span class="num">1</span>Patient Information &amp; Case Details</div>
+          <div class="jj-step-pill"><span class="num">2</span>Imaging &amp; Diagnostic Upload</div>
+          <div class="jj-step-pill"><span class="num">3</span>Surgical Region &amp; Implant Preferences</div>
+          <div class="jj-step-pill"><span class="num">4</span>Clinical Notes &amp; Special Requirements</div>
+          <div class="jj-step-pill"><span class="num">5</span>Review, Validate &amp; Submit Case</div>
+        </div>
+      </div>
+      <div>
+        <div class="jj-screen">
+          <img src="dist/images/jj_screens/intake_form_ui.png" alt="TRUMATCH Intake Form UI">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ── IDEATION ────────────────────────────────────────── -->
+<section class="jj-section" id="ideation">
+  <span class="jj-label">Design Thinking</span>
+  <h2 class="jj-title">Ideation</h2>
+  <p class="jj-body" style="max-width:720px;">Early ideation focused on progressive onboarding for new surgeons and smart preference management to reduce cognitive load across key mentors: Registration, Case Page, Chat &amp; Schedule.</p>
+  <div class="jj-screen-full">
+    <img src="dist/images/jj_screens/ideation_sketches.png" alt="Ideation Sketches">
+  </div>
+</section>
+
+
+<!-- ── WIREFRAMES ──────────────────────────────────────── -->
+<div class="jj-bg-surface jj-full" id="wireframes">
+  <div class="jj-full-inner">
+    <div class="jj-split flip top">
+      <div>
+        <span class="jj-label">Low-Fidelity</span>
+        <h2 class="jj-title">Wireframe</h2>
+        <p class="jj-body">Three core wireframe explorations defined the structural decisions for the intake flow.</p>
+        <ul class="jj-check">
+          <li><strong>Privacy Notice</strong>: Cancel/Start Case vertical or horizontal; font size fits in screen; horizontal or vertical scroll might be awkward; compatible with Appian?</li>
+          <li><strong>Case Creation Banner</strong>: Accordion format; Interactive Intake viewable before each step; Interactive Intake view on bottom; Modal case fits exactly on page (horizontally or vertically); Banner information is vertically or horizontally placed</li>
+          <li><strong>Patient Modal</strong>: Fill this modal on screen to create a smaller screen; Drop-down menu; Next steps presented below, continuing the case information; top right corner alert for unsaved changes that you click "save"</li>
+        </ul>
+      </div>
+      <div>
+        <div class="jj-screen">
+          <img src="dist/images/jj_screens/wireframes.png" alt="Wireframes: Privacy Notice, Case Creation Banner, Patient Modal">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ── VISUAL STYLE GUIDE ──────────────────────────────── -->
+<section class="jj-section" id="styleguide">
+  <span class="jj-label">Visual Identity</span>
+  <h2 class="jj-title">Visual Style Guide</h2>
+  <p class="jj-body">A dynamic, scalable design system built in Figma using the Nunito typeface, clinical color tokens, and reusable SDH components: supporting multiple product branches with one-click style propagation.</p>
+  <div class="jj-screen-full">
+    <img src="dist/images/jj_screens/style_guide.png" alt="Visual Style Guide: Colors, Typography, Components">
+  </div>
+</section>
+
+
+<!-- ── HI-FIDELITY DESIGNS ────────────────────────────── -->
+<div class="jj-bg-surface jj-full" id="hifi">
+  <div class="jj-full-inner">
+    <span class="jj-label">Hi-Fidelity Designs</span>
+    <h2 class="jj-title">TRUMATCH Platform: Final Screens</h2>
+    <p class="jj-body">The complete hi-fidelity design across the surgeon dashboard, case management, intake form, and implant viewer: all designed within Appian platform constraints.</p>
+    <div class="jj-screen-full">
+      <img src="dist/images/jj_screens/hifi_designs.png" alt="Hi-Fidelity Designs: Dashboard, Cases, Intake, Implant Viewer">
+    </div>
+  </div>
+</div>
+
+
+<!-- ── WEB TO MOBILE ───────────────────────────────────── -->
+<section class="jj-section" id="mobile">
+  <div class="jj-split top">
+    <div>
+      <span class="jj-label">Responsive Design</span>
+      <h2 class="jj-title">Web-to-Mobile Design</h2>
+      <p class="jj-body"><strong>Mobile was not an afterthought; it was a core use case.</strong></p>
+      <ul class="jj-check">
+        <li>Check case status and review tasks easily</li>
+        <li>Improves efficiency</li>
+        <li>Ensures intuitiveness</li>
+        <li>Simplified, stacked layouts</li>
+      </ul>
+    </div>
+    <div>
+      <div class="jj-screen">
+        <img src="dist/images/jj_screens/web_to_mobile_ui.png" alt="Web and Mobile UI Screenshots">
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── STEP NAVIGATION PROBLEM ────────────────────────── -->
+<div class="jj-bg-surface jj-full" id="iterations">
+  <div class="jj-full-inner">
+    <span class="jj-label">Design Iterations</span>
+    <h2 class="jj-title">The biggest problem in the previous version:<br>Step Navigation</h2>
+    <p class="jj-body">Multiple iterations were explored to give surgeons the ability to move freely between steps without breaking the form's data integrity.</p>
+    <div class="jj-screen-full">
+      <img src="dist/images/jj_screens/step_nav_iterations.png" alt="Step Navigation: 5 Design Iterations">
+    </div>
+  </div>
+</div>
+
+
+<!-- ── SOLUTION ────────────────────────────────────────── -->
+<section class="jj-section" id="solution">
+  <div class="jj-split flip top">
+    <div>
+      <span class="jj-label">The Solution</span>
+      <h2 class="jj-title">How did I solve it?</h2>
+      <ul class="jj-check">
+        <li>Leverage Existing Appian Components</li>
+        <li>Accessible top arrows for easy left/right navigation</li>
+        <li>Step dropdown to jump directly to any step (e.g., Step 1–Step 5) with a single click</li>
+        <li>Design with developers in mind for an intuitive experience</li>
+      </ul>
+      <div class="jj-ba-grid">
+        <div class="jj-ba bad">
+          <h3><i class="bi bi-x-circle-fill"></i> Before</h3>
+          <div class="jj-ba-item"><i class="bi bi-x-circle"></i><span>No way to jump to a specific step</span></div>
+          <div class="jj-ba-item"><i class="bi bi-x-circle"></i><span>Rigid linear navigation only</span></div>
+          <div class="jj-ba-item"><i class="bi bi-x-circle"></i><span>Broken on mobile devices</span></div>
+        </div>
+        <div class="jj-ba good">
+          <h3><i class="bi bi-check-circle-fill"></i> After</h3>
+          <div class="jj-ba-item"><i class="bi bi-check-circle"></i><span>Step dropdown: jump to any step</span></div>
+          <div class="jj-ba-item"><i class="bi bi-check-circle"></i><span>Accessible top arrows for nav</span></div>
+          <div class="jj-ba-item"><i class="bi bi-check-circle"></i><span>Fully responsive across devices</span></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="jj-screen">
+        <img src="dist/images/jj_screens/solution_ui.png" alt="Step Navigation Solution: Mobile UI">
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── DELEGATE IMAGE UPLOAD ───────────────────────────── -->
+<div class="jj-bg-surface jj-full" id="delegate">
+  <div class="jj-full-inner">
+    <div class="jj-split top">
+      <div>
+        <span class="jj-label">Delegate Persona</span>
+        <h2 class="jj-title">Delegate: Image Upload</h2>
+        <p class="jj-body">Mobile experience is intentionally limited to image upload, with delegate-only access enabled for efficient task assignment.</p>
+        <ul class="jj-check">
+          <li>Nurses or clinical assistants complete image upload on behalf of the surgeon</li>
+          <li>Surgeon retains final review and submission control</li>
+          <li>Delegate selector: assign by name or search the full delegate list</li>
+        </ul>
+        <div class="jj-callout">
+          <strong>Dev note:</strong> User cannot upload images in mobile view: informing them to upload images on desktop.
+        </div>
+      </div>
+      <div>
+        <div class="jj-screen">
+          <img src="dist/images/jj_screens/delegate_upload.png" alt="Delegate Image Upload: Mobile Flow">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ── FILE STRUCTURE ──────────────────────────────────── -->
+<section class="jj-section" id="handoff">
+  <div class="jj-split flip top">
+    <div>
+      <span class="jj-label">Design-to-Dev Handoff</span>
+      <h2 class="jj-title">File Structure</h2>
+      <ul class="jj-check">
+        <li>Structured files with clear, reusable interaction components across screens</li>
+        <li>Added detailed dev notes to clarify interaction flows and support smooth design-to-development handoff</li>
+      </ul>
+    </div>
+    <div>
+      <div class="jj-screen">
+        <img src="dist/images/jj_screens/file_structure.png" alt="File Structure: Figma Annotations">
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── IMPACT ──────────────────────────────────────────── -->
+<div class="jj-bg-surface jj-full" id="impact">
+  <div class="jj-full-inner">
+    <span class="jj-label">Results</span>
+    <h2 class="jj-title">The Impact</h2>
+    <div class="jj-impact-grid">
+      <div class="jj-impact-card">
+        <div class="jj-impact-num">25%</div>
+        <div class="jj-impact-desc">Improved development efficiency ensuring design accuracy: clear interactions and dev notes in Figma</div>
+      </div>
+      <div class="jj-impact-card">
+        <div class="jj-impact-num">30%</div>
+        <div class="jj-impact-desc">Converted web designs to mobile, slashing mobile-specific issues by 30% and boosting design consistency</div>
+      </div>
+      <div class="jj-impact-card">
+        <div class="jj-impact-num">40%</div>
+        <div class="jj-impact-desc">Dynamic design system for multiple branches, enabling one-click style updates &amp; cutting design time by 40%</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ── CHALLENGES & LEARNINGS ──────────────────────────── -->
+<section class="jj-section" id="learnings">
+  <span class="jj-label">Reflection</span>
+  <h2 class="jj-title">Challenges &amp; Key Learnings</h2>
+  <div class="jj-two-col">
+    <div class="jj-list-card challenges">
+      <h3><i class="bi bi-lightning-charge-fill"></i> Challenges</h3>
+      <ul class="jj-bullet">
+        <li><i class="bi bi-dot"></i><span>Aligning multiple stakeholders across designers and product managers with differing priorities</span></li>
+        <li><i class="bi bi-dot"></i><span>Translating complex surgeon workflows and pain points into intuitive, scalable UX</span></li>
+        <li><i class="bi bi-dot"></i><span>Designing within strict clinical, regulatory, and data constraints</span></li>
+      </ul>
+    </div>
+    <div class="jj-list-card learnings">
+      <h3><i class="bi bi-lightbulb-fill"></i> Key Learnings</h3>
+      <ul class="jj-bullet">
+        <li><i class="bi bi-check2"></i><span>Deep collaboration with surgeons is critical to uncover real workflow pain points</span></li>
+        <li><i class="bi bi-check2"></i><span>Strong UX in healthcare requires clarity, validation, and error prevention over visual complexity</span></li>
+        <li><i class="bi bi-check2"></i><span>A well-structured design system enables consistency across teams and speeds up delivery</span></li>
+        <li><i class="bi bi-check2"></i><span>Designing for regulated systems strengthened my ability to balance usability, safety, and scalability</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── CTA ─────────────────────────────────────────────── -->
+<section class="jj-cta">
+  <h2>Interested in working together?</h2>
+  <p>Let's talk about design, healthcare tech, or your next product challenge.</p>
+  <div class="jj-cta-btns">
+    <a href="mailto:khushboochandnanijobportfolio@gmail.com" class="btn-jj-primary"><i class="bi bi-envelope-fill"></i> Get in Touch</a>
+    <a href="index.html" class="btn-jj-ghost"><i class="bi bi-grid-3x3-gap"></i> All Projects</a>
+    <a href="https://www.linkedin.com/in/khushboo-chandnani" target="_blank" class="btn-jj-ghost"><i class="bi bi-linkedin"></i> LinkedIn</a>
+  </div>
+</section>
+
+
+<a href="#top" class="back-to-top d-flex align-items-center justify-content-center" id="backToTop">
+  <i class="bi bi-arrow-up-short"></i>
+</a>
+
+<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script>
+  window.addEventListener('scroll', function () {
+    const st = document.documentElement.scrollTop;
+    const sh = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    document.getElementById('progress').style.width = (st / sh * 100) + '%';
+    document.getElementById('backToTop').classList.toggle('active', st > 300);
+  });
+</script>
+</body>
+</html>

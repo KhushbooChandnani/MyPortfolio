@@ -1,116 +1,647 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-  <title>Enovation Controls Case Study</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
-
- <!-- Favicons -->
- <link href="dist/images/KC.png" rel="icon">
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <title>Enovation Controls: Summer '23 UX Internship</title>
+  <link href="dist/images/favicon.svg" rel="icon" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
-  <!-- Template Main CSS File -->
-  <link rel="stylesheet" href="dist/css/style.css">
-  <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
   <style>
-    @media (max-width: 480px) {
-    body{
-      width:100%;
+    :root {
+      --red:     #D31F24;
+      --red-lt:  #FFF1F1;
+      --red-mid: #FFCECF;
+      --dark:    #111111;
+      --body:    #4B4B5A;
+      --border:  #E8E8EE;
+      --surface: #F8F8FA;
     }
-   .cult-figma{
-     display: none;
-   }
- }
- /*--------------------------------------------------------------
-  # Back to top button
-  --------------------------------------------------------------*/
-  .back-to-top {
-    position: fixed;
-    visibility: hidden;
-    opacity: 0;
-    right: 15px;
-    bottom: 15px;
-    z-index: 996;
-    background: #5763D8;
-    width: 40px;
-    height: 40px;
-    border-radius: 50px;
-    transition: all 0.4s;
-  }
-  
-  .back-to-top i {
-    font-size: 24px;
-    color: #fff;
-    line-height: 0;
-  }
-  
-  .back-to-top:hover {
-    background: #5763D8;
-    color: #fff;
-  }
-  
-  .back-to-top.active {
-    visibility: visible;
-    opacity: 1;
-  }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: "Inter", sans-serif; color: var(--body); background: #fff; }
+    h1,h2,h3,h4 { font-family: "IBM Plex Sans", sans-serif; color: var(--dark); }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+
+    /* PROGRESS */
+    #progress { position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--red),#FF6B6B);z-index:9999;transition:width .1s; }
+
+    /* SITE NAV */
+    .site-nav { position:fixed;top:0;left:0;right:0;z-index:9000;background:rgba(255,255,255,.96);backdrop-filter:blur(18px);border-bottom:1px solid rgba(229,231,235,.8);padding:0 40px;height:64px;display:flex;align-items:center;justify-content:space-between; }
+    .site-nav-logo { display:flex;align-items:center;gap:9px;font-family:"IBM Plex Sans",sans-serif;font-weight:700;font-size:15px;color:#0D0D18;text-decoration:none; }
+    .site-nav-logo img { width:26px;height:26px;border-radius:5px; }
+    .site-nav-links { display:flex;align-items:center;gap:28px; }
+    .site-nav-links a { font-size:14px;font-weight:500;color:#6B7280;text-decoration:none;transition:color .2s; }
+    .site-nav-links a:hover,.site-nav-links a.active { color:#0D0D18;font-weight:600; }
+    .site-nav-cta { background:#0D0D18;color:#fff;font-family:"IBM Plex Sans",sans-serif;font-weight:600;font-size:13px;padding:8px 18px;border-radius:8px;text-decoration:none;transition:all .2s;white-space:nowrap; }
+    .site-nav-cta:hover { background:#D31F24;color:#fff;transform:translateY(-1px); }
+    @media(max-width:640px){ .site-nav { padding:0 20px; } .site-nav-links { display:none; } }
+
+    /* SHARED */
+    .sec { padding:80px 40px;max-width:1160px;margin:0 auto; }
+    .sec-full { padding:80px 40px; }
+    .sec-full-inner { max-width:1160px;margin:0 auto; }
+    .bg-surface { background:var(--surface); }
+    .bg-dark { background:var(--dark); }
+    .bg-red { background:var(--red); }
+
+    .label { font-family:"IBM Plex Sans",sans-serif;font-size:11px;font-weight:700;letter-spacing:1.7px;text-transform:uppercase;color:var(--red);display:block;margin-bottom:10px; }
+    .title { font-size:clamp(24px,3vw,38px);font-weight:700;line-height:1.18;margin-bottom:14px; }
+    .body-text { font-size:15px;line-height:1.82;color:var(--body);margin-bottom:16px; }
+
+    /* SPLIT */
+    .split { display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center; }
+    .split.flip { direction:rtl; }
+    .split.flip > * { direction:ltr; }
+    .split.top { align-items:start; }
+
+    /* SCREEN */
+    .screen img { width:100%;display:block;filter:drop-shadow(0 20px 44px rgba(0,0,0,.16));border-radius:10px; }
+    .screen-full { margin-top:28px; }
+    .screen-full img { width:100%;display:block;filter:drop-shadow(0 16px 40px rgba(0,0,0,.12));border-radius:12px; }
+
+    /* HERO */
+    .hero { min-height:100vh;padding-top:64px;background:var(--dark);display:flex;align-items:center;border-bottom:3px solid var(--red);position:relative;overflow:hidden; }
+    .hero::before { content:'';position:absolute;top:-300px;right:-300px;width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(211,31,36,.12) 0%,transparent 70%);pointer-events:none; }
+    .hero-inner { max-width:1160px;margin:0 auto;padding:80px 40px;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center; }
+    .hero-badge { display:inline-flex;align-items:center;gap:7px;background:rgba(211,31,36,.18);border:1px solid rgba(211,31,36,.35);color:#FF8A8A;font-size:12px;font-weight:600;padding:5px 13px;border-radius:20px;margin-bottom:20px;font-family:"IBM Plex Sans",sans-serif; }
+    .hero h1 { font-size:clamp(32px,4vw,52px);font-weight:700;color:#fff;line-height:1.1;margin-bottom:18px; }
+    .hero h1 span { color:var(--red); }
+    .hero-desc { font-size:16px;color:rgba(255,255,255,.6);line-height:1.8;margin-bottom:36px; }
+    .hero-meta { display:flex;gap:0;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:12px;overflow:hidden; }
+    .hero-meta-item { flex:1;padding:16px 18px;border-right:1px solid rgba(255,255,255,.08);text-align:center; }
+    .hero-meta-item:last-child { border-right:none; }
+    .hero-meta-lbl { font-size:10px;text-transform:uppercase;letter-spacing:1.2px;color:rgba(255,255,255,.35);font-family:"IBM Plex Sans",sans-serif;font-weight:700;margin-bottom:5px; }
+    .hero-meta-val { font-size:13px;font-weight:600;color:#fff;font-family:"IBM Plex Sans",sans-serif; }
+    .hero-photos img { width:100%;border-radius:14px;filter:drop-shadow(0 24px 48px rgba(0,0,0,.4)); }
+
+    /* STAT CARDS */
+    .stat-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:36px; }
+    .stat-card { background:#fff;border:1px solid var(--border);border-radius:14px;padding:28px 22px;text-align:center;border-top:3px solid var(--red);transition:all .25s; }
+    .stat-card:hover { box-shadow:0 8px 28px rgba(211,31,36,.1);transform:translateY(-3px); }
+    .stat-num { font-family:"IBM Plex Sans",sans-serif;font-size:54px;font-weight:700;color:var(--red);line-height:1; }
+    .stat-desc { font-size:14px;color:var(--body);margin-top:10px;line-height:1.55; }
+
+    /* PROJECT CARDS */
+    .projects-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:36px; }
+    .project-card { background:#fff;border:1px solid var(--border);border-radius:12px;padding:22px;transition:all .25s; }
+    .project-card:hover { border-color:var(--red);box-shadow:0 6px 24px rgba(211,31,36,.1);transform:translateY(-3px); }
+    .project-num { width:32px;height:32px;background:var(--red-lt);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:"IBM Plex Sans",sans-serif;font-size:14px;font-weight:700;color:var(--red);margin-bottom:14px; }
+    .project-name { font-family:"IBM Plex Sans",sans-serif;font-size:15px;font-weight:700;color:var(--dark);margin-bottom:8px; }
+    .project-desc { font-size:13px;color:var(--body);line-height:1.65; }
+    .project-resp-label { font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--red);font-family:"IBM Plex Sans",sans-serif;margin-top:14px;margin-bottom:6px; }
+    .project-resp { list-style:none;padding:0; }
+    .project-resp li { font-size:12px;color:var(--body);line-height:1.6;padding:3px 0;display:flex;gap:7px;align-items:flex-start; }
+    .project-resp li::before { content:'→';color:var(--red);flex-shrink:0;font-size:11px;margin-top:1px; }
+
+    /* REASONS */
+    .reasons-list { display:flex;flex-direction:column;gap:14px;margin-top:28px; }
+    .reason-item { display:flex;gap:16px;align-items:flex-start;background:#fff;border:1px solid var(--border);border-radius:10px;padding:18px 20px; }
+    .reason-num { width:30px;height:30px;background:var(--red);border-radius:50%;color:#fff;font-family:"IBM Plex Sans",sans-serif;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0; }
+    .reason-title { font-family:"IBM Plex Sans",sans-serif;font-size:14px;font-weight:700;color:var(--dark);margin-bottom:4px; }
+    .reason-desc { font-size:13px;color:var(--body);line-height:1.6; }
+
+    /* SUS SCORES */
+    .sus-grid { display:grid;grid-template-columns:1fr 1fr;gap:24px; }
+    .sus-card { border-radius:16px;padding:36px;text-align:center; }
+    .sus-card.st3 { background:var(--surface);border:1px solid var(--border); }
+    .sus-card.st4 { background:var(--red);border:1px solid var(--red); }
+    .sus-label { font-family:"IBM Plex Sans",sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px; }
+    .sus-card.st3 .sus-label { color:var(--body); }
+    .sus-card.st4 .sus-label { color:rgba(255,255,255,.7); }
+    .sus-score { font-family:"IBM Plex Sans",sans-serif;font-size:72px;font-weight:700;line-height:1; }
+    .sus-card.st3 .sus-score { color:var(--dark); }
+    .sus-card.st4 .sus-score { color:#fff; }
+    .sus-sublabel { font-size:13px;margin-top:6px; }
+    .sus-card.st3 .sus-sublabel { color:var(--body); }
+    .sus-card.st4 .sus-sublabel { color:rgba(255,255,255,.6); }
+
+    /* FEEDBACK QUOTES */
+    .quotes-grid { display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:28px; }
+    .quote-card { background:#fff;border:1px solid var(--border);border-left:3px solid var(--red);border-radius:0 10px 10px 0;padding:18px 20px; }
+    .quote-card.positive { border-left-color:#16A34A; }
+    .quote-card.positive .quote-meta { color:#16A34A; }
+    .quote-text { font-size:14px;color:var(--dark);line-height:1.7;font-style:italic;margin-bottom:10px; }
+    .quote-meta { font-size:11px;font-weight:600;color:var(--red);font-family:"IBM Plex Sans",sans-serif;text-transform:uppercase;letter-spacing:.8px; }
+
+    /* HEURISTIC */
+    .heuristic-card { background:#fff;border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:20px; }
+    .heuristic-feedback { background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px 16px;font-size:14px;color:var(--dark);font-style:italic;line-height:1.65;margin-bottom:16px; }
+    .heuristic-row { display:grid;grid-template-columns:1fr 1fr;gap:16px; }
+    .heuristic-half { border-radius:8px;padding:14px 16px; }
+    .heuristic-half.principle { background:rgba(211,31,36,.06);border:1px solid var(--red-mid); }
+    .heuristic-half.suggestion { background:#F0FBF5;border:1px solid #B8EAC8; }
+    .heuristic-half-label { font-family:"IBM Plex Sans",sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px; }
+    .heuristic-half.principle .heuristic-half-label { color:var(--red); }
+    .heuristic-half.suggestion .heuristic-half-label { color:#1A8040; }
+    .heuristic-half-text { font-size:13px;color:var(--body);line-height:1.65; }
+
+    /* VALUES */
+    .values-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:36px; }
+    .value-card { background:#fff;border:1px solid var(--border);border-radius:14px;padding:28px 22px;text-align:center;transition:all .25s; }
+    .value-card:hover { border-color:var(--red);box-shadow:0 6px 24px rgba(211,31,36,.1);transform:translateY(-3px); }
+    .value-icon { font-size:32px;margin-bottom:14px;display:block; }
+    .value-name { font-family:"IBM Plex Sans",sans-serif;font-size:15px;font-weight:700;color:var(--dark);margin-bottom:6px; }
+    .value-desc { font-size:13px;color:var(--body);line-height:1.55; }
+
+    /* LEARNINGS */
+    .learnings-list { display:flex;flex-direction:column;gap:14px;margin-top:28px; }
+    .learning-item { display:flex;gap:16px;align-items:flex-start; }
+    .learning-num { width:36px;height:36px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:"IBM Plex Sans",sans-serif;font-size:14px;font-weight:700;color:#fff;flex-shrink:0; }
+    .learning-title { font-family:"IBM Plex Sans",sans-serif;font-size:15px;font-weight:700;color:#fff;margin-bottom:4px; }
+    .learning-desc { font-size:14px;color:rgba(255,255,255,.55);line-height:1.7; }
+
+    /* CTA */
+    .cta { background:var(--dark);padding:80px 40px;text-align:center; }
+    .cta h2 { font-family:"IBM Plex Sans",sans-serif;font-size:28px;font-weight:700;color:#fff;margin-bottom:12px; }
+    .cta p { font-size:16px;color:rgba(255,255,255,.5);margin-bottom:30px; }
+    .cta-btns { display:flex;gap:14px;justify-content:center;flex-wrap:wrap; }
+    .btn-p { background:var(--red);color:#fff;font-family:"IBM Plex Sans",sans-serif;font-weight:700;font-size:14px;padding:13px 26px;border-radius:8px;display:inline-flex;align-items:center;gap:7px;transition:all .2s; }
+    .btn-p:hover { background:#B01A1F;color:#fff;transform:translateY(-2px); }
+    .btn-g { background:transparent;color:#fff;font-family:"IBM Plex Sans",sans-serif;font-weight:600;font-size:14px;padding:13px 26px;border-radius:8px;border:1px solid rgba(255,255,255,.2);display:inline-flex;align-items:center;gap:7px;transition:all .2s; }
+    .btn-g:hover { border-color:rgba(255,255,255,.45);background:rgba(255,255,255,.06);color:#fff; }
+
+    .back-to-top { position:fixed;right:22px;bottom:22px;z-index:996;background:var(--red);width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;visibility:hidden;opacity:0;transition:all .3s;text-decoration:none; }
+    .back-to-top.active { visibility:visible;opacity:1; }
+    .back-to-top:hover { background:#B01A1F;transform:translateY(-2px);color:#fff; }
+
+    @media(max-width:992px){
+      .hero-inner,.split,.split.flip { grid-template-columns:1fr; }
+      .hero-inner > div:last-child { display:none; }
+      .projects-grid { grid-template-columns:1fr 1fr; }
+      .nav .nav-tags { display:none; }
+    }
+    @media(max-width:640px){
+      .sec,.sec-full { padding:52px 20px; }
+      .nav { padding:0 20px; }
+      .hero-inner { padding:52px 20px; }
+      .hero-meta { flex-wrap:wrap; }
+      .hero-meta-item { flex:unset;width:50%;border-right:none;border-bottom:1px solid rgba(255,255,255,.08); }
+      .projects-grid,.stat-grid,.values-grid,.sus-grid,.quotes-grid,.heuristic-row { grid-template-columns:1fr; }
+      .cta { padding:52px 20px; }
+    }
   </style>
 </head>
+<body>
 
-<body class="example" style="background:black;width: 80%;margin: 0 auto;">
+<div id="progress"></div>
 
-  <div class="embedElementCenter" style="margin-top:-1%;">
-    <embed src="dist/images/enovationcontrols.png" width="100%" muted>
+<nav class="site-nav">
+  <a href="index.html" class="site-nav-logo">KC</a>
+  <div class="site-nav-links">
+    <a href="index.html">Home</a>
+    <a href="index.html#work" class="active">Work</a>
+    <a href="about.html">About</a>
+    <a href="https://www.linkedin.com/in/khushboo-chandnani" target="_blank">LinkedIn</a>
   </div>
+  <a href="mailto:khushboochandnanijobportfolio@gmail.com" class="site-nav-cta">Let's Talk</a>
+</nav>
 
-  
 
-  
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-badge"><i class="bi bi-briefcase-fill"></i> Summer 2023 · UX Internship</div>
+      <h1>Designing for<br><span>Industrial Displays</span><br>&amp; Digital Devices</h1>
+      <p class="hero-desc">9 weeks at Enovation Controls: a Helios Company: conducting usability research, heuristic analysis, and UX recommendations for hot tub, marine, and off-road vehicle displays.</p>
+      <div class="hero-meta">
+        <div class="hero-meta-item"><div class="hero-meta-lbl">Role</div><div class="hero-meta-val">UI/UX Design Intern</div></div>
+        <div class="hero-meta-item"><div class="hero-meta-lbl">Duration</div><div class="hero-meta-val">9 Weeks</div></div>
+        <div class="hero-meta-item"><div class="hero-meta-lbl">Location</div><div class="hero-meta-val">Oklahoma, In-person</div></div>
+        <div class="hero-meta-item"><div class="hero-meta-lbl">Tools</div><div class="hero-meta-val">Figma · Miro · Adobe XD</div></div>
+      </div>
+    </div>
+    <div class="hero-photos">
+      <img src="dist/images/enov_screens/hero_photos.png" alt="Enovation Controls Office & Team">
+    </div>
+  </div>
+</section>
 
-  
-  
-  <div id="preloader"></div>
 
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-  <script src="assets/vendor/purecounter/purecounter.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
+<!-- ABOUT ENOVATION -->
+<div class="bg-surface sec-full">
+  <div class="sec-full-inner">
+    <div class="split">
+      <div>
+        <span class="label">About the Company</span>
+        <h2 class="title">About Enovation Controls</h2>
+        <p class="body-text">Enovation Controls is a leading innovator in the field of <strong>electronic controls and displays</strong>. They specialize in providing customized solutions for engines, engine-driven equipment, and specialty vehicles.</p>
+        <p class="body-text">With a reputation for cutting-edge technology and problem-solving expertise, Enovation Controls serves niche markets by delivering integrated solutions that go beyond convention. They prioritize core values, empower their employees, and aim to make a positive impact on their customers' success.</p>
+        <div style="display:flex;gap:14px;margin-top:20px;flex-wrap:wrap;">
+          <div style="background:#fff;border:1px solid var(--border);border-radius:8px;padding:12px 18px;font-family:'IBM Plex Sans',sans-serif;font-size:13px;font-weight:600;color:var(--dark);"><i class="bi bi-cpu" style="color:var(--red);margin-right:6px;"></i>Electronic Controls</div>
+          <div style="background:#fff;border:1px solid var(--border);border-radius:8px;padding:12px 18px;font-family:'IBM Plex Sans',sans-serif;font-size:13px;font-weight:600;color:var(--dark);"><i class="bi bi-display" style="color:var(--red);margin-right:6px;"></i>Digital Displays</div>
+          <div style="background:#fff;border:1px solid var(--border);border-radius:8px;padding:12px 18px;font-family:'IBM Plex Sans',sans-serif;font-size:13px;font-weight:600;color:var(--dark);"><i class="bi bi-car-front" style="color:var(--red);margin-right:6px;"></i>Specialty Vehicles</div>
+        </div>
+      </div>
+      <div>
+        <img src="dist/images/Enovation.png" alt="Enovation Controls Logo" style="border-radius:14px;box-shadow:0 16px 48px rgba(0,0,0,.1);">
+      </div>
+    </div>
+  </div>
+</div>
 
-  <!-- Template Main JS File -->
-  <script src="dist/js/main.min.js"></script>
-  <script src="dist/js/main.js"></script>
-  <script>
-    // Code to capture all videos on the page
-    const videos = document.querySelectorAll(".embedElementCenter .video_element_test");
-    
-    //Code to force autoplay on all devices
-    for (const video of videos) {
-         video.setAttribute("playsinline", "");
-         video.setAttribute("muted", "");
-         video.play();
-    }
-    </script>
+
+<!-- 6 PROJECTS -->
+<section class="sec" id="projects">
+  <span class="label">Scope of Work</span>
+  <h2 class="title">Worked on 6 Core Client Projects</h2>
+  <p class="body-text" style="max-width:680px;">Across 9 weeks, I contributed to six distinct client projects spanning hot tubs, speedboats, off-road vehicles, simulators, and marine apps.</p>
+
+  <div class="projects-grid">
+    <div class="project-card">
+      <div class="project-num">1</div>
+      <div class="project-name">Balboa Spa Touch 3 &amp; 4</div>
+      <p class="project-desc">Conduct user testing for SpaTouch 3 and 4 to find out issues and provide suggestions for future products.</p>
+      <div class="project-resp-label">Key Responsibilities</div>
+      <ul class="project-resp">
+        <li>Conduct user interviews and understand user requirements</li>
+        <li>Perform qualitative analysis on the data gathered</li>
+        <li>Provide UX suggestions to improve the interface look &amp; usability</li>
+        <li>Prepare documentation and presentation on the results gathered</li>
+      </ul>
+    </div>
+    <div class="project-card">
+      <div class="project-num">2</div>
+      <div class="project-name">Supra Trifecta MY22</div>
+      <p class="project-desc">Design usability issues of the interfaces and provide suggestions for the Supra MY24 speedboat display.</p>
+      <div class="project-resp-label">Key Responsibilities</div>
+      <ul class="project-resp">
+        <li>Performance analysis to find out other speed boat features</li>
+        <li>Draw Information Architecture and User Persona</li>
+        <li>Design interactive and user-friendly user flows</li>
+      </ul>
+    </div>
+    <div class="project-card">
+      <div class="project-num">3</div>
+      <div class="project-name">Storyteller &amp; GXV</div>
+      <p class="project-desc">Redesign high-fidelity mockups based on client feedback received.</p>
+      <div class="project-resp-label">Key Responsibilities</div>
+      <ul class="project-resp">
+        <li>Check the feedback/comments received by client</li>
+        <li>Redesign the screens to address the feedback received</li>
+        <li>Export design components to the development team</li>
+      </ul>
+    </div>
+    <div class="project-card">
+      <div class="project-num">4</div>
+      <div class="project-name">Haku Off Road Vehicle</div>
+      <p class="project-desc">Design Search Trail and Trim track features and improve the UX of the current system.</p>
+      <div class="project-resp-label">Key Responsibilities</div>
+      <ul class="project-resp">
+        <li>Wireframe the Search Trail and Trim track feature screens</li>
+        <li>Perform competitive analysis to identify essential features</li>
+        <li>Provide UX suggestions to improve the system design</li>
+        <li>Create interactions to show the user journey of both features</li>
+      </ul>
+    </div>
+    <div class="project-card">
+      <div class="project-num">5</div>
+      <div class="project-name">Caribou Simulator</div>
+      <p class="project-desc">Design a simulator testing system used by Enovation's internal development team.</p>
+      <div class="project-resp-label">Key Responsibilities</div>
+      <ul class="project-resp">
+        <li>Wireframe the simulator screens with multiple iterations</li>
+        <li>Designed different interactive button states with color variations</li>
+        <li>Designed tell-tale icons for different signals</li>
+        <li>Exported design components to the development team</li>
+      </ul>
+    </div>
+    <div class="project-card">
+      <div class="project-num">6</div>
+      <div class="project-name">Marine App</div>
+      <p class="project-desc">Conceptualize and wireframe a waves app that integrates with boats in real-time.</p>
+      <div class="project-resp-label">Key Responsibilities</div>
+      <ul class="project-resp">
+        <li>Conduct research and competitive analysis on the marine apps</li>
+        <li>Sketch the screens and work on the user flow</li>
+        <li>Wireframe the finalized screens along with interactions</li>
+        <li>Discuss the boat device interface that aligns with the marine app design</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+
+<!-- BALBOA DEEP DIVE -->
+<div class="bg-surface sec-full" id="balboa">
+  <div class="sec-full-inner">
+    <div class="split">
+      <div>
+        <span class="label">Deep Dive: Project 1</span>
+        <h2 class="title">Balboa Spa Touch 3 &amp; 4<br>(Hot Tub Display)</h2>
+        <p class="body-text">Balboa Spa Touch is a top-quality hot tub control panel with reliable Piezo electronic switch technology and moisture protection, making it a durable and dependable choice for the spa.</p>
+        <p class="body-text"><strong>My Responsibility:</strong> Identify usability issues in Spa Touch 3 and Spa Touch 4 displays, and offer user experience recommendations to enhance the usability of the Spa Touch 4 Display (to be released to market).</p>
+      </div>
+      <div class="screen">
+        <img src="dist/images/enov_screens/spa_devices.png" alt="Spa Touch 3 and Spa Touch 4">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- IMPACT -->
+<section class="sec" id="impact">
+  <span class="label">Results</span>
+  <h2 class="title">Valuable Impact</h2>
+  <p class="body-text" style="max-width:640px;">The project's objective was to identify usability issues and offer recommendations for enhancing the upcoming product's functionality. I focused on refining the product's user-friendliness and efficiency.</p>
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-num">80%</div>
+      <div class="stat-desc">Boost in user-centric impact through research-driven design recommendations</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">40%</div>
+      <div class="stat-desc">Overall product improvement across interface, interactions, and icon clarity</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">95%</div>
+      <div class="stat-desc">Increase in efficiency by streamlining navigation and reducing cognitive load</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- WHY IMPORTANT -->
+<div class="bg-surface sec-full" id="why">
+  <div class="sec-full-inner">
+    <span class="label">Context</span>
+    <h2 class="title">Why was this user study important?</h2>
+    <div class="reasons-list">
+      <div class="reason-item">
+        <div class="reason-num">1</div>
+        <div><div class="reason-title">Lack of User Experience Designer in the team</div><div class="reason-desc" style="font-size:13px;color:var(--body);line-height:1.6;">The team lacked a dedicated User Experience Designer, which means that they never approached product design with a strong focus on user-centered principles.</div></div>
+      </div>
+      <div class="reason-item">
+        <div class="reason-num">2</div>
+        <div><div class="reason-title">No Usability Testing History</div><div class="reason-desc" style="font-size:13px;color:var(--body);line-height:1.6;">The team did not conduct usability tests on our products' displays before launch, potentially leading to usability issues that went unnoticed.</div></div>
+      </div>
+      <div class="reason-item">
+        <div class="reason-num">3</div>
+        <div><div class="reason-title">ST3 Usability Problems</div><div class="reason-desc" style="font-size:13px;color:var(--body);line-height:1.6;">The launch of ST3 in the market was marred by significant usability issues, as reported by clients who provided feedback.</div></div>
+      </div>
+      <div class="reason-item">
+        <div class="reason-num">4</div>
+        <div><div class="reason-title">ST4 Design Improvement</div><div class="reason-desc" style="font-size:13px;color:var(--body);line-height:1.6;">While improvements have been made to the User Interface (UI) of ST4, the team hasn't yet identified and addressed any potential usability issues.</div></div>
+      </div>
+      <div class="reason-item">
+        <div class="reason-num">5</div>
+        <div><div class="reason-title">Client Expectation for ST4</div><div class="reason-desc" style="font-size:13px;color:var(--body);line-height:1.6;">The client has expressed a strong desire for ST4 to set a new standard in user-friendliness, encompassing both User Interface (UI) and User Experience (UX) aspects.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- UX PROCESS -->
+<section class="sec" id="process">
+  <span class="label">Methodology</span>
+  <h2 class="title">UX Process Timeline</h2>
+  <p class="body-text" style="max-width:640px;">An 8-week structured process from understanding the problem to presenting actionable UX recommendations.</p>
+  <div class="screen-full">
+    <img src="dist/images/enov_screens/ux_timeline.png" alt="UX Process Timeline">
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:28px;">
+    <div style="background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center;"><div style="font-family:'IBM Plex Sans',sans-serif;font-size:12px;font-weight:700;color:var(--red);margin-bottom:5px;">WEEK 1–2</div><div style="font-size:13px;color:var(--dark);font-weight:600;">Understand &amp; Plan</div></div>
+    <div style="background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center;"><div style="font-family:'IBM Plex Sans',sans-serif;font-size:12px;font-weight:700;color:var(--red);margin-bottom:5px;">WEEK 3–4</div><div style="font-size:13px;color:var(--dark);font-weight:600;">Recruit &amp; Interview</div></div>
+    <div style="background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center;"><div style="font-family:'IBM Plex Sans',sans-serif;font-size:12px;font-weight:700;color:var(--red);margin-bottom:5px;">WEEK 5–6</div><div style="font-size:13px;color:var(--dark);font-weight:600;">Analysis &amp; Ideation</div></div>
+    <div style="background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center;"><div style="font-family:'IBM Plex Sans',sans-serif;font-size:12px;font-weight:700;color:var(--red);margin-bottom:5px;">WEEK 7–8</div><div style="font-size:13px;color:var(--dark);font-weight:600;">Documentation &amp; Presentation</div></div>
+  </div>
+</section>
+
+
+<!-- PRIMARY ISSUES + RESEARCH -->
+<div class="bg-surface sec-full" id="research">
+  <div class="sec-full-inner">
+    <div class="split top">
+      <div>
+        <span class="label">Discovery</span>
+        <h2 class="title">Identified Primary Issues<br>(Prior to Interviews)</h2>
+        <p class="body-text">Before conducting user interviews to gather insights into ST3 and ST4, my initial step involved identifying the user interface and user experience issues within these products. This preliminary assessment allowed me to become well acquainted with the existing problems and features, enabling me to engage with users more effectively during the interview process.</p>
+        <h3 style="font-family:'IBM Plex Sans',sans-serif;font-size:17px;font-weight:700;color:var(--dark);margin-top:28px;margin-bottom:14px;">Conducted User Interviews</h3>
+        <p class="body-text">Conducted 16 user interviews across departments and age groups within Enovation Controls. To ensure integrity and minimize potential bias, interviews were segmented into different study sequences.</p>
+      </div>
+      <div class="screen">
+        <img src="dist/images/enov_screens/research_photos.png" alt="Affinity mapping and research">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- TASK ANALYSIS -->
+<section class="sec" id="tasks">
+  <div class="split">
+    <div>
+      <span class="label">Think Aloud</span>
+      <h2 class="title">Task Based <br>Think Aloud Analysis</h2>
+      <p class="body-text">I conducted interviews lasting approximately 30 to 45 minutes, during which I divided the studies into various tasks. I asked participants to complete these tasks while recording the time it took them to do so.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px;">
+        <div style="background:var(--red-lt);border:1px solid var(--red-mid);border-radius:12px;padding:22px;text-align:center;"><div style="font-family:'IBM Plex Sans',sans-serif;font-size:36px;font-weight:700;color:var(--red);line-height:1;">10</div><div style="font-size:13px;color:var(--body);margin-top:6px;">Tasks for ST3 and ST4</div></div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:22px;text-align:center;"><div style="font-family:'IBM Plex Sans',sans-serif;font-size:36px;font-weight:700;color:var(--dark);line-height:1;">16</div><div style="font-size:13px;color:var(--body);margin-top:6px;">User Interviews</div></div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:22px;text-align:center;"><div style="font-family:'IBM Plex Sans',sans-serif;font-size:36px;font-weight:700;color:var(--dark);line-height:1;">4.9<span style="font-size:18px;">min</span></div><div style="font-size:13px;color:var(--body);margin-top:6px;">Avg time per task: ST3</div></div>
+        <div style="background:var(--red-lt);border:1px solid var(--red-mid);border-radius:12px;padding:22px;text-align:center;"><div style="font-family:'IBM Plex Sans',sans-serif;font-size:36px;font-weight:700;color:var(--red);line-height:1;">3.2<span style="font-size:18px;">min</span></div><div style="font-size:13px;color:var(--body);margin-top:6px;">Avg time per task: ST4</div></div>
+      </div>
+    </div>
+    <div class="screen">
+      <img src="dist/images/enov_screens/task_analysis.png" alt="Task list and interview breakdown">
+    </div>
+  </div>
+</section>
+
+
+<!-- INTERACTION MAPS -->
+<div class="bg-surface sec-full" id="maps">
+  <div class="sec-full-inner">
+    <span class="label">Analysis</span>
+    <h2 class="title">Prepared Interaction Maps</h2>
+    <p class="body-text" style="max-width:700px;">I've created interaction maps for both ST3 and ST4. Upon analysis, I've observed that the interaction flow in ST3 appears to be more complex, with multiple interactions requiring more than two clicks. In contrast, ST4 exhibits a more streamlined and organized interface, characterized by interactions that typically involve just two clicks.</p>
+    <div class="screen-full">
+      <img src="dist/images/enov_screens/interaction_maps.png" alt="ST3 and ST4 Interaction Maps">
+    </div>
+  </div>
+</div>
+
+
+<!-- QUALITATIVE DATA -->
+<section class="sec" id="qualitative">
+  <div class="split top">
+    <div>
+      <span class="label">Research Synthesis</span>
+      <h2 class="title">Analysed Qualitative Data</h2>
+      <p class="body-text">Following the completion of all interviews and gathering user feedback on ST3 and ST4, I meticulously documented the positive aspects, identified pain points, and collected suggestions from participants.</p>
+      <p class="body-text">I then organized these suggestions into distinct feature sets, color-coded them for clarity, and conducted a comprehensive analysis of the identified issues.</p>
+    </div>
+    <div class="screen">
+      <img src="dist/images/enov_screens/qualitative_data.png" alt="Qualitative data affinity map">
+    </div>
+  </div>
+</section>
+
+
+<!-- USER FEEDBACK QUOTES -->
+<div class="bg-surface sec-full" id="feedback">
+  <div class="sec-full-inner">
+    <span class="label">User Voice</span>
+    <h2 class="title">User Feedback Highlights</h2>
+    <p class="body-text" style="max-width:640px;">After conducting all interviews, I jotted down all the positive and negative points received from each participant: capturing both what worked and what needed improvement.</p>
+    <div class="quotes-grid">
+      <div class="quote-card">
+        <p class="quote-text">"I am confused between the different names and settings of the lights. No idea about different light names."</p>
+        <div class="quote-meta">Study 4 · ST4 · P8</div>
+      </div>
+      <div class="quote-card positive">
+        <p class="quote-text">"I love the command and fluidity of ST4 and the Air Features is really cool."</p>
+        <div class="quote-meta">Study 2 · ST4 · P8</div>
+      </div>
+      <div class="quote-card">
+        <p class="quote-text">"The filter cycle time and change time scrolls doesn't start from the current set time, it's unreliable, they always start from 0:00."</p>
+        <div class="quote-meta">Study 5 · ST4 · P4</div>
+      </div>
+      <div class="quote-card positive">
+        <p class="quote-text">"The jet speed design is intuitive. I like the icon wider spreading illustration."</p>
+        <div class="quote-meta">Study 21 · ST4 · P19</div>
+      </div>
+      <div class="quote-card" style="grid-column:1/-1;max-width:560px;">
+        <p class="quote-text">"I'm using the system for the first time, I wouldn't know what the icons on the top indicate."</p>
+        <div class="quote-meta">Study 41 · ST4 · P25</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- SUS SCORES -->
+<section class="sec" id="sus">
+  <div class="split">
+    <div>
+      <span class="label">Usability Benchmarking</span>
+      <h2 class="title">System Usability<br>Score (SUS)</h2>
+      <p class="body-text">After each interview, I provided the System Usability Scale form to all users and asked them to provide feedback by giving the scores for all 10 questions for both ST3 and ST4.</p>
+      <p class="body-text">After calculating the average score both ST3 and ST4 lie in the <strong>Marginal</strong> range: providing a clear baseline for improvement recommendations.</p>
+    </div>
+    <div class="sus-grid">
+      <div class="sus-card st3">
+        <div class="sus-label">ST3 Score</div>
+        <div class="sus-score">56.23</div>
+        <div class="sus-sublabel">Avg ST3 Score: Marginal</div>
+      </div>
+      <div class="sus-card st4">
+        <div class="sus-label">ST4 Score</div>
+        <div class="sus-score">68.54</div>
+        <div class="sus-sublabel">Avg ST4 Score: Marginal</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- HEURISTIC ANALYSIS -->
+<div class="bg-surface sec-full" id="heuristic">
+  <div class="sec-full-inner">
+    <div class="split top">
+      <div>
+        <span class="label">UX Recommendations</span>
+        <h2 class="title">Performed Heuristic Analysis</h2>
+        <p class="body-text">After analyzing the issues and in order to increase the efficiency and score of upcoming ST4 launch, I performed a heuristic analysis on the gathered information. It was essential to gain an in-depth understanding of the issues that users encountered while interacting with the systems so I can help pinpoint areas in which improvements are needed.</p>
+
+        <div class="heuristic-card" style="margin-top:28px;">
+          <div class="heuristic-feedback">"The top bar indicators O3, I8, Cleanup and Filter cycle doesn't indicate the icons mean.": <strong>P3</strong></div>
+          <div class="heuristic-row">
+            <div class="heuristic-half principle"><div class="heuristic-half-label">Heuristic Violated</div><div class="heuristic-half-text"><strong>Visibility of system status</strong>: Indicators should have a pressed state tooltip that indicates the names of the icons as in ST3.</div></div>
+            <div class="heuristic-half suggestion"><div class="heuristic-half-label">Proposed UX Suggestion</div><div class="heuristic-half-text">Users should be able to identify the indicators' functionality easily without much cognitive load.</div></div>
+          </div>
+        </div>
+
+        <div class="heuristic-card">
+          <div class="heuristic-feedback">"Third jet speed starts in high-speed state hence it is difficult to analyze first and second jet speeds.": <strong>P9</strong></div>
+          <div class="heuristic-row">
+            <div class="heuristic-half principle"><div class="heuristic-half-label">Heuristic Violated</div><div class="heuristic-half-text"><strong>Consistency and standards</strong>: It is consistent to achieve the same design and functionality throughout a product.</div></div>
+            <div class="heuristic-half suggestion"><div class="heuristic-half-label">Proposed UX Suggestion</div><div class="heuristic-half-text">All the jets should have two speed modes: low and high, and show status "Jet 1 Low speed" so users can easily understand.</div></div>
+          </div>
+        </div>
+        <div class="heuristic-card">
+          <div class="heuristic-feedback">"I don't understand that 1, 2, 3, 4 are buttons to set the customized states. The icon looks like a download more than a save button.": <strong>P13</strong></div>
+          <div class="heuristic-row">
+            <div class="heuristic-half principle"><div class="heuristic-half-label">Heuristic Violated</div><div class="heuristic-half-text"><strong>Recognition rather than recall</strong>: Users should be able to understand the functionalities and features without clicking on a specific button.</div></div>
+            <div class="heuristic-half suggestion"><div class="heuristic-half-label">Proposed UX Suggestion</div><div class="heuristic-half-text">The numbers should be unfilled/white and when a customization is applied the number should be filled and the save icon should appear right beside it.</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="screen">
+        <img src="dist/images/enov_screens/heuristic_1.png" alt="Heuristic Analysis Screens">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- LEARNINGS -->
+<div class="bg-dark sec-full" id="learnings">
+  <div class="sec-full-inner">
+    <div class="split top">
+      <div>
+        <span class="label" style="color:rgba(255,255,255,.45);">Reflection</span>
+        <h2 class="title" style="color:#fff;">My Internship<br>Learnings</h2>
+        <div class="learnings-list">
+          <div class="learning-item">
+            <div class="learning-num">1</div>
+            <div>
+              <div class="learning-title">Designing Beyond Conventional Mobile &amp; Web Interfaces</div>
+              <div class="learning-desc">During my internship, I gained valuable insights into pushing the boundaries of design by exploring digital and non-traditional approaches for mobile and web interfaces.</div>
+            </div>
+          </div>
+          <div class="learning-item">
+            <div class="learning-num">2</div>
+            <div>
+              <div class="learning-title">Enhancing Interview and Qualitative Analysis Proficiency</div>
+              <div class="learning-desc">I honed my interviewing and qualitative analysis skills during my internship, enabling me to better understand user preferences and behaviors to inform design decisions.</div>
+            </div>
+          </div>
+          <div class="learning-item">
+            <div class="learning-num">3</div>
+            <div>
+              <div class="learning-title">Navigating Stringent Deadlines and Delivering Under Pressure</div>
+              <div class="learning-desc">I honed my ability to effectively manage and execute tasks within demanding timeframes, ensuring timely project deliveries even under stringent deadlines.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="screen">
+        <img src="dist/images/enov_screens/team_photo.png" alt="Enovation team photo">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- CTA -->
+<section class="cta">
+  <h2>Overall, had an amazing internship experience 🧡</h2>
+  <p>Interested in my work? Let's connect and talk about design.</p>
+  <div class="cta-btns">
+    <a href="mailto:khushboochandnanijobportfolio@gmail.com" class="btn-p"><i class="bi bi-envelope-fill"></i> Get in Touch</a>
+    <a href="index.html" class="btn-g"><i class="bi bi-grid-3x3-gap"></i> All Projects</a>
+    <a href="https://www.linkedin.com/in/khushboo-chandnani" target="_blank" class="btn-g"><i class="bi bi-linkedin"></i> LinkedIn</a>
+  </div>
+</section>
+
+
+<a href="#top" class="back-to-top" id="backToTop"><i class="bi bi-arrow-up-short"></i></a>
+
+<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script>
+  window.addEventListener('scroll', function () {
+    const st = document.documentElement.scrollTop;
+    const sh = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    document.getElementById('progress').style.width = (st / sh * 100) + '%';
+    document.getElementById('backToTop').classList.toggle('active', st > 300);
+  });
+</script>
 </body>
-
 </html>

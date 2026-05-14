@@ -1,550 +1,801 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-   
-<meta property=’og:image’ content="https://ibb.co/2Kyk9tn/">
-<meta property='og:image:width' content='1200' />
-<meta property='og:image:height' content='627' />
-    <title>KC Portfolio</title>
-    <link href="https://fonts.googleapis.com/css?family=Heebo:400,700|IBM+Plex+Sans:600" rel="stylesheet">
-
-    <!-- Favicons -->
- <link href="dist/images/KC.png" rel="icon">
-    
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <meta charset="utf-8">
+  <script>(function(){var t=localStorage.getItem('kc-theme')||(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);})();</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>KC: Product Designer</title>
+  <meta name="description" content="Khushboo Chandnani: Sr. Product Designer at Intuit. UX portfolio covering healthcare, fintech, and consumer apps.">
+  <link href="dist/images/favicon.svg" rel="icon" type="image/svg+xml">
+  <link href="dist/images/favicon.svg" rel="shortcut icon">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="dist/css/previous_style.css">
-    <link rel="stylesheet" href="dist/css/style.css">
-    
-    
-    <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
-    <style>
-   @media (max-width: 480px) {
-      .tags{
-       display: none;
-      }
-    .text-xs > span{
-        display:none;
-      }
-    .lights-toggle{
-        margin-top:-20%;
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    html, body { overflow-x: hidden; }
+    body { font-family: "Inter", sans-serif; background: #FAFAFA; color: #4A4A5A; line-height: 1.6; }
+    h1,h2,h3,h4,h5 { font-family: "IBM Plex Sans", sans-serif; color: #0D0D18; line-height: 1.15; }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+
+    :root {
+      --accent:    #5B5BD6;
+      --accent-lt: #EDEDFB;
+      --accent-md: #C7C7F5;
+      --dark:      #0D0D18;
+      --muted:     #6B7280;
+      --border:    #E5E7EB;
+      --surface:   #FFFFFF;
+      --bg:        #FAFAFA;
     }
-   }
-    </style>
-   
+
+    /* ── NAV ──────────────────────────────────────────── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: rgba(255,255,255,.85); backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(229,231,235,.7);
+      padding: 0 40px; height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; font-family: "IBM Plex Sans", sans-serif; font-weight: 700; font-size: 16px; color: var(--dark); }
+
+    .nav-links { display: flex; align-items: center; gap: 30px; }
+    .nav-links a { font-size: 14px; font-weight: 500; color: var(--muted); transition: color .2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--dark); }
+    .nav-cta { background: var(--dark); color: #fff; font-size: 13px; font-weight: 600; padding: 8px 18px; border-radius: 8px; font-family: "IBM Plex Sans", sans-serif; transition: all .2s; }
+    .nav-cta:hover { background: var(--accent); color: #fff; transform: translateY(-1px); box-shadow: 0 4px 14px rgba(91,91,214,.3); }
+
+    /* ── HERO ─────────────────────────────────────────── */
+    .hero {
+      min-height: 100vh; padding-top: 64px;
+      display: flex; align-items: center;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, #DDDDF8 0%, #EEEEFB 30%, #F8F8FE 60%, #FAFAFA 100%);
+      position: relative; overflow: hidden;
+    }
+    .hero-inner {
+      max-width: 1100px; margin: 0 auto; padding: 80px 40px;
+      position: relative; z-index: 1; text-align: center;
+    }
+    .hero-greeting { font-family: "IBM Plex Sans", sans-serif; font-size: 18px; font-weight: 600; color: var(--dark); margin-bottom: 16px; letter-spacing: -.2px; }
+    .hero-avail {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #ECFDF5; border: 1px solid #A7F3D0; color: #065F46;
+      font-size: 12px; font-weight: 600; padding: 5px 13px; border-radius: 20px;
+      margin: 0 auto 24px; font-family: "IBM Plex Sans", sans-serif; width: fit-content;
+    }
+    .hero-avail-dot { width: 7px; height: 7px; background: #10B981; border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.8)} }
+    .hero h1 { font-size: clamp(38px, 4.5vw, 58px); font-weight: 700; color: var(--dark); margin-bottom: 16px; letter-spacing: -.6px; line-height: 1.08; }
+    .hero h1 em {
+      font-style: normal;
+      background: linear-gradient(90deg, #7C3AED 0%, #C026D3 55%, #EC4899 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sticker {
+      position: absolute; top: 128px; right: 7%; z-index: 5;
+      background: linear-gradient(160deg, #FFFBEB 0%, #FEF9C3 100%);
+      padding: 18px 20px 20px;
+      border-radius: 2px;
+      border-top: 5px solid #F59E0B;
+      box-shadow: 3px 8px 28px rgba(245,158,11,.18), 0 2px 6px rgba(0,0,0,.09);
+      transform: rotate(-6deg);
+      transition: transform .35s cubic-bezier(.34,1.56,.64,1);
+      text-align: left; width: 162px; cursor: default;
+    }
+    .hero-sticker:hover { transform: rotate(0deg) scale(1.04); }
+    .hero-sticker::before {
+      content: ''; position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+      width: 40px; height: 20px;
+      background: rgba(148,148,148,.3); border-radius: 2px;
+    }
+    .hero-sticker-label { font-family: "IBM Plex Sans", sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase; color: #D97706; display: block; margin-bottom: 10px; }
+    .hero-sticker-role { font-family: "IBM Plex Sans", sans-serif; font-size: 15px; font-weight: 800; color: #1C1917; line-height: 1.25; display: block; }
+    .hero-sticker-divider { display: block; height: 1.5px; background: linear-gradient(90deg,#FCD34D,#FDE68A); margin: 10px 0; border-radius: 2px; }
+    .hero-sticker-co { font-family: "IBM Plex Sans", sans-serif; font-size: 13px; font-weight: 800; display: inline-flex; align-items: center; gap: 5px; color: #0077C5; text-decoration: none; transition: color .2s; }
+    .hero-sticker-co::after { content: '↗'; font-size: 11px; opacity: .7; }
+    .hero-sticker-co:hover { color: #005EA6; text-decoration: underline; }
+    @media (max-width: 900px) { .hero-sticker { display: none; } }
+    .hero-sub { font-size: 15px; color: var(--muted); line-height: 1.75; margin: 0 auto 24px; max-width: 640px; }
+    .hero-tags { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 28px; }
+    .hero-tag { display: inline-flex; align-items: center; gap: 7px; font-size: 12.5px; font-weight: 700; border-radius: 30px; padding: 7px 16px; font-family: "IBM Plex Sans", sans-serif; box-shadow: 0 2px 10px rgba(0,0,0,.09); transition: transform .3s cubic-bezier(.34,1.56,.64,1), box-shadow .25s; cursor: default; }
+    .hero-tag:hover { transform: scale(1.1) !important; box-shadow: 0 6px 20px rgba(0,0,0,.14); }
+    .hero-tag:nth-child(1) { background: #F3E8FF; color: #6D28D9; transform: rotate(-2deg); }
+    .hero-tag:nth-child(2) { background: #DBEAFE; color: #1D4ED8; transform: rotate(1.5deg); }
+    .hero-tag:nth-child(3) { background: #DCFCE7; color: #15803D; transform: rotate(-1.5deg); }
+    .hero-tag:nth-child(4) { background: #FEF3C7; color: #B45309; transform: rotate(2deg); }
+    .hero-tag:nth-child(5) { background: #FCE7F3; color: #BE185D; transform: rotate(-1deg); }
+    .hero-tag:nth-child(6) { background: #FFEDD5; color: #C2410C; transform: rotate(1.5deg); }
+    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 44px; justify-content: center; }
+    .btn-primary { background: var(--dark); color: #fff; font-family: "IBM Plex Sans", sans-serif; font-weight: 600; font-size: 14px; padding: 12px 24px; border-radius: 9px; display: inline-flex; align-items: center; gap: 8px; transition: all .22s; }
+    .btn-primary:hover { background: var(--accent); color: #fff; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(91,91,214,.32); }
+    .btn-ghost { background: transparent; color: var(--dark); font-family: "IBM Plex Sans", sans-serif; font-weight: 600; font-size: 14px; padding: 12px 24px; border-radius: 9px; border: 1.5px solid var(--border); display: inline-flex; align-items: center; gap: 8px; transition: all .22s; }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-lt); }
+    .hero-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 0; background: var(--bg); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+    .hero-stat { padding: 16px 14px; border-right: 1px solid var(--border); text-align: center; }
+    .hero-stat:last-child { border-right: none; }
+    .hero-stat-num { font-family: "IBM Plex Sans", sans-serif; font-size: 24px; font-weight: 700; color: var(--dark); }
+    .hero-stat-lbl { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+    /* ── COMPANIES ────────────────────────────────────── */
+    /* ── CAREER TIMELINE ─────────────────────────────── */
+    .companies { background: var(--bg); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 80px 40px; overflow: hidden; }
+    .companies-inner { max-width: 1180px; margin: 0 auto; }
+    .companies-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.8px; color: var(--muted); text-align: center; margin-bottom: 56px; font-family: "IBM Plex Sans", sans-serif; }
+    .htl { position: relative; display: flex; align-items: flex-start; justify-content: space-between; gap: 0; }
+    .htl::before { content: ''; position: absolute; top: 52px; left: 40px; right: 40px; height: 2px; background: linear-gradient(90deg, var(--accent) 0%, var(--accent-md) 100%); z-index: 0; }
+    .htl-item { display: flex; flex-direction: column; align-items: center; position: relative; z-index: 1; flex: 1; padding: 0 16px; text-decoration: none; }
+    .htl-logo { height: 48px; width: auto; max-width: 130px; object-fit: contain; transition: transform .3s cubic-bezier(.34,1.56,.64,1); margin-bottom: 20px; }
+    .htl-item:hover .htl-logo { transform: scale(1.12); }
+    .htl-dates { font-family: "IBM Plex Sans", sans-serif; font-size: 13px; font-weight: 600; color: var(--accent); letter-spacing: .4px; margin-bottom: 6px; text-align: center; white-space: nowrap; }
+    .htl-company { font-family: "IBM Plex Sans", sans-serif; font-size: 14px; font-weight: 700; color: var(--dark); margin-bottom: 4px; text-align: center; }
+    .htl-role { font-size: 12px; color: var(--muted); text-align: center; line-height: 1.4; }
+
+    /* ── SECTION SHARED ───────────────────────────────── */
+    .section { padding: 96px 40px; }
+    .section-inner { max-width: 1180px; margin: 0 auto; }
+    .section-tag { font-family: "IBM Plex Sans", sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 10px; }
+    .section-title { font-size: clamp(26px, 3vw, 36px); font-weight: 700; margin-bottom: 12px; color: var(--dark); }
+    .section-sub { font-size: 15px; color: var(--muted); max-width: 540px; line-height: 1.78; }
+    .section-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 52px; }
+    .section-header-left { flex: 1; }
+    .see-all { font-family: "IBM Plex Sans", sans-serif; font-size: 13px; font-weight: 600; color: var(--accent); display: inline-flex; align-items: center; gap: 5px; transition: gap .2s; }
+    .see-all:hover { gap: 9px; }
+
+    /* ── PROJECTS ─────────────────────────────────────── */
+    .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .project-card {
+      border: 1px solid var(--border); border-radius: 18px;
+      transition: border-color .3s, box-shadow .3s; cursor: pointer; position: relative;
+    }
+    .card-link { position: absolute; inset: 0; z-index: 1; }
+    .project-card-footer { position: relative; z-index: 2; }
+    .project-card:hover { box-shadow: 0 24px 60px rgba(0,0,0,.1); border-color: rgba(91,91,214,.2); }
+    .project-card-inner { background: var(--surface); border-radius: 18px; overflow: hidden; transition: transform .3s; }
+    .project-card:hover .project-card-inner { transform: translateY(-5px); }
+    .project-card-img { overflow: hidden; background: var(--bg); position: relative; }
+    .project-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
+    .project-card:hover .project-card-img img { transform: scale(1.05); }
+    .project-card-body { padding: 24px 26px 26px; }
+    .project-card-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+    .project-tag { font-size: 12px; font-weight: 600; font-family: "IBM Plex Sans", sans-serif; padding: 4px 11px; border-radius: 20px; background: var(--bg); border: 1px solid var(--border); color: var(--muted); letter-spacing: .2px; }
+    .project-card-title { font-size: 21px; font-weight: 700; color: var(--dark); margin-bottom: 10px; }
+    .project-card-desc { display: none; }
+    .project-card-metrics { list-style: none; padding: 0; margin: 0 0 20px; display: flex; flex-direction: column; gap: 7px; }
+    .project-card-metrics li { font-size: 13px; color: var(--muted); font-family: "IBM Plex Sans", sans-serif; display: flex; align-items: center; gap: 10px; line-height: 1.4; }
+    .project-card-metrics strong { display: inline-flex; align-items: center; justify-content: center; background: var(--accent-lt); color: var(--accent); font-weight: 700; font-size: 12px; padding: 3px 10px; border-radius: 20px; white-space: nowrap; flex-shrink: 0; border: 1px solid var(--accent-md); }
+    .project-card-footer { display: flex; align-items: center; justify-content: space-between; }
+    .project-card-cta { display: inline-flex; align-items: center; gap: 6px; font-family: "IBM Plex Sans", sans-serif; font-size: 14px; font-weight: 700; color: var(--accent); transition: gap .2s; }
+    .project-card-cta:hover { gap: 10px; }
+    .project-role-badge { font-size: 12px; color: var(--muted); font-family: "IBM Plex Sans", sans-serif; background: var(--bg); border: 1px solid var(--border); padding: 4px 11px; border-radius: 6px; }
+    .project-card.locked .project-card-img::after {
+      content: '🔒  NDA Protected'; position: absolute; inset: 0;
+      background: rgba(13,13,24,.52); backdrop-filter: blur(5px);
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-family: "IBM Plex Sans", sans-serif; font-size: 13px; font-weight: 600; letter-spacing: .5px;
+    }
+    /* All cards use horizontal featured layout */
+    .projects-grid { grid-template-columns: 1fr; }
+    .project-card { grid-column: auto; }
+    .project-card-inner { display: grid; grid-template-columns: 1fr 1.4fr; }
+    .project-card-img { aspect-ratio: auto; min-height: 220px; }
+    .project-card-body { display: flex; flex-direction: column; justify-content: center; padding: 32px 36px; }
+
+    /* ── ACHIEVEMENTS ─────────────────────────────────── */
+    .achievements-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; }
+    .achievement-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; transition: all .3s; }
+    .achievement-card:hover { box-shadow: 0 14px 44px rgba(0,0,0,.09); transform: translateY(-4px); border-color: rgba(91,91,214,.2); }
+    .achievement-card a { display: block; }
+    .achievement-card-img { aspect-ratio: 4/3; overflow: hidden; background: var(--bg); }
+    .achievement-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .45s; }
+    .achievement-card:hover .achievement-card-img img { transform: scale(1.06); }
+    .achievement-card-body { padding: 16px 18px 18px; }
+    .achievement-card-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.3px; color: var(--accent); font-family: "IBM Plex Sans", sans-serif; margin-bottom: 5px; }
+    .achievement-card-title { font-size: 13px; font-weight: 600; color: var(--dark); line-height: 1.5; }
+
+    /* ── DESIGN SHOTS ─────────────────────────────────── */
+    .shots-grid { columns: 3; gap: 16px; }
+    .shot-item { break-inside: avoid; margin-bottom: 16px; border-radius: 14px; overflow: hidden; position: relative; cursor: pointer; border: 1px solid var(--border); }
+    .shot-item img { width: 100%; display: block; transition: transform .45s; }
+    .shot-item:hover img { transform: scale(1.05); }
+    .shot-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(13,13,24,.7) 0%, transparent 50%); opacity: 0; transition: opacity .3s; display: flex; align-items: flex-end; padding: 16px; }
+    .shot-item:hover .shot-overlay { opacity: 1; }
+    .shot-title { font-family: "IBM Plex Sans", sans-serif; font-size: 13px; font-weight: 600; color: #fff; }
+
+
+    /* ── CTA ──────────────────────────────────────────── */
+    .cta-section { background: var(--surface); border-top: 1px solid var(--border); }
+    .cta-inner { max-width: 640px; margin: 0 auto; text-align: center; padding: 96px 40px; }
+    .cta-inner .section-tag { display: block; text-align: center; margin-bottom: 14px; }
+    .cta-inner h2 { font-size: clamp(28px, 3.5vw, 42px); font-weight: 700; margin-bottom: 14px; }
+    .cta-inner p { font-size: 16px; color: var(--muted); margin-bottom: 34px; line-height: 1.75; }
+    .cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+    /* ── FOOTER ───────────────────────────────────────── */
+    footer { background: var(--dark); padding: 28px 40px; }
+    .footer-inner { max-width: 1180px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+    .footer-left { font-size: 13px; color: rgba(255,255,255,.32); font-family: "IBM Plex Sans", sans-serif; }
+    .footer-left strong { color: rgba(255,255,255,.65); }
+    .footer-links { display: flex; gap: 22px; }
+    .footer-links a { font-size: 13px; color: rgba(255,255,255,.38); transition: color .2s; display: flex; align-items: center; gap: 5px; }
+    .footer-links a:hover { color: #fff; }
+
+    /* ── BACK TO TOP ──────────────────────────────────── */
+    .back-to-top { position: fixed; right: 24px; bottom: 24px; z-index: 996; width: 42px; height: 42px; background: var(--dark); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 20px; visibility: hidden; opacity: 0; transition: all .3s; }
+    .back-to-top.active { visibility: visible; opacity: 1; }
+    .back-to-top:hover { background: var(--accent); transform: translateY(-2px); }
+
+    /* ── RESPONSIVE ───────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .project-card-inner { grid-template-columns: 1fr 1.2fr; }
+      .achievements-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      .hero-inner { padding: 60px 20px; }
+      .section { padding: 64px 20px; }
+      .companies { padding: 40px 20px; }
+      .htl::before { top: 52px; left: 10px; right: 10px; }
+      .htl-logo { height: 24px; max-width: 80px; }
+      .htl-company { font-size: 10px; }
+      .htl-role { display: none; }
+      .shots-grid { columns: 2; }
+      .footer-inner { flex-direction: column; gap: 16px; text-align: center; }
+      .section-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+      .project-card-inner { grid-template-columns: 1fr; }
+      .project-card-img { min-height: 200px; }
+    }
+    @media (max-width: 500px) {
+      .achievements-grid { grid-template-columns: 1fr; }
+      .shots-grid { columns: 1; }
+      .hero-stats { display: none; }
+    }
+
+    /* ── THEME TOGGLE ─────────────────────────────────── */
+    .theme-toggle {
+      width: 34px; height: 34px; padding: 0;
+      background: var(--bg); border: 1.5px solid var(--border); border-radius: 8px;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      color: var(--muted); font-size: 15px; transition: all .2s; flex-shrink: 0;
+    }
+    .theme-toggle:hover { background: var(--accent-lt); border-color: var(--accent-md); color: var(--accent); }
+
+    /* ── DARK MODE ─────────────────────────────────────── */
+    html[data-theme="dark"] {
+      --accent:    #7B7CF7;
+      --accent-lt: #1C1C38;
+      --accent-md: #363686;
+      --dark:      #EEEEFF;
+      --muted:     #8892A4;
+      --border:    #24243A;
+      --surface:   #121220;
+      --bg:        #0D0D1A;
+    }
+    html[data-theme="dark"] body { background: var(--bg); color: var(--muted); }
+    html[data-theme="dark"] h1,
+    html[data-theme="dark"] h2,
+    html[data-theme="dark"] h3,
+    html[data-theme="dark"] h4,
+    html[data-theme="dark"] h5 { color: var(--dark); }
+    html[data-theme="dark"] .nav { background: rgba(13,13,26,.92); border-bottom-color: rgba(36,36,58,.9); }
+    html[data-theme="dark"] .nav-logo { color: var(--dark); }
+    html[data-theme="dark"] .nav-links a { color: rgba(136,146,164,.8); }
+    html[data-theme="dark"] .nav-links a:hover,
+    html[data-theme="dark"] .nav-links a.active { color: var(--dark); }
+    html[data-theme="dark"] .nav-cta { background: var(--accent); }
+    html[data-theme="dark"] .nav-cta:hover { background: #6464D8; }
+    html[data-theme="dark"] .theme-toggle { background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.1); color: rgba(238,238,255,.55); }
+    html[data-theme="dark"] .theme-toggle:hover { background: var(--accent-lt); border-color: var(--accent-md); color: var(--accent); }
+    html[data-theme="dark"] .hero { background: radial-gradient(ellipse 80% 60% at 50% 0%, #1A1A38 0%, #121228 40%, #0D0D1A 100%); }
+    html[data-theme="dark"] .hero-avail { background: #0D2818; border-color: #14532D; color: #4ADE80; }
+    html[data-theme="dark"] .hero-tag:nth-child(1) { background: rgba(109,40,217,.2); color: #C4B5FD; }
+    html[data-theme="dark"] .hero-tag:nth-child(2) { background: rgba(29,78,216,.2); color: #93C5FD; }
+    html[data-theme="dark"] .hero-tag:nth-child(3) { background: rgba(21,128,61,.2); color: #86EFAC; }
+    html[data-theme="dark"] .hero-tag:nth-child(4) { background: rgba(180,83,9,.2); color: #FCD34D; }
+    html[data-theme="dark"] .hero-tag:nth-child(5) { background: rgba(190,24,93,.2); color: #F9A8D4; }
+    html[data-theme="dark"] .hero-tag:nth-child(6) { background: rgba(194,65,12,.2); color: #FDBA74; }
+    html[data-theme="dark"] .hero-stats { background: var(--surface); border-color: var(--border); }
+    html[data-theme="dark"] .hero-stat { border-right-color: var(--border); }
+    html[data-theme="dark"] .btn-primary { background: var(--accent); }
+    html[data-theme="dark"] .btn-primary:hover { background: #6464D8; }
+    html[data-theme="dark"] .btn-ghost { border-color: var(--border); color: var(--dark); }
+    html[data-theme="dark"] .btn-ghost:hover { border-color: var(--accent); background: var(--accent-lt); color: var(--accent); }
+    html[data-theme="dark"] .companies { background: var(--surface); border-color: var(--border); }
+    html[data-theme="dark"] .htl-company { color: var(--dark); }
+    html[data-theme="dark"] .htl-role { color: var(--muted); }
+    html[data-theme="dark"] .htl-logo { filter: brightness(0) invert(1); opacity: 0.8; }
+    html[data-theme="dark"] .htl-item:nth-child(5) .htl-logo,
+    html[data-theme="dark"] .htl-item:nth-child(6) .htl-logo { filter: invert(1) brightness(1.4); opacity: 0.85; }
+    html[data-theme="dark"] .htl::before { background: linear-gradient(90deg, rgba(126,126,255,.4) 0%, rgba(126,126,255,.15) 100%); }
+    html[data-theme="dark"] .section { background: var(--bg) !important; }
+    html[data-theme="dark"] .project-card-inner { background: var(--surface); border-color: var(--border); }
+    html[data-theme="dark"] .project-card-body { background: var(--surface); }
+    html[data-theme="dark"] .project-tag { background: var(--accent-lt); color: var(--accent); border-color: var(--accent-md); }
+    html[data-theme="dark"] .project-card-desc { color: var(--muted); }
+    html[data-theme="dark"] .project-card-metrics li { color: var(--muted); }
+    html[data-theme="dark"] .project-card-metrics strong { background: rgba(91,91,214,.15); color: #A5B4FC; border-color: rgba(91,91,214,.3); }
+    html[data-theme="dark"] .project-role-badge { background: var(--bg); color: var(--muted); }
+    html[data-theme="dark"] .project-card-cta { color: var(--accent); }
+    html[data-theme="dark"] .section-tag { color: var(--accent); }
+    html[data-theme="dark"] .achievement-card { background: var(--surface); border-color: var(--border); }
+    html[data-theme="dark"] .achievement-card-title { color: var(--dark); }
+    html[data-theme="dark"] .achievement-card-meta { color: var(--muted); }
+    html[data-theme="dark"] .shot-item { border-color: var(--border); }
+    html[data-theme="dark"] .cta-section { background: var(--surface); border-top-color: var(--border); }
+    .testimonials-section { background: #0D0D1A; padding: 96px 40px; }
+    .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-top: 52px; max-width: 1180px; margin-left: auto; margin-right: auto; }
+    .testimonial-card { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.09); border-radius: 18px; padding: 30px; display: flex; flex-direction: column; }
+    .testimonial-stars { display: flex; gap: 3px; margin-bottom: 16px; }
+    .testimonial-stars i { color: #FBBF24; font-size: 13px; }
+    .testimonial-quote { font-size: 14.5px; color: rgba(255,255,255,.72); line-height: 1.82; margin-bottom: 22px; font-style: italic; flex: 1; }
+    .testimonial-author { display: flex; align-items: center; gap: 12px; margin-top: auto; }
+    .testimonial-author img { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(255,255,255,.12); }
+    .testimonial-name { font-family: "IBM Plex Sans", sans-serif; font-size: 14px; font-weight: 700; color: #fff; }
+    .testimonial-role { font-size: 11px; color: rgba(255,255,255,.42); margin-top: 2px; }
+    html[data-theme="dark"] footer { background: #07070F; }
+    html[data-theme="dark"] .footer-links a { color: var(--muted); }
+    html[data-theme="dark"] .back-to-top { background: var(--accent); }
+    html[data-theme="dark"] .back-to-top:hover { background: #6464D8; }
+  </style>
 </head>
-<body class="is-boxed has-animations">
-    <div class="body-wrap boxed-container">
-       
-         <!-- ======= Header ======= -->
-  <header id="header" class="site-header fixed-top">
-    <div class="container-fluid d-flex justify-content-between align-items-center">
+<body>
 
-      <a href="index.html"><img class="header-logo-image asset-light" src="dist/images/KC.png" alt="Logo">
-      <img class="header-logo-image asset-dark" src="dist/images/KC.png" alt="Logo"></a>
-      <!-- Uncomment below if you prefer to use an image logo -->
-      <!-- <a href="index.html" class="logo"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+<!-- ── NAV ───────────────────────────────────────────── -->
+<nav class="nav">
+  <a href="index.html" class="nav-logo">KC</a>
+  <div class="nav-links">
+    <a href="index.html" class="active">Home</a>
+    <a href="#work">Work</a>
+    <a href="about.html">About</a>
+    <a href="https://www.linkedin.com/in/khushboo-chandnani" target="_blank">LinkedIn</a>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <button class="theme-toggle" id="themeToggle" title="Toggle dark mode" aria-label="Toggle dark mode"><i class="bi bi-moon-stars"></i></button>
+    <a href="mailto:khushboochandnanijobportfolio@gmail.com" class="nav-cta">Let's Talk</a>
+  </div>
+</nav>
 
-      <nav id="navbar" class="navbar order-last order-lg-0">
-        <ul>
-          <li><a class="active" href="index.html">Home</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="https://www.linkedin.com/in/khushboo-chandnani" target="_blank">Linkedin</a></li>
-           
-        </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav><!-- .navbar -->
-      <div class="lights-toggle">
-        <input id="lights-toggle" type="checkbox" name="lights-toggle" class="switch" checked="checked">
-        <label for="lights-toggle" class="text-xs"><span>Turn <span class="label-text">dark</span> mode</span></label>
-        
+
+<!-- ── HERO ──────────────────────────────────────────── -->
+<section class="hero" id="top">
+  <div class="hero-sticker">
+    <span class="hero-sticker-label">Currently at</span>
+    <span class="hero-sticker-role">Sr. Product Designer</span>
+    <span class="hero-sticker-divider"></span>
+    <a class="hero-sticker-co" href="https://www.intuit.com" target="_blank" rel="noopener">Intuit</a>
+  </div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-avail"><div class="hero-avail-dot"></div> Open to new opportunities</div>
+      <p class="hero-greeting">👋 Hi, I am Khushboo <span style="color:var(--dark);font-weight:700;">(Call me KC 😊)</span></p>
+      <h1>I design <em>AI-powered</em> products<br>that simplify complex workflows<br>and <em>enhance usability.</em></h1>
+
+      <div class="hero-btns">
+        <a href="#work" class="btn-primary"><i class="bi bi-grid-3x3-gap-fill"></i> View My Work</a>
+        <a href="about.html" class="btn-ghost"><i class="bi bi-person"></i> About Me</a>
       </div>
-      <!--<div>
-        <a href="dist/images/Khushboo Chandnani_Resume.pdf" class="button button-primary">Resume</a>
-      </div>-->
+      <div class="hero-tags">
+        <span class="hero-tag">✦ AI-Driven</span>
+        <span class="hero-tag">🧩 Design Systems</span>
+        <span class="hero-tag">📊 Data-Driven</span>
+        <span class="hero-tag">🗺️ User Journey</span>
+        <span class="hero-tag">🔍 UX Research</span>
+        <span class="hero-tag">⚡ Prototyping</span>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="hero-stat-num">5+</div><div class="hero-stat-lbl">Years Exp.</div></div>
+        <div class="hero-stat"><div class="hero-stat-num">15+</div><div class="hero-stat-lbl">Projects</div></div>
+        <div class="hero-stat"><div class="hero-stat-num">6</div><div class="hero-stat-lbl">Companies</div></div>
+        <div class="hero-stat"><div class="hero-stat-num">2</div><div class="hero-stat-lbl">Publications</div></div>
+      </div>
     </div>
-
-  </header><!-- End Header -->
-
-        <main id="main">
-            <section class="hero" style="margin-top:-4%">
-                <div class="container">
-                    <div class="hero-inner">
-						<div class="hero-copy">
-              <p class="hero-paragraph"></p><span class="hci" style="color:#1a1a1a"><B>Hey, I am Khushboo Chandnani (Call me KC 😊) <br> UX Designer | Product Designer | UX Engineer 🚀</B></p>
-	                        <h1 class="hero-title mt-0">I design user-focused products that simplify complex workflows and enhance usability.</h1><br>
-
-      
-	                        <p class="hero-paragraph"><b>Sr. Product Designer at </b><a href="https://www.intuit.com" target="_blank"><span style="color:#FE9A32"><b>Intuit</a></b></span></a>.</p>
-	                        <div class="hero-cta">
-								<a class="button button-primary" href="#portfolio">View Projects</a>
-							
-							</div>
-						</div>
-						<div class="hero-media">
-							<div class="header-illustration">
-								<img class="header-illustration-image asset-light" src="dist/images/header-illustration-light.svg" alt="Header illustration">
-								<img class="header-illustration-image asset-dark" src="dist/images/header-illustration-dark.svg" alt="Header illustration">
-							</div>
-							<div class="hero-media-illustration">
-								<img class="hero-media-illustration-image asset-light" src="dist/images/hero-media-illustration-light.svg" alt="Hero media illustration">
-								<img class="hero-media-illustration-image asset-dark" src="dist/images/hero-media-illustration-dark.svg" alt="Hero media illustration">
-							</div>
-							<div class="hero-media-container">
-								<img class="hero-media-image asset-light" src="dist/images/Group 3.png" height="200px" width="450px" alt="Hero media">
-								<img class="hero-media-image asset-dark" src="dist/images/Group 4.png" height="200px" width="450px" alt="Hero media">
-                
-              </div>
-						</div>
-                    </div>
-                </div>
-            </section>
-            <!--Speaker section-->
-            <section class="conference">
-              <div class="container" data-aos="fade-up">
-                <div class="section-title">
-                  <h2>Proud Moments</h2>
-                  <p>"My Master's journey is meaningful when my hard work results in unforgettable achievements."</p>
-                </div>
-                <div class="row portfolio-container1" data-aos="fade-up" data-aos-delay="200">
-                  <div class="col-lg-3 col-md-6 portfolio-item filter-app">
-                      <div class="portfolio-wrap">
-                      <a href="https://tapiaconference.cmd-it.org/attend/presentation/?id=psub131&sess=sess330" target="_blank"><img src="dist/images/tapia.png" class="img-fluid" alt=""></a>
-                      <a href="https://tapiaconference.cmd-it.org/attend/presentation/?id=psub131&sess=sess330" target="_blank"><p class="proud" style="margin-top:15px;font-size:17px;text-align:center;color:#6B7A90">Speaker at CMD-IT/ACM Richard TAPIA'23 Conference</p></a>
-                      </div>
-                    </a>
-                    </div>
-                    <div class="col-lg-3 col-md-6 portfolio-item filter-app">
-                      <div class="portfolio-wrap">
-                       <a href="https://journals.plos.org/digitalhealth/article?id=10.1371/journal.pdig.0000216" target="_blank"><img src="dist/images/paper.PNG" style="border:0.5px solid #ddd;" class="img-fluid" alt=""></a>
-                        <a href="https://journals.plos.org/digitalhealth/article?id=10.1371/journal.pdig.0000216" target="_blank"><p class="proud" style="margin-top:15px;font-size:16px;text-align:center;color:#6B7A90">Co-author of a research and design paper published in PLOS Health Digital Publication</p></a>
-                      </div>
-                      </a>
-                    </div>
-                  <div class="col-lg-3 col-md-6 portfolio-item filter-app">
-                      <div class="portfolio-wrap">
-                      <a href="https://www.linkedin.com/feed/update/urn:li:activity:7177031788211429376/" target="_blank"><img src="dist/images/JJCertificate.jpg.jfif" style="border:0.5px solid #ddd;" class="img-fluid" alt=""></a>
-                      <a href="https://www.linkedin.com/feed/update/urn:li:activity:7177031788211429376/" target="_blank"><p class="proud" style="margin-top:15px;font-size:17px;text-align:center;color:#6B7A90">Inspire GROW Leadership Award at Johnson and Johnson</p></a>
-                    </div>
-                    </a>
-                  </div>
-                  <div class="col-lg-3 col-md-6 portfolio-item filter-app">
-                    <div class="portfolio-wrap">
-                    <a href="https://www.linkedin.com/feed/update/urn:li:activity:7112243537710104576/" target="_blank"><img src="dist/images/GSOC Mentor.png" class="img-fluid" alt=""></a>
-                    <a href="https://www.linkedin.com/feed/update/urn:li:activity:7112243537710104576/" target="_blank"><p class="proud" style="margin-top:8px;font-size:17px;text-align:center;color:#6B7A90">GSOC 2023 Mentor for a research project at LibreHealth</p></a>
-                  </div>
-                  </a>
-                </div>
-                </div>
-              </div>
-              </section><!-- End Portfolio Section -->
-
-            <section class="company">
-            <div class="container" data-aos="fade-up">
-              <div class="section-title">
-                <h2>Worked for Companies</h2>
-            
-              </div>
-              <div class="row portfolio-container2" style="margin-left:9%; background-color: white;" data-aos="fade-up" data-aos-delay="200">
-                <div class="col-lg-2 col-md-4 portfolio-item filter-app">
-                    <div class="portfolio-wrap">
-                  <a href="https://www.intuit.com" target="_blank"><img src="dist/images/company/intuit.png" style="margin-top:-10px;" class="img-fluid"></a>
-                    </div>
-                  </div>
-				  <div class="col-lg-2 col-md-4 portfolio-item filter-app">
-                    <div class="portfolio-wrap">
-                  <a href="https://www.jnj.com/medtech" target="_blank"><img src="dist/images/company/jnj.png" style="margin-top:10px;" class="img-fluid"></a>
-                    </div>
-                  </div>
-                  <div class="col-lg-2 col-md-4 portfolio-item filter-app">
-                    <div class="portfolio-wrap">
-                    <a href="https://www.enovationcontrols.com/" target="_blank"><img src="dist/images/company/enovation.png" class="img-fluid"></a>
-                    </div>
-                  </div>
-                  <div class="col-lg-2 col-md-4 portfolio-item filter-app">
-                    <div class="portfolio-wrap">
-                    <a href="https://agrinovusindiana.com/" target="_blank"> <img src="dist/images/company/agri.png" class="img-fluid" alt=""></a>          
-                    </div>
-                  </a>
-                  </div>
-                  <div class="col-lg-2 col-md-4 portfolio-item filter-app">
-                    <div class="portfolio-wrap">
-                   <a href="https://fitpeo.com/" target="_blank"> <img src="dist/images/company/fitpeo1.png" class="img-fluid"></a>
-                    </div>
-                  </div>
-                  <div class="col-lg-2 col-md-4 portfolio-item filter-app">
-                    <div class="portfolio-wrap">
-                   <a href="https://www.ey.com/en_us" target="_blank"> <img src="dist/images/company/eyo.png" style="margin-left:-50px;margin-top:-20px" class="img-fluid" alt=""></a>
-                    </div>
-                  </a>
-                  </div>
-              </div>
-            </div>
-            </section>
-
-<section id="portfolio">
-    <section class="about">
-      <div class="container" data-aos="fade-up">
-        <div class="section-title">
-          <h2 style="font-family:IBM Plex Sans, sans-serif;">Selected Work</h2>
-        </div>
-
-		<div class="row">
-          <div class="col-lg-5">
-            <img src="dist/images/intuit_cover.png" class="img-fluid" alt="" style="border-radius:10px;">
-          </div>
-          <div class="col-lg-7 pt-4 pt-lg-0 content" style="margin-top:10px;">
-            <div class="tags"><span><a class="button-grey">#internaltools</a></span>&nbsp; &nbsp;<span><a class="button-grey">#resourceplanning</a></span>&nbsp; &nbsp;<span><a class="button-grey">#productdesign</a></span>&nbsp; &nbsp;<span><a class="button-grey">#AIdriventech</a></span><br><br></div>
-            <h3 style="color:#000">Intuit</h3> 
-            <p>
-               Led end-to-end UX design and usability optimization for internal execution tools, resulting in a 26% improvement in usability and a 30% reduction in task completion time, significantly enhancing cross-team efficiency and collaboration.
-
-              
-            </p>
-            <a href="lock.html" class="button button-primary"><i class="bi-lock"></i> View CaseStudy</a>
-          </div>
-        </div>
-		  
-		  <div class="row" style="padding-top:8%">
-          <div class="col-lg-5">
-            <img src="dist/images/johnson_cover.png" class="img-fluid" alt="" style="border-radius:10px;">
-          </div>
-          <div class="col-lg-7 pt-4 pt-lg-0 content" style="margin-top:10px;">
-            <div class="tags"><span><a class="button-grey">#healthcare</a></span>&nbsp; &nbsp;<span><a class="button-grey">#surgicalplatform</a></span>&nbsp; &nbsp;<span><a class="button-grey">#designsystem</a></span>&nbsp; &nbsp;<span><a class="button-grey">#productdesign</a></span><br><br></div>
-            <h3 style="color:#000">Johnson and Johnson Medtech</h3> 
-            <p>
-              Designed complex, clinician-focused surgical planning interfaces and scalable design systems, driving a 15% increase in user satisfaction and a 25% faster delivery cycle for regulated healthcare products.
-              
-            </p>
-            <a href="J&J CaseStudy.pdf" class="button button-primary">View CaseStudy</a>
-          </div>
-        </div>
-	
-       <div class="row" style="padding-top:8%">
-          <div class="col-lg-5">
-            <img src="dist/images/Enovations.png" class="img-fluid" alt="" style="border-radius:10px;">
-          </div>
-          <div class="col-lg-7 pt-4 pt-lg-0 content" style="margin-top:10px;">
-            <div class="tags"><span><a class="button-grey">#digitaldevice</a></span>&nbsp; &nbsp;<span><a class="button-grey">#hottubdisplay</a></span>&nbsp; &nbsp;<span><a class="button-grey">#uiuxdesign</a></span>&nbsp; &nbsp;<span><a class="button-grey">#internship</a></span><br><br></div>
-            <h3 style="color:#000">Enovation Controls Summer'23 Internship</h3> 
-            <p>
-              Conducted comprehensive research and usability study to optimize digital devices for speedboats, trucks, and vans that resulted in 80% enhancement in usability and efficiency, culminating in a notable 40% overall improvement in product performance.
-
-              
-            </p>
-            <a href="portfolio-details-enovationcontrols.html" class="button button-primary">View CaseStudy</a>
-          </div>
-        </div>
-     
-        <div class="row" style="padding-top:8%">
-          <div class="col-lg-5">
-            <img src="dist/images/NeoRoo_artboard.png" class="img-fluid" alt="" style="border-radius:10px;">
-          </div>
-          <div class="col-lg-7 pt-4 pt-lg-0 content" style="margin-top:20px;">
-            <div class="tags"><span><a class="button-grey">#healthcare</a></span>&nbsp; &nbsp;<span><a class="button-grey">#prematurebabies</a></span>&nbsp; &nbsp;<span><a class="button-grey">#vitalsmonitoring</a></span>&nbsp; &nbsp;<span><a class="button-grey">#uxresearch</a></span><br><br></div>
-            <h3 style="color:#000">Neonatal Kangaroo Mother Care app and device</h3> 
-            <p>
-              A bio-medical device integrated with an app designed to improve the implementation of Kangaroo Mother Care in low/middle-income countries and prevent neonatal mortality.
-            </p>
-            <a href="portfolio-details-neoroo.html" class="button button-primary">View CaseStudy</a>&nbsp;&nbsp;&nbsp;
-            <a href="https://journals.plos.org/digitalhealth/article?id=10.1371/journal.pdig.0000216" target="_blank" class="button button-primary">Paper Publication</a>
-          </div>
-        </div>
-        <div class="row" style="padding-top:8%">
-          <div class="col-lg-5">
-            <img src="dist/images/Cuturverse_artboard.png" class="img-fluid" alt="" style="border-radius:10px;">
-          </div>
-          <div class="col-lg-7 pt-4 pt-lg-0 content" style="margin-top:20px;">
-            <div class="tags"><span><a class="button-grey">#academic</a></span>&nbsp; &nbsp;<span><a class="button-grey">#augmentedreality</a></span>&nbsp; &nbsp;<span><a class="button-grey">#mobilitydisabled</a></span>&nbsp; &nbsp;<span><a class="button-grey">#uxdesign</a></span><br><br></div>
-            <h3 style="color:#000">CulturVerse - Sustainable Cultural Tourism</h3> 
-            <p>
-              An Augmented Reality based cultural tourism app with 360-degree views for mobility-disabled people to experience real-world items in their surroundings.
-            </p>
-            <a href="portfolio-details-culturverse.html" class="button button-primary">View CaseStudy</a>
-           
-          </div>
-        </div>
-        <div class="row" style="padding-top:8%">
-          <div class="col-lg-5">
-            <img src="dist/images/fitgamer_artboard.png" class="img-fluid" alt="" style="border-radius:10px;">
-          </div>
-          <div class="col-lg-7 pt-4 pt-lg-0 content" style="margin-top:20px;">
-            <div class="tags"><span><a class="button-grey">#academic</a></span>&nbsp; &nbsp;<span><a class="button-grey">#gaming</a></span>&nbsp; &nbsp;<span><a class="button-grey">#addiction</a></span>&nbsp; &nbsp;<span><a class="button-grey">#physicalhealth</a></span>&nbsp; &nbsp;<span><a class="button-grey">#uxdesign</a></span><br><br></div>
-            <h3 style="color:#000">FitGamer - Video Game Addiction</h3> 
-            <p>
-              An app that helps gaming addicts that promotes physical health and well-being by monitoring gaming activity, prompting regular breaks, and motivating physical activity.
-            </p>
-            <a href="portfolio-details-fitgamer.html" class="button button-primary">View CaseStudy</a>
-          </div>
-        </div>
-        <div class="row" style="padding-top:8%">
-          <div class="col-lg-5">
-            <img src="dist/images/sierra_artboard.png" class="img-fluid" alt="" style="border-radius:10px;">
-          </div>
-          <div class="col-lg-7 pt-4 pt-lg-0 content" style="margin-top:20px;">
-            <div class="tags"><span><a class="button-grey">#clientwork</a></span>&nbsp; &nbsp;<span><a class="button-grey">#covid19</a></span>&nbsp; &nbsp;<span><a class="button-grey">#sierraleone</a></span>&nbsp; &nbsp;<span><a class="button-grey">#health</a></span>&nbsp; &nbsp;<span><a class="button-grey">#productdesign</a></span><br><br></div>
-            <h3 style="color:#000">Sierra Leone - COVID19 App</h3> 
-            <p>
-              COVID19 cases tracking app for Sierra Leone that provides report a case, self-test feature, finding hotspot areas and updates of Global and African covid case statistics.
-            </p>
-            <a href="portfolio-details-sierra.html" class="button button-primary">View CaseStudy</a>
-          </div>
-        </div>
-      </div>
-    </section>    
+  </div>
 </section>
 
-  <!-- ======= Portfolio Section ======= -->
 
-  <section class="portfolio">
-    <div class="container" data-aos="fade-up">
-    
-      <div class="section-title">
-        <h2>Design Shots</h2>
-        <p>Being a Self starter, I have made some design artboards on various topics.</p>
-      </div>
-     
-      <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
-        <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-          <a href="dist/images/covid19.png" data-gallery="portfolioGallery" class="portfolio-lightbox">
-            <div class="portfolio-wrap">
-            <img src="dist/images/covid19.png" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>COVID19 Dashboard</h4>
-            </div>
-            </div>
-          </a>
-        </div>
-        <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-          <a href="dist/images/travel.png" data-gallery="portfolioGallery" class="portfolio-lightbox">
-            <div class="portfolio-wrap">
-            <img src="dist/images/travel.png" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>Travello - Travel Booking App</h4>
-              <!-- <p>Web</p> -->
-            </div>
-          </div>
-          </a>
-        </div>
-        <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-          <a href="dist/images/dating.png" data-gallery="portfolioGallery" class="portfolio-lightbox">
-          <div class="portfolio-wrap">
-            <img src="dist/images/dating.png" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>Dating App</h4>
-              <!-- <p>Card</p> -->
-            </div>
-          </div>
-          
-          </a>
-        </div>
-        <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-          <a href="dist/images/mcq.png" data-gallery="portfolioGallery" class="portfolio-lightbox">
-          <div class="portfolio-wrap">
-            <img src="dist/images/mcq.png" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>MCQ App</h4>
-              <!-- <p>Web</p> -->
-            </div>
-          </div>
-          </a>
-        </div>
-        <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-          <a href="dist/images/Jordan.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox">
-          <div class="portfolio-wrap">
-            <img src="dist/images/Jordan.jpg" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>Jordan Poster</h4>
-              <!-- <p>App</p> -->
-              
-            </div>
-          </div>
-          </a>
-        </div>
-        <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-          <a href="dist/images/photo_gallery.png" data-gallery="portfolioGallery" class="portfolio-lightbox">
-          <div class="portfolio-wrap">
-            <img src="dist/images/photo_gallery.png" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>Photo Gallery App</h4>
-              <!-- <p>App</p> -->
-              
-            </div>
-          </div>
-          </a>
-        </div>
-      
-        <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-          <a href="dist/images/ecommerce.png" data-gallery="portfolioGallery" class="portfolio-lightbox">
-          <div class="portfolio-wrap">
-            <img src="dist/images/ecommerce.png" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>Ecommerce Website</h4>
-              <!-- <p>Card</p> -->
-              
-            </div>
-          </div>
-          </a>
-        </div>
-        <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-          <a href="dist/images/todo.png" data-gallery="portfolioGallery" class="portfolio-lightbox">
-          <div class="portfolio-wrap">
-            <img src="dist/images/todo.png" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>ToDo App</h4>
-              <!-- <p>Web</p> -->
-              
-            </div>
-          </div>
-          </a>
-        </div>
-        <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-          <a href="dist/images/job.png" data-gallery="portfolioGallery" class="portfolio-lightbox">
-          <div class="portfolio-wrap">
-            <img src="dist/images/job.png" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>Job App</h4>
-              <!-- <p>Web</p> -->
-              
-            </div>
-          </div>
-          </a>
-        </div>
-      </div>
-    
+<!-- ── CAREER TIMELINE ────────────────────────────────── -->
+<div class="companies">
+  <div class="companies-inner">
+    <div class="companies-label">Career Timeline</div>
+    <div class="htl">
+      <a class="htl-item" href="https://www.fitpeo.com" target="_blank" rel="noopener">
+        <img class="htl-logo" src="dist/images/company/fitpeo1.png" alt="FitPeo">
+        <div class="htl-dates">Jan 2021 – Dec 2022</div>
+        <div class="htl-company">FitPeo</div>
+        <div class="htl-role">Product Designer</div>
+      </a>
+      <a class="htl-item" href="https://agrinovus.com" target="_blank" rel="noopener">
+        <img class="htl-logo" src="dist/images/company/agri.png" alt="AgriNovus">
+        <div class="htl-dates">Jan 2021 – Dec 2021</div>
+        <div class="htl-company">AgriNovus</div>
+        <div class="htl-role">UX Designer</div>
+      </a>
+      <a class="htl-item" href="https://www.ey.com" target="_blank" rel="noopener">
+        <img class="htl-logo" src="dist/images/company/eyo.png" alt="EY">
+        <div class="htl-dates">Jan 2022 – Dec 2022</div>
+        <div class="htl-company">EY</div>
+        <div class="htl-role">UX Consultant</div>
+      </a>
+      <a class="htl-item" href="portfolio-details-enovationcontrols.html">
+        <img class="htl-logo" src="dist/images/company/enovation.png" alt="Enovation Controls">
+        <div class="htl-dates">May 2023 – Aug 2023</div>
+        <div class="htl-company">Enovation Controls</div>
+        <div class="htl-role">UX Design Intern</div>
+      </a>
+      <a class="htl-item" href="portfolio-details-johnson.html">
+        <img class="htl-logo" src="dist/images/company/jnj.png" alt="J&J">
+        <div class="htl-dates">Jan 2024 – Jan 2025</div>
+        <div class="htl-company">J&amp;J MedTech</div>
+        <div class="htl-role">Sr. UX Designer</div>
+      </a>
+      <a class="htl-item" href="portfolio-details-intuit.html">
+        <img class="htl-logo" src="dist/images/company/intuit.png" alt="Intuit">
+        <div class="htl-dates">Jan 2024 – Present</div>
+        <div class="htl-company">Intuit</div>
+        <div class="htl-role">Sr. Product Designer</div>
+      </a>
     </div>
-    </section>
-
-
-
-
-<!-- ======= Testimonials Section ======= -->
-<div id="testimonials" style="padding-top:25px;">
-<section class="testimonials" >
-<div class="container" data-aos="fade-up">
-
-  <div class="section-title">
-    <h2 class="section-title mt-0">Testimonials</h2>
-    <p>Look at the client reviews and endoresements for the dedicated quality work I do in each project.</p>
-  </div>
-
-  <div class="testimonials-slider swiper-container" data-aos="fade-up" data-aos-delay="100">
-    <div class="swiper-wrapper">
-      <div class="swiper-slide">
-        <div class="testimonial-item">
-          <img src="dist/images/testimonials/test5.png" class="testimonial-img" alt="">
-          <h3>Sachin Yadav</h3>
-          <h4>Co-Founder|Product Head - Job Vacancy Result (2123 Recruiter Service Pvt. Ltd)</h4>
-          <p>
-            <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-            A mix of sheer professionalism and creativity, Khushboo is someone who constantly strives to give more to her work than is required. Easy to get along with anyone and is a great team player, which makes working with her effortless.
-            She has all the ingredients of the best co-worker, the ability to adapt to the situation, a Hunger for learning new things, and a never to give up attitude. I highly recommend her to any organization! and wish her all the very best for her future endeavors the very best.
-            <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-          </p>
-        </div>
-      </div><!-- End testimonial item -->
-
-      <div class="swiper-slide">
-        <div class="testimonial-item">
-          <img src="dist/images/testimonials/test1.png" class="testimonial-img" alt="">
-          <h3>Chinmay Palshetkar</h3>
-          <h4>Founder and CEO of a Sports Community initiative - Sportizen</h4>
-          <p>
-            <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-            Hi, I am Chinmay, Founder and CEO of a Sports Community initiative - Sportizen. I had the privilege to work with Khushboo last year for designing our Sportizen Platform. Talents like Khushboo are rare and we are happy that we were able to leverage Khushboo's expertise in building our designs for our website and mobile application. She has a knack of understanding minute details and brings the best on the table. My best wishes to Khushboo always..
-            <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-          </p>
-        </div>
-      </div><!-- End testimonial item -->
-
-      <div class="swiper-slide">
-        <div class="testimonial-item">
-          <img src="dist/images/testimonials/test2.png" class="testimonial-img" alt="">
-          <h3>Shraddha Mittal</h3>
-          <h4>Senior Designer - Enquero</h4>
-          <p>
-            <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-            Khushboo is a diligent designer who constantly strives to be more creative in her designs and more efficient in every task. She is easy to get along with, a great team player, and always up for a new  challenge. 
-            The top 3 things I always look at while hiring anyone are - Great attitude, Hunger to learn & ability to fail and quickly learn from it. She nails every single one of them! Apart from being a highly driven designer she is a great person to work with. I highly recommend her to any organisation! and wish her all the very best.
-            <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-          </p>
-        </div>
-      </div><!-- End testimonial item -->
-
-       <div class="swiper-slide">
-        <div class="testimonial-item">
-          <img src="dist/images/testimonials/test4.png" class="testimonial-img" alt="">
-          <h3>Ankur Khanna</h3>
-          <h4>Managing Director - Accommodator Consultancy Services</h4>
-          <p>
-            <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-            Khushboo has been involved in projects of strategic importance for the Indian Navy and has ensured the success of each of them, speaks volumes of her ability to steer through complex projects with her dedication, skill, and her hard work. She handled the meetings with Commanders and Admirals of Navy, where she addressed and presented 
-            the design in a very confident manner, which shows her extensive presentation skills. In my opinion with the right steer, she will prove to be an asset wherever she works.
-            <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-          </p>
-        </div>
-      </div><!-- End testimonial item -->
-
-      <div class="swiper-slide">
-        <div class="testimonial-item">
-          <img src="dist/images/testimonials/test3.png" class="testimonial-img" alt="">
-          <h3>Moses T.F. Vibbie</h3>
-          <h4>Founder & CEO - CoronaInfo/Healthics</h4>
-          <p>
-            <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-            Khushboo did a great job in designing a covid-19 tracking and reporting app and website I was working on (Coronainfo).  The first design wasn't that good,  but Khushboo stepped in and redesigned the whole app making it easier to investigate, and good looking based on latest UI design standards. 
-            Thanks Khushboo for your intervention.
-            <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-          </p>
-        </div>
-      </div><!-- End testimonial item -->
-    </div>
-    <div class="swiper-pagination"></div>
   </div>
 </div>
+
+
+<!-- ── SELECTED WORK ──────────────────────────────────── -->
+<section class="section" id="work" style="background:var(--bg);">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-header-left">
+        <span class="section-tag">Professional Work</span>
+        <h2 class="section-title">Designed. Shipped. Measured.</h2>
+        <p class="section-sub">End-to-end design work delivered inside industry-leading companies: measured, iterated, and launched.</p>
+      </div>
+    </div>
+
+    <div class="projects-grid">
+
+      <!-- Intuit: featured -->
+      <div class="project-card featured locked">
+        <a class="card-link" href="portfolio-details-intuit.html" aria-label="View Intuit case study"></a>
+        <div class="project-card-inner">
+          <div class="project-card-img">
+            <img src="dist/images/intuit_cover.png" alt="Intuit">
+          </div>
+          <div class="project-card-body">
+            <div class="project-card-tags">
+              <span class="project-tag">#internaltools</span>
+              <span class="project-tag">#resourceplanning</span>
+              <span class="project-tag">#AIdriventech</span>
+            </div>
+            <div class="project-card-title">Turning Fragmented Workflows into Seamless Execution</div>
+            <p class="project-card-desc">Led end-to-end UX redesign of internal execution tools for cross-functional teams, focused on reducing friction and improving task clarity.</p>
+            <ul class="project-card-metrics">
+              <li><strong>↑ 26% improvement</strong> in usability score</li>
+              <li><strong>↓ 30% reduction</strong> in task completion time</li>
+              <li>Adopted across cross-functional teams company-wide</li>
+            </ul>
+            <div class="project-card-footer">
+              <a href="portfolio-details-intuit.html" class="project-card-cta"><i class="bi bi-lock-fill" style="font-size:12px;"></i> View Case Study <i class="bi bi-arrow-right"></i></a>
+              <span class="project-role-badge">Sr. Product Designer</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- J&J -->
+      <div class="project-card">
+        <a class="card-link" href="portfolio-details-johnson.html" aria-label="View J&J case study"></a>
+        <div class="project-card-inner">
+          <div class="project-card-img">
+            <img src="dist/images/johnson_cover.png" alt="Johnson & Johnson MedTech">
+          </div>
+          <div class="project-card-body">
+            <div class="project-card-tags">
+              <span class="project-tag">#healthcare</span>
+              <span class="project-tag">#surgicalplatform</span>
+              <span class="project-tag">#designsystem</span>
+            </div>
+            <div class="project-card-title">Empowering Surgeons with Smarter Planning Tools at J&amp;J MedTech</div>
+            <p class="project-card-desc">Designed clinician-focused surgical planning interfaces and a scalable design system that transformed how surgical teams prepare and collaborate.</p>
+            <ul class="project-card-metrics">
+              <li><strong>↑ 15% increase</strong> in clinician satisfaction</li>
+              <li><strong>↑ 25% faster</strong> feature delivery</li>
+              <li>Scalable design system built from the ground up</li>
+            </ul>
+            <div class="project-card-footer">
+              <a href="portfolio-details-johnson.html" class="project-card-cta">View Case Study <i class="bi bi-arrow-right"></i></a>
+              <span class="project-role-badge">Sr. UX Designer</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Enovation Controls -->
+      <div class="project-card">
+        <a class="card-link" href="portfolio-details-enovationcontrols.html" aria-label="View Enovation Controls case study"></a>
+        <div class="project-card-inner">
+          <div class="project-card-img">
+            <img src="dist/images/Enovation.png" alt="Enovation Controls">
+          </div>
+          <div class="project-card-body">
+            <div class="project-card-tags">
+              <span class="project-tag">#digitaldevice</span>
+              <span class="project-tag">#industrialux</span>
+              <span class="project-tag">#usabilityresearch</span>
+            </div>
+            <div class="project-card-title">Redesigning Critical Interfaces for Marine & Industrial Vehicles</div>
+            <p class="project-card-desc">Optimized digital device interfaces for complex marine and industrial environments through field research, expert reviews, and iterative testing.</p>
+            <ul class="project-card-metrics">
+              <li><strong>↑ 80% improvement</strong> in usability</li>
+              <li><strong>↑ 40% gain</strong> in product performance</li>
+              <li>Research conducted across 3 vehicle categories</li>
+            </ul>
+            <div class="project-card-footer">
+              <a href="portfolio-details-enovationcontrols.html" class="project-card-cta">View Case Study <i class="bi bi-arrow-right"></i></a>
+              <span class="project-role-badge">UX Design Intern</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </section>
-</div>
- 
 
-</main>
-<br> 
-			<section class="cta section" style="background:#182538">
-           <div class="container-sm">
-                <div class="cta-inner section-inner">
-                    <div class="cta-header text-center">
-                      <h3 class="section-title mt-0">I'm looking for "UX/Product Design Job opportunities". Always happy to chat about your requirements. Let's connect!</h3>
-                        <p class="section-paragraph">Made with <span style="color:#FE9E39;"> ❤</span> by Khushboo Chandnani</p>
-                <div class="cta-cta">
-                  <a class="button button-primary" href="mailto:khushboochandnanijobportfolio@gmail.com">Contact Me!</a>
-                </div>
-					     </div>
-              </div>
-            </div>
-      </section>
-      
+
+<!-- ── PERSONAL PROJECTS ──────────────────────────────── -->
+<section class="section" id="projects" style="background:var(--surface);border-top:1px solid var(--border);">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-header-left">
+        <span class="section-tag">Side Projects</span>
+        <h2 class="section-title">Ideas Worth Building</h2>
+        <p class="section-sub">Self-initiated design work driven by curiosity: exploring accessibility, health, and social impact.</p>
+      </div>
     </div>
-  <div id="preloader"></div>
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-  <script src="assets/vendor/purecounter/purecounter.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
+    <div class="projects-grid">
 
-    <script src="dist/js/main.min.js"></script>
-    <script src="dist/js/main.js"></script>
-   
+      <!-- NeoRoo -->
+      <div class="project-card">
+        <a class="card-link" href="portfolio-details-neoroo.html" aria-label="View NeoRoo case study"></a>
+        <div class="project-card-inner">
+          <div class="project-card-img">
+            <img src="dist/images/NeoRoo_artboard.png" alt="NeoRoo">
+          </div>
+          <div class="project-card-body">
+            <div class="project-card-tags">
+              <span class="project-tag">#healthcare</span>
+              <span class="project-tag">#prematurebabies</span>
+              <span class="project-tag">#uxresearch</span>
+            </div>
+            <div class="project-card-title">Designing for Infant Survival in Under-Resourced Environments</div>
+            <p class="project-card-desc">A biomedical device and companion app improving Kangaroo Mother Care for premature babies in low and middle-income countries.</p>
+            <ul class="project-card-metrics">
+              <li>Published in <strong>PLOS Digital Health</strong></li>
+              <li>Designed for deployment across <strong>5+ LMICs</strong></li>
+              <li>Integrated biomedical device with mobile companion app</li>
+            </ul>
+            <div class="project-card-footer">
+              <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+                <a href="portfolio-details-neoroo.html" class="project-card-cta">Case Study <i class="bi bi-arrow-right"></i></a>
+                <a href="https://journals.plos.org/digitalhealth/article?id=10.1371/journal.pdig.0000216" target="_blank" class="project-card-cta" style="color:#0EA5E9;"><i class="bi bi-journal-text"></i> Publication</a>
+              </div>
+              <span class="project-role-badge">Lead Designer</span>
+            </div>
+          </div>
+        </div>
+      </div>
 
+      <!-- CulturVerse -->
+      <div class="project-card">
+        <a class="card-link" href="portfolio-details-culturverse.html" aria-label="View CulturVerse case study"></a>
+        <div class="project-card-inner">
+          <div class="project-card-img">
+            <img src="dist/images/Cuturverse_artboard.png" alt="CulturVerse">
+          </div>
+          <div class="project-card-body">
+            <div class="project-card-tags">
+              <span class="project-tag">#augmentedreality</span>
+              <span class="project-tag">#accessibility</span>
+              <span class="project-tag">#culturaltourism</span>
+            </div>
+            <div class="project-card-title">Making the World's Cultural Heritage Accessible to Everyone</div>
+            <p class="project-card-desc">An AR cultural tourism app enabling mobility-disabled users to experience real-world historical and cultural sites through immersive 360° views.</p>
+            <ul class="project-card-metrics">
+              <li>Designed for <strong>1.3B+ people</strong> living with disabilities</li>
+              <li><strong>360° AR</strong> immersive experiences across cultural sites</li>
+              <li>Accessibility-first design framework throughout</li>
+            </ul>
+            <div class="project-card-footer">
+              <a href="portfolio-details-culturverse.html" class="project-card-cta">View Case Study <i class="bi bi-arrow-right"></i></a>
+              <span class="project-role-badge">UX Designer</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FitGamer -->
+      <div class="project-card">
+        <a class="card-link" href="portfolio-details-fitgamer.html" aria-label="View FitGamer case study"></a>
+        <div class="project-card-inner">
+          <div class="project-card-img">
+            <img src="dist/images/fitgamer_artboard.png" alt="FitGamer">
+          </div>
+          <div class="project-card-body">
+            <div class="project-card-tags">
+              <span class="project-tag">#gaming</span>
+              <span class="project-tag">#wellbeing</span>
+              <span class="project-tag">#behaviordesign</span>
+            </div>
+            <div class="project-card-title">Helping Gamers Reclaim Their Health Without Quitting Gaming</div>
+            <p class="project-card-desc">A wellness app that balances screen time with physical health through activity monitoring, smart breaks, and social accountability.</p>
+            <ul class="project-card-metrics">
+              <li>Designed for <strong>3B+ active gamers</strong> worldwide</li>
+              <li>Activity tracking, social nudges & break system integrated</li>
+              <li>Built on <strong>behavior design</strong> & habit loop principles</li>
+            </ul>
+            <div class="project-card-footer">
+              <a href="portfolio-details-fitgamer.html" class="project-card-cta">View Case Study <i class="bi bi-arrow-right"></i></a>
+              <span class="project-role-badge">UX Designer</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ── ACHIEVEMENTS ────────────────────────────────────── -->
+<section class="section" id="achievements" style="background:var(--surface);border-top:1px solid var(--border);">
+  <div class="section-inner">
+    <span class="section-tag">Recognition</span>
+    <h2 class="section-title">Milestones That Matter</h2>
+    <p class="section-sub">"My journey is meaningful when hard work results in unforgettable achievements."</p>
+
+    <div class="achievements-grid" style="margin-top:48px;">
+      <div class="achievement-card">
+        <a href="https://tapiaconference.cmd-it.org/attend/presentation/?id=psub131&sess=sess330" target="_blank">
+          <div class="achievement-card-img"><img src="dist/images/tapia.png" alt="TAPIA Conference"></div>
+          <div class="achievement-card-body">
+            <div class="achievement-card-label">Conference Speaker</div>
+            <div class="achievement-card-title">CMD-IT/ACM Richard Tapia '23 Conference</div>
+          </div>
+        </a>
+      </div>
+      <div class="achievement-card">
+        <a href="https://journals.plos.org/digitalhealth/article?id=10.1371/journal.pdig.0000216" target="_blank">
+          <div class="achievement-card-img"><img src="dist/images/paper.PNG" alt="PLOS Publication"></div>
+          <div class="achievement-card-body">
+            <div class="achievement-card-label">Co-Author</div>
+            <div class="achievement-card-title">Research Paper: PLOS Digital Health Publication</div>
+          </div>
+        </a>
+      </div>
+      <div class="achievement-card">
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7177031788211429376/" target="_blank">
+          <div class="achievement-card-img"><img src="dist/images/JJCertificate.jpg.jfif" alt="J&J Award"></div>
+          <div class="achievement-card-body">
+            <div class="achievement-card-label">Leadership Award</div>
+            <div class="achievement-card-title">Inspire GROW Award: Johnson &amp; Johnson</div>
+          </div>
+        </a>
+      </div>
+      <div class="achievement-card">
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7112243537710104576/" target="_blank">
+          <div class="achievement-card-img"><img src="dist/images/GSOC Mentor.png" alt="GSOC Mentor"></div>
+          <div class="achievement-card-body">
+            <div class="achievement-card-label">Open Source Mentor</div>
+            <div class="achievement-card-title">Google Summer of Code 2023: LibreHealth</div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── DESIGN SHOTS ────────────────────────────────────── -->
+<section class="section" style="background:var(--bg);border-top:1px solid var(--border);">
+  <div class="section-inner">
+    <span class="section-tag">Design Gallery</span>
+    <h2 class="section-title">Design Shots</h2>
+    <p class="section-sub">Self-initiated design explorations across dashboards, apps, and visual concepts.</p>
+    <div class="shots-grid" style="margin-top:48px;">
+      <div class="shot-item"><a href="dist/images/covid19.png" data-gallery="shots" class="glightbox"><img src="dist/images/covid19.png" alt="COVID-19 Dashboard"><div class="shot-overlay"><span class="shot-title">COVID-19 Dashboard</span></div></a></div>
+      <div class="shot-item"><a href="dist/images/travel.png" data-gallery="shots" class="glightbox"><img src="dist/images/travel.png" alt="Travello"><div class="shot-overlay"><span class="shot-title">Travello: Travel Booking</span></div></a></div>
+      <div class="shot-item"><a href="dist/images/dating.png" data-gallery="shots" class="glightbox"><img src="dist/images/dating.png" alt="Dating App"><div class="shot-overlay"><span class="shot-title">Dating App</span></div></a></div>
+      <div class="shot-item"><a href="dist/images/ecommerce.png" data-gallery="shots" class="glightbox"><img src="dist/images/ecommerce.png" alt="Ecommerce"><div class="shot-overlay"><span class="shot-title">E-commerce Website</span></div></a></div>
+      <div class="shot-item"><a href="dist/images/mcq.png" data-gallery="shots" class="glightbox"><img src="dist/images/mcq.png" alt="MCQ App"><div class="shot-overlay"><span class="shot-title">MCQ App</span></div></a></div>
+      <div class="shot-item"><a href="dist/images/todo.png" data-gallery="shots" class="glightbox"><img src="dist/images/todo.png" alt="ToDo App"><div class="shot-overlay"><span class="shot-title">ToDo App</span></div></a></div>
+      <div class="shot-item"><a href="dist/images/photo_gallery.png" data-gallery="shots" class="glightbox"><img src="dist/images/photo_gallery.png" alt="Photo Gallery"><div class="shot-overlay"><span class="shot-title">Photo Gallery App</span></div></a></div>
+      <div class="shot-item"><a href="dist/images/job.png" data-gallery="shots" class="glightbox"><img src="dist/images/job.png" alt="Job App"><div class="shot-overlay"><span class="shot-title">Job App</span></div></a></div>
+      <div class="shot-item"><a href="dist/images/Jordan.jpg" data-gallery="shots" class="glightbox"><img src="dist/images/Jordan.jpg" alt="Jordan Poster"><div class="shot-overlay"><span class="shot-title">Jordan Poster</span></div></a></div>
+    </div>
+  </div>
+</section>
+
+
+
+
+<!-- ── TESTIMONIALS ───────────────────────────────────── -->
+<section class="testimonials-section">
+  <div style="max-width:1180px;margin:0 auto;">
+    <span class="section-tag" style="color:rgba(255,255,255,.45);">Social Proof</span>
+    <h2 class="section-title" style="color:#fff;margin-top:10px;">What People Say</h2>
+    <p class="section-sub" style="color:rgba(255,255,255,.5);">Reviews and endorsements from clients and collaborators.</p>
+    <div class="testimonials-grid">
+      <div class="testimonial-card"><div class="testimonial-stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div><p class="testimonial-quote">"A mix of sheer professionalism and creativity. She has all the ingredients of the best co-worker: adaptability, hunger for learning, and a never-give-up attitude. I highly recommend her to any organisation!"</p><div class="testimonial-author"><img src="dist/images/testimonials/test5.png" alt="Sachin"><div><div class="testimonial-name">Sachin Yadav</div><div class="testimonial-role">Co-Founder &amp; Product Head, Job Vacancy Result</div></div></div></div>
+      <div class="testimonial-card"><div class="testimonial-stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div><p class="testimonial-quote">"Talents like Khushboo are rare. She has a knack for understanding minute details and always brings the best to the table. We're happy we could leverage her expertise in building our platform designs."</p><div class="testimonial-author"><img src="dist/images/testimonials/test1.png" alt="Chinmay"><div><div class="testimonial-name">Chinmay Palshetkar</div><div class="testimonial-role">Founder &amp; CEO, Sportizen</div></div></div></div>
+      <div class="testimonial-card"><div class="testimonial-stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div><p class="testimonial-quote">"The top 3 things I look for when hiring: great attitude, hunger to learn, and ability to fail and quickly recover. She nails every single one. Apart from being a highly driven designer, she's a great person to work with."</p><div class="testimonial-author"><img src="dist/images/testimonials/test2.png" alt="Shraddha"><div><div class="testimonial-name">Shraddha Mittal</div><div class="testimonial-role">Senior Designer, Enquero</div></div></div></div>
+      <div class="testimonial-card"><div class="testimonial-stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div><p class="testimonial-quote">"She presented designs confidently to Commanders and Admirals of the Navy, addressing complex requirements with extensive presentation skills. With the right steer, she will prove to be an asset wherever she works."</p><div class="testimonial-author"><img src="dist/images/testimonials/test4.png" alt="Ankur"><div><div class="testimonial-name">Ankur Khanna</div><div class="testimonial-role">Managing Director, Accommodator Consultancy</div></div></div></div>
+      <div class="testimonial-card"><div class="testimonial-stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div><p class="testimonial-quote">"Khushboo stepped in and redesigned the whole app, making it easier to navigate and visually compelling based on latest UI design standards. Thanks for your intervention: it made a real difference."</p><div class="testimonial-author"><img src="dist/images/testimonials/test3.png" alt="Moses"><div><div class="testimonial-name">Moses T.F. Vibbie</div><div class="testimonial-role">Founder &amp; CEO, CoronaInfo / Healthics</div></div></div></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── CTA ────────────────────────────────────────────── -->
+<section class="cta-section">
+  <div class="cta-inner">
+    <span class="section-tag">Let's Connect</span>
+    <h2>Looking for a UX/Product Designer?</h2>
+    <p>I'm open to full-time roles, contract work, and collaborations. Always happy to chat about your requirements.</p>
+    <div class="cta-btns">
+      <a href="mailto:khushboochandnanijobportfolio@gmail.com" class="btn-primary"><i class="bi bi-envelope-fill"></i> Email Me</a>
+      <a href="https://www.linkedin.com/in/khushboo-chandnani" target="_blank" class="btn-ghost"><i class="bi bi-linkedin"></i> LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── FOOTER ──────────────────────────────────────────── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-left">Made with ❤ by <strong>Khushboo Chandnani</strong> · © 2025</div>
+    <div class="footer-links">
+      <a href="about.html"><i class="bi bi-person"></i> About</a>
+      <a href="https://www.linkedin.com/in/khushboo-chandnani" target="_blank"><i class="bi bi-linkedin"></i> LinkedIn</a>
+      <a href="mailto:khushboochandnanijobportfolio@gmail.com"><i class="bi bi-envelope"></i> Email</a>
+    </div>
+  </div>
+</footer>
+
+<a href="#top" class="back-to-top" id="backToTop"><i class="bi bi-arrow-up-short"></i></a>
+
+<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+<script>
+  GLightbox({ selector: '.glightbox' });
+  window.addEventListener('scroll', () => {
+    document.getElementById('backToTop').classList.toggle('active', window.scrollY > 400);
+  });
+  const sections = document.querySelectorAll('section[id], div[id]');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 80) current = s.id; });
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+    });
+  });
+  // Theme toggle
+  (function(){
+    var btn = document.getElementById('themeToggle');
+    function applyTheme(t) {
+      document.documentElement.setAttribute('data-theme', t);
+      localStorage.setItem('kc-theme', t);
+      btn.innerHTML = t === 'dark' ? '<i class="bi bi-sun"></i>' : '<i class="bi bi-moon-stars"></i>';
+    }
+    applyTheme(localStorage.getItem('kc-theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+    btn.addEventListener('click', function(){
+      applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    });
+  })();
+</script>
 </body>
 </html>

@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Intuit PET 2.0: Prioritization & Execution Tool · KC Portfolio</title>
+  <meta content="UX Case Study: Enhancing Intuit's Prioritization and Execution Tool (PET 2.0): persona-driven redesign of internal resource planning and workstream management." name="description">
+
+  <link href="dist/images/favicon.svg" rel="icon" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --blue:     #0078D4;
+      --blue-lt:  #EBF5FF;
+      --blue-mid: #BFE0FF;
+      --dark:     #0D1117;
+      --dark2:    #2D3748;
+      --body-clr: #5A6272;
+      --border:   #E2E8F0;
+      --surface:  #F7F9FC;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: "Inter", sans-serif; color: var(--body-clr); background: #fff; }
+    h1,h2,h3,h4,h5,h6 { font-family: "IBM Plex Sans", sans-serif; }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+
+    #progress { position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--blue),#38BDF8);z-index:9999;transition:width .1s; }
+
+    /* ── SITE NAV ─────────────────────────────────────── */
+    .site-nav { position:fixed;top:0;left:0;right:0;z-index:9000;background:rgba(255,255,255,.96);backdrop-filter:blur(18px);border-bottom:1px solid rgba(229,231,235,.8);padding:0 40px;height:64px;display:flex;align-items:center;justify-content:space-between; }
+    .site-nav-logo { display:flex;align-items:center;gap:9px;font-family:"IBM Plex Sans",sans-serif;font-weight:700;font-size:15px;color:#0D0D18;text-decoration:none; }
+    .site-nav-logo img { width:26px;height:26px;border-radius:5px; }
+    .site-nav-links { display:flex;align-items:center;gap:28px; }
+    .site-nav-links a { font-size:14px;font-weight:500;color:#6B7280;text-decoration:none;transition:color .2s; }
+    .site-nav-links a:hover,.site-nav-links a.active { color:#0D0D18;font-weight:600; }
+    .site-nav-cta { background:#0D0D18;color:#fff;font-family:"IBM Plex Sans",sans-serif;font-weight:600;font-size:13px;padding:8px 18px;border-radius:8px;text-decoration:none;transition:all .2s;white-space:nowrap; }
+    .site-nav-cta:hover { background:#0078D4;color:#fff;transform:translateY(-1px); }
+    @media(max-width:640px){ .site-nav { padding:0 20px; } .site-nav-links { display:none; } }
+
+    /* ── HERO ─────────────────────────────────── */
+    .in-hero { min-height:100vh;padding-top:64px;background:#fff;display:flex;align-items:center;position:relative;overflow:hidden;border-bottom:3px solid var(--blue); }
+    .in-hero::before { content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--blue),#38BDF8); }
+    .in-hero-inner { max-width:1200px;margin:0 auto;padding:80px 40px;display:grid;grid-template-columns:1fr 1.1fr;gap:60px;align-items:center; }
+    .in-eyebrow { display:inline-flex;align-items:center;gap:8px;background:var(--blue-lt);border:1px solid var(--blue-mid);color:var(--blue);font-family:"IBM Plex Sans",sans-serif;font-size:12px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;padding:5px 14px;border-radius:4px;margin-bottom:18px; }
+    .in-hero h1 { font-family:"IBM Plex Sans",sans-serif;font-size:clamp(30px,4vw,52px);font-weight:700;line-height:1.1;color:var(--dark);margin:0 0 20px; }
+    .in-hero h1 span { color:var(--blue); }
+    .in-hero-desc { font-size:16px;line-height:1.8;color:var(--body-clr);margin:0 0 36px;max-width:520px; }
+    .in-hero-meta { display:flex;gap:32px;flex-wrap:wrap; }
+    .in-meta-item { display:flex;flex-direction:column;gap:3px; }
+    .in-meta-lbl { font-size:10px;text-transform:uppercase;letter-spacing:1.3px;color:#aaa;font-family:"IBM Plex Sans",sans-serif;font-weight:700; }
+    .in-meta-val { font-size:14px;color:var(--dark);font-family:"IBM Plex Sans",sans-serif;font-weight:600; }
+
+    /* ── STRIP ────────────────────────────────── */
+    .in-strip { background:var(--dark);border-top:4px solid var(--blue); }
+    .in-strip-grid { display:grid;grid-template-columns:repeat(4,1fr);max-width:1200px;margin:0 auto; }
+    .in-strip-item { padding:30px 28px;border-right:1px solid rgba(255,255,255,.07); }
+    .in-strip-item:last-child { border-right:none; }
+    .in-strip-icon { width:38px;height:38px;background:rgba(0,120,212,.15);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:17px;color:#7EC8FF;margin-bottom:10px; }
+    .in-strip-lbl { font-size:10px;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.38);font-family:"IBM Plex Sans",sans-serif;font-weight:700;margin-bottom:4px; }
+    .in-strip-val { font-family:"IBM Plex Sans",sans-serif;font-size:14px;font-weight:600;color:#fff;line-height:1.5; }
+    .in-strip-val small { font-weight:400;color:rgba(255,255,255,.45);font-size:12px;display:block; }
+
+    /* ── LAYOUT ───────────────────────────────── */
+    .in-section { padding:80px 40px;max-width:1200px;margin:0 auto; }
+    .in-full { padding:80px 40px; }
+    .in-full-inner { max-width:1200px;margin:0 auto; }
+    .in-bg-surface { background:var(--surface); }
+    .in-split { display:grid;grid-template-columns:1fr 1.35fr;gap:52px;align-items:start; }
+    .in-split.flip { direction:rtl; }
+    .in-split.flip > * { direction:ltr; }
+
+    /* ── TYPOGRAPHY ───────────────────────────── */
+    .in-label { font-family:"IBM Plex Sans",sans-serif;font-size:11px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:var(--blue);display:block;margin-bottom:10px; }
+    .in-title { font-family:"IBM Plex Sans",sans-serif;font-size:clamp(24px,3vw,38px);font-weight:700;color:var(--dark);line-height:1.2;margin:0 0 16px; }
+    .in-body { font-size:15px;color:var(--body-clr);line-height:1.82;margin:0 0 20px; }
+
+    /* ── SCREEN IMAGE ─────────────────────────── */
+    .in-screen img { width:100%;display:block;border-radius:12px;box-shadow:0 12px 36px rgba(0,0,0,.12); }
+    .in-screen-full { margin-top:32px; }
+    .in-screen-full img { width:100%;display:block;border-radius:14px;box-shadow:0 10px 32px rgba(0,0,0,.1); }
+
+    /* ── SCREEN ROWS ──────────────────────────── */
+    .screen-row { display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:28px;width:100%; }
+    .screen-row.two-col { grid-template-columns:repeat(2,1fr); }
+    .screen-row.one-col { grid-template-columns:1fr; gap:28px; }
+    .screen-row.one-col .screen-item img { min-height:unset; object-fit:contain; }
+    .screen-item { display:flex;flex-direction:column;gap:10px;position:relative; }
+    .screen-label {
+      display:inline-block;align-self:flex-start;
+      font-family:"IBM Plex Sans",sans-serif;font-size:11px;font-weight:700;
+      text-transform:uppercase;letter-spacing:.8px;
+      padding:5px 12px;border-radius:6px;
+      margin-top:2px;
+    }
+    .screen-label:not(.after) { background:rgba(13,13,24,.08);color:var(--dark2);border:1px solid rgba(13,13,24,.12); }
+    .screen-label.after { background:rgba(0,120,212,.1);color:var(--blue);border:1px solid rgba(0,120,212,.2); }
+    .screen-item img { width:100%;display:block;border-radius:14px;box-shadow:0 10px 40px rgba(0,0,0,.18);min-height:300px;object-fit:cover;object-position:top; }
+
+    /* ── PRODUCT BADGE ────────────────────────── */
+    .in-product-badge { display:inline-flex;align-items:center;gap:8px;background:var(--blue-lt);border:1px solid var(--blue-mid);color:var(--blue);font-family:"IBM Plex Sans",sans-serif;font-size:13px;font-weight:600;padding:8px 16px;border-radius:6px;margin-bottom:28px; }
+
+    /* ── PROBLEM BLOCK ────────────────────────── */
+    .in-problem-block { display:flex;align-items:flex-start;gap:16px;background:#fff;border:1px solid var(--border);border-left:4px solid var(--blue);border-radius:0 12px 12px 0;padding:22px 24px;margin-bottom:28px; }
+    .in-problem-icon { width:40px;height:40px;background:var(--blue-lt);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--blue);font-size:18px;flex-shrink:0; }
+    .in-problem-label { font-family:"IBM Plex Sans",sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--blue);margin-bottom:6px; }
+    .in-problem-text { font-size:15px;color:var(--dark2);line-height:1.7; }
+
+    /* ── RESEARCH LOOP ────────────────────────── */
+    .loop-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:32px; }
+    .loop-item { background:#fff;border:1px solid var(--border);border-radius:12px;padding:24px 20px;text-align:center;position:relative; }
+    .loop-num { width:32px;height:32px;background:var(--blue);border-radius:50%;color:#fff;font-family:"IBM Plex Sans",sans-serif;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto 12px; }
+    .loop-icon { font-size:26px;color:var(--blue);margin-bottom:10px; }
+    .loop-title { font-family:"IBM Plex Sans",sans-serif;font-size:14px;font-weight:700;color:var(--dark);margin-bottom:6px; }
+    .loop-desc { font-size:12px;color:var(--body-clr);line-height:1.6; }
+
+    /* ── PERSONA CARDS ────────────────────────── */
+    .persona-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:32px; }
+    .persona-card { background:#fff;border:1px solid var(--border);border-top:3px solid var(--blue);border-radius:12px;padding:24px 20px; }
+    .persona-num { font-family:"IBM Plex Sans",sans-serif;font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--blue);margin-bottom:8px; }
+    .persona-name { font-family:"IBM Plex Sans",sans-serif;font-size:15px;font-weight:700;color:var(--dark);margin-bottom:4px; }
+    .persona-role { font-size:12px;color:#888;margin-bottom:14px; }
+    .persona-section { margin-bottom:10px; }
+    .persona-lbl { font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--blue);margin-bottom:5px; }
+    .persona-text { font-size:13px;color:var(--body-clr);line-height:1.55; }
+
+    /* ── PAIN POINT CARDS ─────────────────────── */
+    .pain-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:32px; }
+    .pain-card { background:#fff;border:1px solid #FFD9CC;border-left:4px solid #E05A1A;border-radius:0 12px 12px 0;padding:22px 20px; }
+    .pain-icon { font-size:24px;color:#E05A1A;margin-bottom:10px; }
+    .pain-title { font-family:"IBM Plex Sans",sans-serif;font-size:15px;font-weight:700;color:var(--dark);margin-bottom:6px; }
+    .pain-desc { font-size:13px;color:var(--body-clr);line-height:1.6; }
+
+    /* ── USER QUOTE ───────────────────────────── */
+    .quote-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:28px; }
+    .quote-card { background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:22px 20px; }
+    .quote-mark { font-size:28px;color:var(--blue);font-family:Georgia,serif;line-height:.8;margin-bottom:8px; }
+    .quote-text { font-size:14px;color:var(--dark2);line-height:1.7;font-style:italic;margin-bottom:14px; }
+    .quote-attr { font-size:12px;font-weight:700;color:var(--blue);font-family:"IBM Plex Sans",sans-serif; }
+
+    /* ── STRATEGY GOALS ───────────────────────── */
+    .goal-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:32px; }
+    .goal-card { background:#fff;border:1px solid var(--border);border-top:3px solid var(--blue);border-radius:12px;padding:22px 18px;transition:all .25s; }
+    .goal-card:hover { box-shadow:0 8px 28px rgba(0,120,212,.1);transform:translateY(-3px); }
+    .goal-num { font-family:"IBM Plex Sans",sans-serif;font-size:28px;font-weight:700;color:var(--blue-mid);margin-bottom:8px; }
+    .goal-title { font-family:"IBM Plex Sans",sans-serif;font-size:14px;font-weight:700;color:var(--dark);margin-bottom:6px; }
+    .goal-desc { font-size:13px;color:var(--body-clr);line-height:1.6; }
+
+    /* ── BEFORE/AFTER ─────────────────────────── */
+    .ba-header { font-family:"IBM Plex Sans",sans-serif;font-size:16px;font-weight:700;display:flex;align-items:center;gap:9px;margin-bottom:14px; }
+    .ba-header.bad { color:#B05010; }
+    .ba-header.good { color:#0369A1; }
+    .ba-box { border-radius:12px;padding:24px 22px; }
+    .ba-box.bad { background:#FFF8F5;border:1px solid #FFD9CC; }
+    .ba-box.good { background:#F0F9FF;border:1px solid #BAE6FD; }
+    .ba-item { display:flex;gap:9px;padding:9px 0;border-bottom:1px solid rgba(0,0,0,.05);font-size:14px;line-height:1.65;align-items:flex-start; }
+    .ba-item:last-child { border-bottom:none; }
+    .ba-box.bad .ba-item { color:#7c3a10; }
+    .ba-box.good .ba-item { color:#075985; }
+    .ba-grid { display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px; }
+
+    /* ── ANNOTATION LIST ──────────────────────── */
+    .annotation-list { list-style:none;padding:0;margin:0; }
+    .annotation-list li { display:block;position:relative;padding-left:32px;margin-bottom:12px;font-size:14px;color:var(--body-clr);line-height:1.65; }
+    .annotation-list li::before { content:'';position:absolute;left:0;top:3px;width:20px;height:20px;background:var(--blue);border-radius:50%;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E");background-size:12px;background-repeat:no-repeat;background-position:center; }
+
+    /* ── CALLOUT ──────────────────────────────── */
+    .in-callout { border-left:4px solid var(--blue);background:var(--surface);border-radius:0 10px 10px 0;padding:16px 20px;margin:18px 0;font-size:15px;color:var(--dark2);line-height:1.7; }
+
+    /* ── FEEDBACK CARD ────────────────────────── */
+    .feedback-row { display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:28px; }
+    .feedback-card { border-radius:12px;padding:22px; }
+    .feedback-card.before { background:#FFF8F5;border:1px solid #FFD9CC; }
+    .feedback-card.after { background:#F0F9FF;border:1px solid #BAE6FD; }
+    .feedback-label { font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px; }
+    .feedback-card.before .feedback-label { color:#B05010; }
+    .feedback-card.after .feedback-label { color:#0369A1; }
+    .feedback-quote { font-size:14px;font-style:italic;line-height:1.7;margin-bottom:10px; }
+    .feedback-card.before .feedback-quote { color:#7c3a10; }
+    .feedback-card.after .feedback-quote { color:#075985; }
+    .feedback-attr { font-size:12px;font-weight:600;font-family:"IBM Plex Sans",sans-serif; }
+    .feedback-card.before .feedback-attr { color:#B05010; }
+    .feedback-card.after .feedback-attr { color:#0369A1; }
+
+    /* ── IMPACT METRICS ───────────────────────── */
+    .impact-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid rgba(0,120,212,.2);border-radius:14px;overflow:hidden;margin-top:36px; }
+    .impact-item { padding:32px 24px;border-right:1px solid rgba(0,120,212,.15);text-align:center;background:var(--blue-lt); }
+    .impact-item:last-child { border-right:none; }
+    .impact-num { font-family:"IBM Plex Sans",sans-serif;font-size:48px;font-weight:700;color:var(--blue);line-height:1;margin-bottom:10px; }
+    .impact-arrow { display:inline-block;font-size:13px;font-weight:700;padding:2px 9px;border-radius:20px;margin-bottom:8px;letter-spacing:.3px; }
+    .impact-arrow.up { background:#DCFCE7;color:#16A34A; }
+    .impact-arrow.down { background:#FEE2E2;color:#DC2626; }
+    .impact-desc { font-size:13px;color:var(--body-clr);line-height:1.55; }
+
+    /* ── UPCOMING ─────────────────────────────── */
+    .upcoming-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:32px; }
+    .upcoming-card { background:#fff;border:1px solid var(--border);border-radius:12px;padding:22px 18px; }
+    .upcoming-icon { width:40px;height:40px;background:var(--blue-lt);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--blue);margin-bottom:12px; }
+    .upcoming-title { font-family:"IBM Plex Sans",sans-serif;font-size:14px;font-weight:700;color:var(--dark);margin-bottom:6px; }
+    .upcoming-desc { font-size:13px;color:var(--body-clr);line-height:1.6; }
+
+    /* ── CHALLENGES ───────────────────────────── */
+    .in-two-col { display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:32px; }
+    .in-list-card { border-radius:12px;padding:28px; }
+    .in-list-card.challenges { background:#FFF8F5;border:1px solid #FFD9CC; }
+    .in-list-card.learnings { background:var(--surface);border:1px solid var(--border); }
+    .in-list-card h3 { font-family:"IBM Plex Sans",sans-serif;font-size:17px;font-weight:700;margin:0 0 18px;display:flex;align-items:center;gap:9px; }
+    .in-list-card.challenges h3 { color:#B05010; }
+    .in-list-card.learnings h3 { color:var(--dark); }
+    .in-bullet { list-style:none;padding:0;margin:0; }
+    .in-bullet li { padding:10px 0;border-bottom:1px solid rgba(0,0,0,.05);font-size:15px;color:var(--body-clr);line-height:1.65;display:flex;gap:10px;align-items:flex-start; }
+    .in-bullet li:last-child { border-bottom:none; }
+    .in-bullet .bi { flex-shrink:0;font-size:17px;margin-top:1px; }
+    .in-list-card.challenges .bi { color:#B05010; }
+    .in-list-card.learnings .bi { color:#0369A1; }
+
+    /* ── CTA ──────────────────────────────────── */
+    .in-cta { background:var(--dark);padding:80px 40px;text-align:center; }
+    .in-cta h2 { font-family:"IBM Plex Sans",sans-serif;font-size:28px;font-weight:700;color:#fff;margin:0 0 12px; }
+    .in-cta p { font-size:17px;color:rgba(255,255,255,.55);margin:0 0 30px; }
+    .in-cta-btns { display:flex;gap:14px;justify-content:center;flex-wrap:wrap; }
+    .btn-in-primary { background:var(--blue);color:#fff;font-family:"IBM Plex Sans",sans-serif;font-weight:700;font-size:14px;padding:13px 28px;border-radius:8px;display:inline-flex;align-items:center;gap:7px;transition:all .2s; }
+    .btn-in-primary:hover { background:#005EA6;color:#fff;transform:translateY(-2px); }
+    .btn-in-ghost { background:transparent;color:#fff;font-family:"IBM Plex Sans",sans-serif;font-weight:600;font-size:14px;padding:13px 28px;border-radius:8px;border:1px solid rgba(255,255,255,.2);display:inline-flex;align-items:center;gap:7px;transition:all .2s; }
+    .btn-in-ghost:hover { background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.4);color:#fff; }
+
+    /* ── BACK TO TOP ──────────────────────────── */
+    .back-to-top { position:fixed;visibility:hidden;opacity:0;right:22px;bottom:22px;z-index:996;background:var(--blue);width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;transition:all .3s; }
+    .back-to-top i { font-size:21px;color:#fff;line-height:0; }
+    .back-to-top.active { visibility:visible;opacity:1; }
+    .back-to-top:hover { background:#005EA6;transform:translateY(-2px); }
+
+    /* ── RESPONSIVE ───────────────────────────── */
+    @media(max-width:992px){
+      .in-hero-inner,.in-split,.in-split.flip { grid-template-columns:1fr; }
+      .in-strip-grid,.persona-grid { grid-template-columns:1fr 1fr; }
+      .in-strip-item { border-right:none;border-bottom:1px solid rgba(255,255,255,.07); }
+      .in-nav .in-tags { display:none; }
+      .in-hero-inner > div:last-child { display:none; }
+      .loop-grid,.goal-grid,.upcoming-grid { grid-template-columns:1fr 1fr; }
+      .pain-grid,.quote-grid { grid-template-columns:1fr 1fr; }
+      .impact-grid { grid-template-columns:1fr 1fr; }
+      .impact-item { border-right:none;border-bottom:1px solid rgba(0,120,212,.15); }
+    }
+    @media(max-width:640px){
+      .in-section,.in-full { padding:52px 20px; }
+      .in-nav { padding:11px 20px; }
+      .in-hero-inner { padding:52px 20px; }
+      .in-hero-meta { flex-wrap:wrap; }
+      .in-strip-grid,.persona-grid,.loop-grid,.goal-grid,.ba-grid,.feedback-row { grid-template-columns:1fr; }
+      .screen-row,.screen-row.two-col { grid-template-columns:1fr; }
+      .screen-item img { min-height:180px; }
+      .screen-label { font-size:10px; padding:3px 8px; }
+      .pain-grid,.quote-grid,.upcoming-grid,.impact-grid { grid-template-columns:1fr; }
+      .in-two-col { grid-template-columns:1fr; }
+      .in-cta { padding:52px 20px; }
+    }
+
+  /* ── LIGHTBOX ──────────────────────────────────────── */
+  .zoomable { cursor:zoom-in; transition:transform .2s,box-shadow .2s; }
+  .zoomable:hover { transform:scale(1.015); box-shadow:0 12px 40px rgba(0,0,0,.22); }
+  #lightbox { display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:9999;align-items:center;justify-content:center;padding:24px; }
+  #lightbox.open { display:flex; }
+  #lightbox img { max-width:92vw;max-height:92vh;border-radius:12px;box-shadow:0 24px 80px rgba(0,0,0,.6);animation:lbIn .22s cubic-bezier(.22,1,.36,1) both; }
+  @keyframes lbIn { from{opacity:0;transform:scale(.92)} to{opacity:1;transform:scale(1)} }
+  #lightbox-close { position:fixed;top:20px;right:24px;color:#fff;font-size:32px;cursor:pointer;line-height:1;opacity:.75;transition:opacity .15s; }
+  #lightbox-close:hover { opacity:1; }
+  </style>
+  <style>
+    #pw-gate {
+      position: fixed; inset: 0; z-index: 9999;
+      background: #0D0D18;
+      display: flex; align-items: center; justify-content: center;
+      font-family: "IBM Plex Sans", sans-serif;
+    }
+    #pw-gate .pw-box {
+      background: #13131F;
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 20px;
+      padding: 48px 40px;
+      max-width: 420px;
+      width: 90%;
+      text-align: center;
+    }
+    #pw-gate .pw-icon {
+      font-size: 36px;
+      margin-bottom: 16px;
+    }
+    #pw-gate h2 {
+      color: #fff;
+      font-size: 20px;
+      font-weight: 700;
+      margin: 0 0 6px;
+    }
+    #pw-gate p {
+      color: rgba(255,255,255,.45);
+      font-size: 14px;
+      margin: 0 0 28px;
+      line-height: 1.6;
+    }
+    #pw-gate .pw-nda {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(239,68,68,.12);
+      color: #F87171;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 20px;
+      border: 1px solid rgba(239,68,68,.25);
+      margin-bottom: 24px;
+    }
+    #pw-gate .pw-field {
+      position: relative;
+      margin-bottom: 14px;
+    }
+    #pw-gate input[type="password"] {
+      width: 100%;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 10px;
+      padding: 13px 16px;
+      color: #fff;
+      font-family: "IBM Plex Sans", sans-serif;
+      font-size: 15px;
+      outline: none;
+      box-sizing: border-box;
+      transition: border-color .2s;
+    }
+    #pw-gate input[type="password"]:focus {
+      border-color: rgba(99,102,241,.6);
+    }
+    #pw-gate input[type="password"].error {
+      border-color: rgba(239,68,68,.6);
+      animation: shake .3s ease;
+    }
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      25% { transform: translateX(-6px); }
+      75% { transform: translateX(6px); }
+    }
+    #pw-gate .pw-error {
+      color: #F87171;
+      font-size: 13px;
+      margin-bottom: 14px;
+      display: none;
+    }
+    #pw-gate button {
+      width: 100%;
+      background: #5B5BD6;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 13px;
+      font-family: "IBM Plex Sans", sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background .2s, transform .1s;
+    }
+    #pw-gate button:hover { background: #4747c2; }
+    #pw-gate button:active { transform: scale(.98); }
+    #pw-gate .pw-hint {
+      margin-top: 18px;
+      color: rgba(255,255,255,.25);
+      font-size: 12px;
+    }
+    body.pw-locked { overflow: hidden; }
+  </style>
+</head>
+<body class="pw-locked">
+
+<!-- ── PASSWORD GATE ──────────────────────────────────── -->
+<div id="pw-gate">
+  <div class="pw-box">
+    <div class="pw-icon">🔒</div>
+    <span class="pw-nda">NDA Protected</span>
+    <h2>This case study is password protected</h2>
+    <p>This project is covered under NDA. Please enter the password to view the full case study.</p>
+    <div class="pw-field">
+      <input type="password" id="pw-input" placeholder="Enter password" autocomplete="off" />
+    </div>
+    <div class="pw-error" id="pw-error">Incorrect password. Please try again.</div>
+    <button onclick="checkPassword()">Unlock Case Study</button>
+    <p class="pw-hint">Don't have the password? <a href="mailto:khushboochandnani21@gmail.com" style="color:rgba(255,255,255,.4);text-decoration:underline;">Request access</a></p>
+  </div>
+</div>
+
+<script>
+  (function() {
+    if (sessionStorage.getItem('intuit_unlocked') === '1') {
+      document.getElementById('pw-gate').style.display = 'none';
+      document.body.classList.remove('pw-locked');
+    }
+    document.getElementById('pw-input').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') checkPassword();
+    });
+  })();
+
+  function checkPassword() {
+    var val = document.getElementById('pw-input').value;
+    var input = document.getElementById('pw-input');
+    var err = document.getElementById('pw-error');
+    if (val === 'Youfoundme21') {
+      sessionStorage.setItem('intuit_unlocked', '1');
+      document.getElementById('pw-gate').style.display = 'none';
+      document.body.classList.remove('pw-locked');
+    } else {
+      input.classList.add('error');
+      err.style.display = 'block';
+      input.value = '';
+      setTimeout(function() { input.classList.remove('error'); }, 400);
+    }
+  }
+</script>
+
+<div id="lightbox" id="lightbox"><span id="lightbox-close">&times;</span><img id="lightbox-img" src="" alt=""></div>
+
+<div id="progress"></div>
+
+<nav class="site-nav">
+  <a href="index.html" class="site-nav-logo">KC</a>
+  <div class="site-nav-links">
+    <a href="index.html">Home</a>
+    <a href="index.html#work" class="active">Work</a>
+    <a href="about.html">About</a>
+    <a href="https://www.linkedin.com/in/khushboo-chandnani" target="_blank">LinkedIn</a>
+  </div>
+  <a href="mailto:khushboochandnanijobportfolio@gmail.com" class="site-nav-cta">Let's Talk</a>
+</nav>
+
+
+<!-- ── HERO ──────────────────────────────────────────── -->
+<section class="in-hero" id="top">
+  <div class="in-hero-inner">
+    <div>
+      <div class="in-eyebrow"><i class="bi bi-building"></i> Intuit · Senior Product Designer (Contract)</div>
+      <h1>Enhancing the<br><span>Prioritization &</span><br><span>Execution Tool</span><br>PET 2.0</h1>
+      <p class="in-hero-desc">A research-led redesign of Intuit's internal PET platform: transforming fragmented workflows into a cohesive, persona-driven experience for resource planning, workstream management, and strategic prioritization.</p>
+      <div class="in-hero-meta">
+        <div class="in-meta-item">
+          <div class="in-meta-lbl">Company</div>
+          <div class="in-meta-val">Intuit</div>
+        </div>
+        <div class="in-meta-item">
+          <div class="in-meta-lbl">Role</div>
+          <div class="in-meta-val">Sr. Product Designer</div>
+        </div>
+        <div class="in-meta-item">
+          <div class="in-meta-lbl">Timeline</div>
+          <div class="in-meta-val">Aug 2025 – Present</div>
+        </div>
+        <div class="in-meta-item">
+          <div class="in-meta-lbl">Type</div>
+          <div class="in-meta-val">Contract · Internal Tool</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="in-screen">
+        <img src="dist/images/intuit_cover.png" alt="Intuit PET 2.0 Case Study">
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── OVERVIEW STRIP ────────────────────────────────── -->
+<div class="in-strip">
+  <div class="in-strip-grid">
+    <div class="in-strip-item">
+      <div class="in-strip-icon"><i class="bi bi-people"></i></div>
+      <div class="in-strip-lbl">Team</div>
+      <div class="in-strip-val">Cross-functional <small>PM · Engineers · BizOps · TPMs</small></div>
+    </div>
+    <div class="in-strip-item">
+      <div class="in-strip-icon"><i class="bi bi-person-badge"></i></div>
+      <div class="in-strip-lbl">My Role</div>
+      <div class="in-strip-val">Sole Designer <small>End-to-end, research to handoff</small></div>
+    </div>
+    <div class="in-strip-item">
+      <div class="in-strip-icon"><i class="bi bi-tools"></i></div>
+      <div class="in-strip-lbl">Tools</div>
+      <div class="in-strip-val">Figma · IDS Components <small>Follow Me Home Research</small></div>
+    </div>
+    <div class="in-strip-item">
+      <div class="in-strip-icon"><i class="bi bi-calendar3"></i></div>
+      <div class="in-strip-lbl">Timeline</div>
+      <div class="in-strip-val">Aug 2025 – Present <small>Ongoing · Contract</small></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ── PROJECT OVERVIEW ──────────────────────────────── -->
+<section class="in-section" id="overview">
+  <span class="in-label">Introduction</span>
+  <h2 class="in-title">Project Overview</h2>
+
+  <div class="in-product-badge">
+    <i class="bi bi-diagram-3-fill"></i>
+    PET: Prioritization &amp; Execution Tool &nbsp;·&nbsp; Intuit Internal
+  </div>
+
+  <div class="in-problem-block">
+    <div class="in-problem-icon"><i class="bi bi-bullseye"></i></div>
+    <div>
+      <div class="in-problem-label">PET Mission &amp; Vision</div>
+      <div class="in-problem-text">Build an <strong>enterprise-grade, scalable, and integrated system</strong> that improves strategic prioritization decision-making and optimizes investment allocation across Intuit.</div>
+    </div>
+  </div>
+
+  <div class="in-problem-block">
+    <div class="in-problem-icon"><i class="bi bi-exclamation-triangle-fill"></i></div>
+    <div>
+      <div class="in-problem-label">Why PET 2.0?</div>
+      <div class="in-problem-text"><strong>PET 1.0 proved the concept but lacked scalability and a streamlined, intuitive UX.</strong> Users across all levels reported cumbersome, unintuitive workflows that couldn't scale with the organization's needs.</div>
+    </div>
+  </div>
+
+  <div class="in-problem-block" style="margin-bottom:0;">
+    <div class="in-problem-icon"><i class="bi bi-stars"></i></div>
+    <div>
+      <div class="in-problem-label">UX Goal for PET 2.0</div>
+      <div class="in-problem-text">Design an <strong>intuitive, persona-driven platform</strong> that simplifies workstream and resource management while surfacing key issues through a clear, unified dashboard.</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── RESEARCH APPROACH ─────────────────────────────── -->
+<div class="in-bg-surface in-full" id="approach">
+  <div class="in-full-inner">
+    <span class="in-label">Research Approach</span>
+    <h2 class="in-title">From Listening to Improving <br>a loop that builds PET 2.0 with clarity</h2>
+    <p class="in-body">A research-led approach to map journeys, design workflows, and iterate quickly toward a more intuitive PET 2.0.</p>
+    <div class="loop-grid">
+      <div class="loop-item">
+        <div class="loop-icon"><i class="bi bi-headphones"></i></div>
+        <div class="loop-title">Listen</div>
+        <div class="loop-desc">User research: Follow Me Homes to observe real workflows in their natural context</div>
+      </div>
+      <div class="loop-item">
+        <div class="loop-icon"><i class="bi bi-binoculars-fill"></i></div>
+        <div class="loop-title">Understand</div>
+        <div class="loop-desc">Synthesizing pain points, journey mapping, and heuristic analysis of PET 1.0</div>
+      </div>
+      <div class="loop-item">
+        <div class="loop-icon"><i class="bi bi-pencil-square"></i></div>
+        <div class="loop-title">Act</div>
+        <div class="loop-desc">Designing PET 2.0: flows, dashboards, automation, and persona-based insights</div>
+      </div>
+      <div class="loop-item">
+        <div class="loop-icon"><i class="bi bi-arrow-repeat"></i></div>
+        <div class="loop-title">Respond</div>
+        <div class="loop-desc">Iteration, validation, and continuous improvement based on feedback and testing</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ── IMPACT ──────────────────────────────────────────── -->
+<section class="in-section" id="impact">
+  <span class="in-label">Results</span>
+  <h2 class="in-title">Customer Satisfaction Through PET 2.0</h2>
+  <p class="in-body">Measured through System Usability Score tests, follow-up interviews, and adoption tracking across user groups.</p>
+  <div class="impact-grid">
+    <div class="impact-item">
+      <span class="impact-arrow up">↑ Increase</span>
+      <div class="impact-num">44→70%</div>
+      <div class="impact-desc">User adoption rate grew from PET 1.0 to PET 2.0 (System Usability Score Test)</div>
+    </div>
+    <div class="impact-item">
+      <span class="impact-arrow up">↑ Increase</span>
+      <div class="impact-num">18/20</div>
+      <div class="impact-desc">Happy users found the UX intuitive after the redesign</div>
+    </div>
+    <div class="impact-item">
+      <span class="impact-arrow down">↓ Reduction</span>
+      <div class="impact-num">45%</div>
+      <div class="impact-desc">Time reduction: Delegates experienced faster mapping of resources to goals and workstreams</div>
+    </div>
+    <div class="impact-item">
+      <span class="impact-arrow up">↑ Increase</span>
+      <div class="impact-num">88%</div>
+      <div class="impact-desc">Managers highlighted the intuitive resource allocation flow and personalized dashboards with accurate critical alerts</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── PERSONAS ───────────────────────────────────────── -->
+<section class="in-section" id="personas">
+  <span class="in-label">Primary Personas</span>
+  <h2 class="in-title">Designing for 4 distinct user types</h2>
+  <p class="in-body">Each persona has different needs, different key jobs, and very different mental models. A one-size-fits-all approach was a core failure of PET 1.0.</p>
+  <div class="persona-grid">
+    <div class="persona-card">
+      <div class="persona-num">Persona 01</div>
+      <div class="persona-name">Senior Leadership</div>
+      <div class="persona-role">CTO, SVP</div>
+      <div class="persona-section">
+        <div class="persona-lbl">Needs</div>
+        <div class="persona-text">Strategic insights, real-time investment risk and impact visibility</div>
+      </div>
+      <div class="persona-section">
+        <div class="persona-lbl">Key Jobs</div>
+        <div class="persona-text">View Investment &amp; Big-bet Reports</div>
+      </div>
+    </div>
+    <div class="persona-card">
+      <div class="persona-num">Persona 02</div>
+      <div class="persona-name">Delegates</div>
+      <div class="persona-role">BizOps, TPM</div>
+      <div class="persona-section">
+        <div class="persona-lbl">Needs</div>
+        <div class="persona-text">Ability to allocate resources and create workstreams for the delegated Leader org</div>
+      </div>
+      <div class="persona-section">
+        <div class="persona-lbl">Key Jobs</div>
+        <div class="persona-text">Workstream Management · Workforce Management</div>
+      </div>
+    </div>
+    <div class="persona-card">
+      <div class="persona-num">Persona 03</div>
+      <div class="persona-name">Managers</div>
+      <div class="persona-role">M1 / M2 / M3</div>
+      <div class="persona-section">
+        <div class="persona-lbl">Needs</div>
+        <div class="persona-text">Simple and clear resource allocation workflows</div>
+      </div>
+      <div class="persona-section">
+        <div class="persona-lbl">Key Jobs</div>
+        <div class="persona-text">Workforce Management</div>
+      </div>
+    </div>
+    <div class="persona-card">
+      <div class="persona-num">Persona 04</div>
+      <div class="persona-name">Individual Contributors</div>
+      <div class="persona-role">ICs across teams</div>
+      <div class="persona-section">
+        <div class="persona-lbl">Needs</div>
+        <div class="persona-text">Quick overview of Workstreams to Goals assignment</div>
+      </div>
+      <div class="persona-section">
+        <div class="persona-lbl">Key Jobs</div>
+        <div class="persona-text">View assigned workstreams and work towards goals</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── PAIN POINTS ────────────────────────────────────── -->
+<div class="in-bg-surface in-full" id="painpoints">
+  <div class="in-full-inner">
+    <span class="in-label">Identifying User Pain Points</span>
+    <h2 class="in-title">Users struggled to get their job<br>done in a simpler &amp; efficient way</h2>
+    <p class="in-body">Users across all levels: from Delegates to ICs: reported that PET 1.0's workflows were cumbersome, unintuitive, and difficult to scale.</p>
+    <div class="pain-grid">
+      <div class="pain-card">
+        <div class="pain-icon"><i class="bi bi-diagram-3"></i></div>
+        <div class="pain-title">Complex &amp; Fragmented Workflows</div>
+        <div class="pain-desc">Users constantly jumped between tabs and systems to complete tasks that should live in one place.</div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon"><i class="bi bi-person-x-fill"></i></div>
+        <div class="pain-title">Lack of Clear Persona Distinction</div>
+        <div class="pain-desc">The same interface was shown to everyone: Delegates, Managers, and ICs all saw the same cluttered view regardless of their role.</div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon"><i class="bi bi-hourglass-split"></i></div>
+        <div class="pain-title">Time-Consuming Allocation Processes</div>
+        <div class="pain-desc">Endless horizontal scrolling and multi-click edit flows made even basic resource allocation a frustrating, error-prone task.</div>
+      </div>
+    </div>
+    <div class="quote-grid">
+      <div class="quote-card">
+        <div class="quote-mark">"</div>
+        <div class="quote-text">I'm constantly jumping between tabs to piece together what this flow is supposed to look like.</div>
+        <div class="quote-attr"> Delegate</div>
+      </div>
+      <div class="quote-card">
+        <div class="quote-mark">"</div>
+        <div class="quote-text">I am just scrolling endlessly with no clear path to allocations.</div>
+        <div class="quote-attr"> Manager</div>
+      </div>
+      <div class="quote-card">
+        <div class="quote-mark">"</div>
+        <div class="quote-text">I need my key action items surfaced immediately and a frictionless way to access the Leader Dashboard.</div>
+        <div class="quote-attr"> Delegate + Manager</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ── UX STRATEGY ────────────────────────────────────── -->
+<section class="in-section" id="strategy">
+  <span class="in-label">My Goal</span>
+  <h2 class="in-title">From Fragmented Workflows to a<br>Cohesive Planning Experience</h2>
+  <p class="in-body">My UX strategy focuses on reducing cognitive load and creating a predictable, aligned system for all personas.</p>
+  <div class="goal-grid">
+    <div class="goal-card">
+      <div class="goal-num">01</div>
+      <div class="goal-title">Build an Intuitive UI</div>
+      <div class="goal-desc">Clear hierarchy, IDS-compliant components, persona-based views that surface the right information for the right user</div>
+    </div>
+    <div class="goal-card">
+      <div class="goal-num">02</div>
+      <div class="goal-title">Scalability &amp; Performance</div>
+      <div class="goal-desc">Design patterns that hold up as the organization grows: enterprise-grade grids, accordions, and dynamic data</div>
+    </div>
+    <div class="goal-card">
+      <div class="goal-num">03</div>
+      <div class="goal-title">Automated Workflows</div>
+      <div class="goal-desc">Reduce manual steps by integrating smart defaults, inline allocation, and automated conflict alerts</div>
+    </div>
+    <div class="goal-card">
+      <div class="goal-num">04</div>
+      <div class="goal-title">Persona-Based Reporting</div>
+      <div class="goal-desc">Rich, role-specific dashboards delivering the critical insights each persona needs: nothing more, nothing less</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── LANDING SCREEN ─────────────────────────────────── -->
+<div class="in-bg-surface in-full" id="landing">
+  <div class="in-full-inner">
+    <span class="in-label">Feature 01: Landing Screen</span>
+    <h2 class="in-title">From cluttered chaos to a<br>persona-driven command center</h2>
+
+    <div class="ba-grid">
+      <div class="ba-box bad">
+        <div class="ba-header bad"><i class="bi bi-x-circle-fill"></i> Before: PET 1.0</div>
+        <div class="ba-item"><i class="bi bi-x-circle" style="color:#B05010;flex-shrink:0;margin-top:2px;"></i><span>Unintuitive tab design to switch between orgs and key jobs</span></div>
+        <div class="ba-item"><i class="bi bi-x-circle" style="color:#B05010;flex-shrink:0;margin-top:2px;"></i><span>Cognitive overload: too much information shown without hierarchy</span></div>
+        <div class="ba-item"><i class="bi bi-x-circle" style="color:#B05010;flex-shrink:0;margin-top:2px;"></i><span>Essential BI link hidden behind unclear label ("PET BI")</span></div>
+        <div class="ba-item"><i class="bi bi-x-circle" style="color:#B05010;flex-shrink:0;margin-top:2px;"></i><span>CTA doesn't follow color hierarchy or IDS components</span></div>
+        <div class="ba-item"><i class="bi bi-x-circle" style="color:#B05010;flex-shrink:0;margin-top:2px;"></i><span>One-size-fits-all view: no persona distinction</span></div>
+      </div>
+      <div class="ba-box good">
+        <div class="ba-header good"><i class="bi bi-check-circle-fill"></i> After: PET 2.0</div>
+        <div class="ba-item"><i class="bi bi-check-circle" style="color:#0369A1;flex-shrink:0;margin-top:2px;"></i><span>Persona-based login pill (e.g. Delegate) with org switcher dropdown</span></div>
+        <div class="ba-item"><i class="bi bi-check-circle" style="color:#0369A1;flex-shrink:0;margin-top:2px;"></i><span>Critical alerts catching user attention: red tiles for critical, blue for non-critical</span></div>
+        <div class="ba-item"><i class="bi bi-check-circle" style="color:#0369A1;flex-shrink:0;margin-top:2px;"></i><span>Key workstream metrics prominently displayed on the dashboard</span></div>
+        <div class="ba-item"><i class="bi bi-check-circle" style="color:#0369A1;flex-shrink:0;margin-top:2px;"></i><span>Dashboard customization: users select their most-viewed sections as favorites</span></div>
+        <div class="ba-item"><i class="bi bi-check-circle" style="color:#0369A1;flex-shrink:0;margin-top:2px;"></i><span>Renamed 'PET BI' → 'Visual Insights' for clearer labeling; quick-access buttons for Manage Workstream &amp; Workforce</span></div>
+      </div>
+    </div>
+
+    <div class="screen-row one-col">
+      <div class="screen-item">
+        <span class="screen-label">Before: PET 1.0</span>
+        <img src="dist/images/intuit_screens/page_09.png" alt="Landing Screen PET 1.0">
+      </div>
+      <div class="screen-item">
+        <span class="screen-label after">After: PET 2.0</span>
+        <img src="dist/images/intuit_screens/page_13.png" alt="Landing Screen PET 2.0">
+      </div>
+    </div>
+
+    <div class="in-callout" style="margin-top:28px;">
+      <strong>Design Decision:</strong> The wireframing phase collapsed multiple separate tabs into a single unified view: allowing each persona to see all their key jobs at once without navigating between sections.
+    </div>
+  </div>
+</div>
+
+
+<!-- ── WORKSTREAM MANAGEMENT ──────────────────────────── -->
+<section class="in-section" id="workstream">
+  <span class="in-label">Feature 02: Workstream Management</span>
+  <h2 class="in-title">Replacing horizontal scroll and<br>hidden actions with an intuitive grid</h2>
+
+  <div class="ba-grid">
+    <div class="ba-box bad">
+      <div class="ba-header bad"><i class="bi bi-x-circle-fill"></i> Before: PET 1.0</div>
+      <div class="ba-item"><i class="bi bi-x-circle" style="color:#B05010;flex-shrink:0;margin-top:2px;"></i><span>Adding workstreams required 2 clicks: Edit → then Add</span></div>
+      <div class="ba-item"><i class="bi bi-x-circle" style="color:#B05010;flex-shrink:0;margin-top:2px;"></i><span>Endless horizontal scroll to allocate Goals and Sub-Goals</span></div>
+      <div class="ba-item"><i class="bi bi-x-circle" style="color:#B05010;flex-shrink:0;margin-top:2px;"></i><span>KPIs occupied 70% of screen, pushing the main grid to only 30%</span></div>
+      <div class="ba-item"><i class="bi bi-x-circle" style="color:#B05010;flex-shrink:0;margin-top:2px;"></i><span>Unintuitive grid not following IDS components</span></div>
+    </div>
+    <div class="ba-box good">
+      <div class="ba-header good"><i class="bi bi-check-circle-fill"></i> After: PET 2.0</div>
+      <div class="ba-item"><i class="bi bi-check-circle" style="color:#0369A1;flex-shrink:0;margin-top:2px;"></i><span>Intuitive accordion/dropdown design to view Goals: no horizontal scroll</span></div>
+      <div class="ba-item"><i class="bi bi-check-circle" style="color:#0369A1;flex-shrink:0;margin-top:2px;"></i><span>Redesigned KPI strip: highlights the most critical info without dominating the screen</span></div>
+      <div class="ba-item"><i class="bi bi-check-circle" style="color:#0369A1;flex-shrink:0;margin-top:2px;"></i><span>Create Workstream button: direct, one-click access to create and map goals</span></div>
+      <div class="ba-item"><i class="bi bi-check-circle" style="color:#0369A1;flex-shrink:0;margin-top:2px;"></i><span>2-step form: Create Workstream → Allocate Goals (multi-select with % allocation + overallocation alert)</span></div>
+    </div>
+  </div>
+
+  <div class="screen-row one-col">
+    <div class="screen-item">
+      <span class="screen-label">Before: PET 1.0</span>
+      <img src="dist/images/intuit_screens/page_14.png" alt="Workstream Management PET 1.0">
+    </div>
+    <div class="screen-item">
+      <span class="screen-label after">After: PET 2.0</span>
+      <img src="dist/images/intuit_screens/page_16.png" alt="Workstream Management PET 2.0">
+    </div>
+  </div>
+
+  <div style="margin-top:32px;">
+    <span class="in-label">Iteration: From User Feedback</span>
+    <h3 style="font-family:'IBM Plex Sans',sans-serif;font-size:20px;font-weight:700;color:var(--dark);margin-bottom:6px;">KPI Side Drawer</h3>
+    <p class="in-body">After initial testing, a user needed the KPIs to be visible alongside the grid dynamically. I iterated from a Popup Overlay to a Side Drawer that opens next to the grid.</p>
+    <div class="feedback-row">
+      <div class="feedback-card before">
+        <div class="feedback-label">User Feedback: Round 1</div>
+        <div class="feedback-quote">"I want the grid to dynamically update with the KPIs clearly displayed alongside the grid for easy reference."</div>
+        <div class="feedback-attr"> Delegate (Workstream Management User)</div>
+      </div>
+      <div class="feedback-card after">
+        <div class="feedback-label">After Iteration</div>
+        <div class="feedback-quote">"This looks awesome and it's easy to monitor the critical KPIs now :)"</div>
+        <div class="feedback-attr"> Same Delegate, after Side Drawer design</div>
+      </div>
+    </div>
+    <div class="screen-row two-col">
+      <div class="screen-item">
+        <span class="screen-label">Popup Overlay: Round 1</span>
+        <img src="dist/images/intuit_screens/page_18.png" alt="KPI Popup Overlay">
+      </div>
+      <div class="screen-item">
+        <span class="screen-label">Side Drawer: After Iteration</span>
+        <img src="dist/images/intuit_screens/page_19.png" alt="KPI Side Drawer">
+      </div>
+    </div>
+
+    <div class="in-callout">
+      <strong>Design Decision:</strong> Side Drawer opens alongside the grid: users see dynamic KPI changes in real time as they update the workstream data, without losing context of the grid below. Critical alerts also help users discard non-critical items at a glance.
+    </div>
+  </div>
+</section>
+
+
+<!-- ── WORKFORCE MANAGEMENT ───────────────────────────── -->
+<div class="in-bg-surface in-full" id="workforce">
+  <div class="in-full-inner">
+    <span class="in-label">Feature 03: Workforce Management</span>
+    <h2 class="in-title">Rethinking how resources are<br>allocated to workstreams</h2>
+
+    <div class="ba-grid">
+      <div class="ba-box bad">
+        <div class="ba-header bad"><i class="bi bi-x-circle-fill"></i> Before: PET 1.0</div>
+        <div class="ba-item"><i class="bi bi-x-circle" style="color:#B05010;flex-shrink:0;margin-top:2px;"></i><span>Naming convention of the flow wasn't clear to users</span></div>
+        <div class="ba-item"><i class="bi bi-x-circle" style="color:#B05010;flex-shrink:0;margin-top:2px;"></i><span>Unintuitive grid not following IDS components</span></div>
+        <div class="ba-item"><i class="bi bi-x-circle" style="color:#B05010;flex-shrink:0;margin-top:2px;"></i><span>Endless horizontal scroll to allocate Workstreams and Capabilities</span></div>
+        <div class="ba-item"><i class="bi bi-x-circle" style="color:#B05010;flex-shrink:0;margin-top:2px;"></i><span>KPIs again took 70% of screen, pushing the grid to only 30%</span></div>
+      </div>
+      <div class="ba-box good">
+        <div class="ba-header good"><i class="bi bi-check-circle-fill"></i> After: PET 2.0</div>
+        <div class="ba-item"><i class="bi bi-check-circle" style="color:#0369A1;flex-shrink:0;margin-top:2px;"></i><span>Dropdown to switch between Delegated Orgs and Direct/Indirect reports</span></div>
+        <div class="ba-item"><i class="bi bi-check-circle" style="color:#0369A1;flex-shrink:0;margin-top:2px;"></i><span>Accordion design to view Workstreams/Capabilities: no horizontal scroll</span></div>
+        <div class="ba-item"><i class="bi bi-check-circle" style="color:#0369A1;flex-shrink:0;margin-top:2px;"></i><span>Redesigned KPI strip showing only the most critical metrics</span></div>
+        <div class="ba-item"><i class="bi bi-check-circle" style="color:#0369A1;flex-shrink:0;margin-top:2px;"></i><span>Inline allocation: assign Workstream/Capability to a Resource without traversing the grid</span></div>
+        <div class="ba-item"><i class="bi bi-check-circle" style="color:#0369A1;flex-shrink:0;margin-top:2px;"></i><span>NEW: Delegates can easily allocate to their Leader's Direct Reports (by org) or All Reports</span></div>
+      </div>
+    </div>
+
+    <div class="screen-row one-col">
+      <div class="screen-item">
+        <span class="screen-label">Before: PET 1.0</span>
+        <img src="dist/images/intuit_screens/page_20.png" alt="Workforce Management PET 1.0">
+      </div>
+      <div class="screen-item">
+        <span class="screen-label after">After: PET 2.0</span>
+        <img src="dist/images/intuit_screens/page_24.png" alt="Workforce Management PET 2.0">
+      </div>
+    </div>
+
+    <div style="margin-top:32px;">
+      <span class="in-label">Iteration: From Dev Feedback</span>
+      <h3 style="font-family:'IBM Plex Sans',sans-serif;font-size:20px;font-weight:700;color:var(--dark);margin-bottom:6px;">Accordion → Supervisor Column</h3>
+      <p class="in-body">Engineering flagged that the accordion pattern for searching Supervisor/Resources added friction. I pivoted to a Supervisor column to simplify filtering.</p>
+      <div class="feedback-row">
+        <div class="feedback-card before">
+          <div class="feedback-label">Dev Feedback</div>
+          <div class="feedback-quote">"Using accordions to search Supervisor/Resources is inefficient, requiring extra clicks and adding friction."</div>
+          <div class="feedback-attr"> Senior Developer</div>
+        </div>
+        <div class="feedback-card after">
+          <div class="feedback-label">After Iteration</div>
+          <div class="feedback-quote">"Instead of using an accordion design, I opted for a Supervisor column to simplify filtering and searching for resources."</div>
+          <div class="feedback-attr"> Design decision post-feedback</div>
+        </div>
+      </div>
+
+      <div class="screen-row two-col">
+        <div class="screen-item">
+          <span class="screen-label">Accordion: Before</span>
+          <img src="dist/images/intuit_screens/page_24.png" alt="Workforce Accordion Design">
+        </div>
+        <div class="screen-item">
+          <span class="screen-label">Supervisor Column: After</span>
+          <img src="dist/images/intuit_screens/page_26.png" alt="Workforce Supervisor Column">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ── SUCCESS METRICS ────────────────────────────────── -->
+<!-- ── CHALLENGES & LEARNINGS ────────────────────────── -->
+<div class="in-bg-surface in-full" id="learnings">
+  <div class="in-full-inner">
+    <span class="in-label">Reflection</span>
+    <h2 class="in-title">Challenges &amp; Key Learnings</h2>
+    <div class="in-two-col">
+      <div class="in-list-card challenges">
+        <h3><i class="bi bi-lightning-charge-fill"></i> Challenges</h3>
+        <ul class="in-bullet">
+          <li><i class="bi bi-dot"></i><span>Designing for scalability while keeping the experience simple and intuitive for diverse personas</span></li>
+          <li><i class="bi bi-dot"></i><span>Delivering thoughtful, user-centered solutions under fast-paced, high-pressure timelines</span></li>
+          <li><i class="bi bi-dot"></i><span>Helping users adjust smoothly as they transitioned from deeply familiar old workflows to new ones</span></li>
+        </ul>
+      </div>
+      <div class="in-list-card learnings">
+        <h3><i class="bi bi-lightbulb-fill"></i> Key Learnings</h3>
+        <ul class="in-bullet">
+          <li><i class="bi bi-check2"></i><span>Persona-driven insights guided clearer, smarter design decisions: one dashboard can't serve everyone</span></li>
+          <li><i class="bi bi-check2"></i><span>Operated as the sole designer: built skills in turning around high-quality iterations fast</span></li>
+          <li><i class="bi bi-check2"></i><span>Quickly refined flows based on User Feedback and PM/Leadership reviews in a tight feedback loop</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ── UPCOMING DESIGNS ───────────────────────────────── -->
+<section class="in-section" id="upcoming">
+  <span class="in-label">What's Next</span>
+  <h2 class="in-title">Upcoming Designs</h2>
+  <p class="in-body">Planned features in the PET 2.0 roadmap, already in early design exploration.</p>
+  <div class="upcoming-grid">
+    <div class="upcoming-card">
+      <div class="upcoming-icon"><i class="bi bi-table"></i></div>
+      <div class="upcoming-title">Bulk Allocation</div>
+      <div class="upcoming-desc">Enable easy assignment of workstreams to multiple resources at once: including GSheet import for power users</div>
+    </div>
+    <div class="upcoming-card">
+      <div class="upcoming-icon"><i class="bi bi-eye-fill"></i></div>
+      <div class="upcoming-title">Accessibility Improvements</div>
+      <div class="upcoming-desc">Optimize navigation to accommodate all users, including those who are color-blind or vision-impaired</div>
+    </div>
+    <div class="upcoming-card">
+      <div class="upcoming-icon"><i class="bi bi-stars"></i></div>
+      <div class="upcoming-title">AI Automation</div>
+      <div class="upcoming-desc">Integrate AI prompts to simplify resource allocation tasks and boost operational efficiency</div>
+    </div>
+    <div class="upcoming-card">
+      <div class="upcoming-icon"><i class="bi bi-layout-text-sidebar-reverse"></i></div>
+      <div class="upcoming-title">Tailored Dashboards</div>
+      <div class="upcoming-desc">Create dedicated IC, Admin, and Executive dashboards for better visibility and role-specific insights</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── CTA ────────────────────────────────────────────── -->
+<section class="in-cta">
+  <h2>Interested in working together?</h2>
+  <p>Let's talk about design, internal tools, or your next product challenge.</p>
+  <div class="in-cta-btns">
+    <a href="mailto:khushboochandnanijobportfolio@gmail.com" class="btn-in-primary"><i class="bi bi-envelope-fill"></i> Get in Touch</a>
+    <a href="index.html" class="btn-in-ghost"><i class="bi bi-grid-3x3-gap"></i> All Projects</a>
+    <a href="https://www.linkedin.com/in/khushboo-chandnani" target="_blank" class="btn-in-ghost"><i class="bi bi-linkedin"></i> LinkedIn</a>
+  </div>
+</section>
+
+
+<a href="#top" class="back-to-top" id="backToTop"><i class="bi bi-arrow-up-short"></i></a>
+
+<script>
+  window.addEventListener('scroll', function () {
+    const st = document.documentElement.scrollTop;
+    const sh = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    document.getElementById('progress').style.width = (st / sh * 100) + '%';
+    document.getElementById('backToTop').classList.toggle('active', st > 300);
+  });
+
+  // Lightbox
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lightbox-img');
+  const lbClose = document.getElementById('lightbox-close');
+
+  document.querySelectorAll('.screen-item img').forEach(function(img) {
+    img.classList.add('zoomable');
+    img.addEventListener('click', function() {
+      lbImg.src = img.src;
+      lbImg.alt = img.alt;
+      lb.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  function closeLightbox() {
+    lb.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  lbClose.addEventListener('click', closeLightbox);
+  lb.addEventListener('click', function(e) {
+    if (e.target === lb) closeLightbox();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeLightbox();
+  });
+</script>
+</body>
+</html>
