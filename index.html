@@ -234,11 +234,12 @@
       .achievements-grid { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 768px) {
+      .hero-tags { display: none; }
       .nav { padding: 0 20px; }
       .nav-links { display: none; }
       .hero-inner { padding: 60px 20px; }
       .section { padding: 64px 20px; }
-      .companies { padding: 40px 20px; }
+      .companies { display: none; }
       .htl::before { top: 52px; left: 10px; right: 10px; }
       .htl-logo { height: 24px; max-width: 80px; }
       .htl-company { font-size: 10px; }
@@ -253,6 +254,21 @@
       .achievements-grid { grid-template-columns: 1fr; }
       .shots-grid { columns: 1; }
       .hero-stats { display: none; }
+
+      /* Project card mobile fixes */
+      .project-tag { font-size: 10px; padding: 3px 8px; }
+      .project-card-title { font-size: 17px; }
+      .project-card-metrics li { flex-direction: row; flex-wrap: wrap; gap: 4px; align-items: baseline; }
+      .project-card-metrics strong {
+        display: inline;
+        background: none; border: none; padding: 0;
+        border-radius: 0; font-size: 13px;
+        color: var(--accent); font-weight: 700;
+        white-space: normal;
+      }
+      .project-card-footer { flex-wrap: wrap; gap: 10px; }
+      .project-card-cta { font-size: 13px; }
+      .project-role-badge { display: none; }
     }
 
     /* ── THEME TOGGLE ─────────────────────────────────── */
