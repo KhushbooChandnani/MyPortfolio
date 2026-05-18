@@ -76,13 +76,13 @@
       background-clip: text;
     }
     .hero-sticker {
-      position: absolute; top: 128px; right: 7%; z-index: 5;
+      position: absolute; top: 128px; left: 6%; z-index: 5;
       background: linear-gradient(160deg, #FFFBEB 0%, #FEF9C3 100%);
       padding: 18px 20px 20px;
       border-radius: 2px;
       border-top: 5px solid #F59E0B;
       box-shadow: 3px 8px 28px rgba(245,158,11,.18), 0 2px 6px rgba(0,0,0,.09);
-      transform: rotate(-6deg);
+      transform: rotate(4deg);
       transition: transform .35s cubic-bezier(.34,1.56,.64,1);
       text-align: left; width: 162px; cursor: default;
     }
@@ -101,12 +101,12 @@
     @media (max-width: 900px) { .hero-sticker, .hero-sticker-alaska { display: none; } }
 
     .hero-sticker-alaska {
-      position: absolute; top: 128px; left: 6%; z-index: 5;
+      position: absolute; top: 128px; right: 7%; z-index: 5;
       background: #fff;
       padding: 10px 10px 14px;
       border-radius: 2px;
       box-shadow: 4px 8px 32px rgba(0,0,0,.15), 0 2px 6px rgba(0,0,0,.08);
-      transform: rotate(4deg);
+      transform: rotate(-5deg);
       transition: transform .35s cubic-bezier(.34,1.56,.64,1);
       width: 180px; cursor: default;
     }
@@ -129,6 +129,11 @@
       display: block; text-align: center; margin-top: 3px;
     }
     .hero-sub { font-size: 15px; color: var(--muted); line-height: 1.75; margin: 0 auto 24px; max-width: 640px; }
+    .hero-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 24px; }
+    .hero-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; border-radius: 30px; padding: 6px 14px; font-family: "IBM Plex Sans", sans-serif; background: var(--accent-lt); color: var(--accent); border: 1px solid var(--accent-md); transition: transform .3s cubic-bezier(.34,1.56,.64,1); cursor: default; }
+    .hero-tag i { font-size: 12px; }
+    .hero-tag:hover { transform: scale(1.07); }
+    html[data-theme="dark"] .hero-tag { background: var(--accent-lt); color: var(--accent); border-color: var(--accent-md); }
     .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 44px; justify-content: center; }
     .btn-primary { background: var(--dark); color: #fff; font-family: "IBM Plex Sans", sans-serif; font-weight: 600; font-size: 14px; padding: 12px 24px; border-radius: 9px; display: inline-flex; align-items: center; gap: 8px; transition: all .22s; }
     .btn-primary:hover { background: var(--accent); color: #fff; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(15,118,110,.32); }
@@ -408,6 +413,14 @@
       <p class="hero-greeting">👋 Hi, I am Khushboo <span style="color:var(--dark);font-weight:700;">(Call me KC 😊)</span></p>
       <h1>I design <em>AI-powered</em> products<br>that simplify complex workflows<br>and <em>enhance usability.</em></h1>
 
+      <div class="hero-tags">
+        <span class="hero-tag"><i class="bi bi-stars"></i> AI-Driven</span>
+        <span class="hero-tag"><i class="bi bi-grid-1x2"></i> Design Systems</span>
+        <span class="hero-tag"><i class="bi bi-bar-chart-line"></i> Data-Driven</span>
+        <span class="hero-tag"><i class="bi bi-signpost-split"></i> User Journey</span>
+        <span class="hero-tag"><i class="bi bi-search"></i> UX Research</span>
+        <span class="hero-tag"><i class="bi bi-lightning-charge"></i> Prototyping</span>
+      </div>
       <div class="hero-btns">
         <a href="#work" class="btn-primary"><i class="bi bi-grid-3x3-gap-fill"></i> View My Work</a>
         <a href="about.html" class="btn-ghost"><i class="bi bi-person"></i> About Me</a>
