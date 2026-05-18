@@ -22,9 +22,9 @@
     img { display: block; max-width: 100%; }
 
     :root {
-      --accent:    #5B5BD6;
-      --accent-lt: #EDEDFB;
-      --accent-md: #C7C7F5;
+      --accent:    #0F766E;
+      --accent-lt: #F0FDFA;
+      --accent-md: #99F6E4;
       --dark:      #0D0D18;
       --muted:     #6B7280;
       --border:    #E5E7EB;
@@ -46,13 +46,13 @@
     .nav-links a { font-size: 14px; font-weight: 500; color: var(--muted); transition: color .2s; }
     .nav-links a:hover, .nav-links a.active { color: var(--dark); }
     .nav-cta { background: var(--dark); color: #fff; font-size: 13px; font-weight: 600; padding: 8px 18px; border-radius: 8px; font-family: "IBM Plex Sans", sans-serif; transition: all .2s; }
-    .nav-cta:hover { background: var(--accent); color: #fff; transform: translateY(-1px); box-shadow: 0 4px 14px rgba(91,91,214,.3); }
+    .nav-cta:hover { background: var(--accent); color: #fff; transform: translateY(-1px); box-shadow: 0 4px 14px rgba(15,118,110,.3); }
 
     /* ── HERO ─────────────────────────────────────────── */
     .hero {
       min-height: 100vh; padding-top: 64px;
       display: flex; align-items: center;
-      background: radial-gradient(ellipse 80% 60% at 50% 0%, #DDDDF8 0%, #EEEEFB 30%, #F8F8FE 60%, #FAFAFA 100%);
+      background: var(--bg);
       position: relative; overflow: hidden;
     }
     .hero-inner {
@@ -71,7 +71,7 @@
     .hero h1 { font-size: clamp(38px, 4.5vw, 58px); font-weight: 700; color: var(--dark); margin-bottom: 16px; letter-spacing: -.6px; line-height: 1.08; }
     .hero h1 em {
       font-style: normal;
-      background: linear-gradient(90deg, #7C3AED 0%, #C026D3 55%, #EC4899 100%);
+      background: linear-gradient(90deg, #0F766E 0%, #0891B2 55%, #0EA5E9 100%);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
       background-clip: text;
     }
@@ -96,12 +96,42 @@
     .hero-sticker-role { font-family: "IBM Plex Sans", sans-serif; font-size: 15px; font-weight: 800; color: #1C1917; line-height: 1.25; display: block; }
     .hero-sticker-divider { display: block; height: 1.5px; background: linear-gradient(90deg,#FCD34D,#FDE68A); margin: 10px 0; border-radius: 2px; }
     .hero-sticker-co { font-family: "IBM Plex Sans", sans-serif; font-size: 13px; font-weight: 800; display: inline-flex; align-items: center; gap: 5px; color: #0077C5; text-decoration: none; transition: color .2s; }
-    .hero-sticker-co::after { content: '↗'; font-size: 11px; opacity: .7; }
+    .hero-sticker-co::after { content: none; }
     .hero-sticker-co:hover { color: #005EA6; text-decoration: underline; }
-    @media (max-width: 900px) { .hero-sticker { display: none; } }
+    @media (max-width: 900px) { .hero-sticker, .hero-sticker-alaska { display: none; } }
+
+    .hero-sticker-alaska {
+      position: absolute; top: 128px; left: 6%; z-index: 5;
+      background: #fff;
+      padding: 10px 10px 14px;
+      border-radius: 2px;
+      box-shadow: 4px 8px 32px rgba(0,0,0,.15), 0 2px 6px rgba(0,0,0,.08);
+      transform: rotate(4deg);
+      transition: transform .35s cubic-bezier(.34,1.56,.64,1);
+      width: 180px; cursor: default;
+    }
+    .hero-sticker-alaska:hover { transform: rotate(0deg) scale(1.04); }
+    .hero-sticker-alaska::before {
+      content: ''; position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
+      width: 36px; height: 18px;
+      background: rgba(148,148,148,.28); border-radius: 2px;
+    }
+    .hero-sticker-alaska img {
+      width: 100%; height: 136px; object-fit: cover; border-radius: 1px; display: block; margin-bottom: 8px;
+    }
+    .hero-sticker-alaska-caption {
+      font-family: "IBM Plex Sans", sans-serif; font-size: 11px; font-weight: 700;
+      color: #1C1917; line-height: 1.4; display: block; text-align: center;
+    }
+    .hero-sticker-alaska-sub {
+      font-family: "IBM Plex Sans", sans-serif; font-size: 9px; font-weight: 600;
+      color: #78716C; letter-spacing: .5px; text-transform: uppercase;
+      display: block; text-align: center; margin-top: 3px;
+    }
     .hero-sub { font-size: 15px; color: var(--muted); line-height: 1.75; margin: 0 auto 24px; max-width: 640px; }
     .hero-tags { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 28px; }
-    .hero-tag { display: inline-flex; align-items: center; gap: 7px; font-size: 12.5px; font-weight: 700; border-radius: 30px; padding: 7px 16px; font-family: "IBM Plex Sans", sans-serif; box-shadow: 0 2px 10px rgba(0,0,0,.09); transition: transform .3s cubic-bezier(.34,1.56,.64,1), box-shadow .25s; cursor: default; }
+    .hero-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 700; border-radius: 30px; padding: 7px 16px; font-family: "IBM Plex Sans", sans-serif; box-shadow: 0 2px 10px rgba(0,0,0,.09); transition: transform .3s cubic-bezier(.34,1.56,.64,1), box-shadow .25s; cursor: default; }
+    .hero-tag i { font-size: 13px; }
     .hero-tag:hover { transform: scale(1.1) !important; box-shadow: 0 6px 20px rgba(0,0,0,.14); }
     .hero-tag:nth-child(1) { background: #F3E8FF; color: #6D28D9; transform: rotate(-2deg); }
     .hero-tag:nth-child(2) { background: #DBEAFE; color: #1D4ED8; transform: rotate(1.5deg); }
@@ -111,7 +141,7 @@
     .hero-tag:nth-child(6) { background: #FFEDD5; color: #C2410C; transform: rotate(1.5deg); }
     .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 44px; justify-content: center; }
     .btn-primary { background: var(--dark); color: #fff; font-family: "IBM Plex Sans", sans-serif; font-weight: 600; font-size: 14px; padding: 12px 24px; border-radius: 9px; display: inline-flex; align-items: center; gap: 8px; transition: all .22s; }
-    .btn-primary:hover { background: var(--accent); color: #fff; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(91,91,214,.32); }
+    .btn-primary:hover { background: var(--accent); color: #fff; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(15,118,110,.32); }
     .btn-ghost { background: transparent; color: var(--dark); font-family: "IBM Plex Sans", sans-serif; font-weight: 600; font-size: 14px; padding: 12px 24px; border-radius: 9px; border: 1.5px solid var(--border); display: inline-flex; align-items: center; gap: 8px; transition: all .22s; }
     .btn-ghost:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-lt); }
     .hero-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 0; background: var(--bg); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
@@ -282,14 +312,14 @@
 
     /* ── DARK MODE ─────────────────────────────────────── */
     html[data-theme="dark"] {
-      --accent:    #7B7CF7;
-      --accent-lt: #1C1C38;
-      --accent-md: #363686;
-      --dark:      #EEEEFF;
-      --muted:     #8892A4;
-      --border:    #24243A;
-      --surface:   #121220;
-      --bg:        #0D0D1A;
+      --accent:    #14B8A6;
+      --accent-lt: #0F1E1C;
+      --accent-md: #1C3835;
+      --dark:      #F0F5F4;
+      --muted:     #8D9E9C;
+      --border:    #1E2928;
+      --surface:   #141918;
+      --bg:        #0C0F0E;
     }
     html[data-theme="dark"] body { background: var(--bg); color: var(--muted); }
     html[data-theme="dark"] h1,
@@ -297,16 +327,16 @@
     html[data-theme="dark"] h3,
     html[data-theme="dark"] h4,
     html[data-theme="dark"] h5 { color: var(--dark); }
-    html[data-theme="dark"] .nav { background: rgba(13,13,26,.92); border-bottom-color: rgba(36,36,58,.9); }
+    html[data-theme="dark"] .nav { background: rgba(12,15,14,.94); border-bottom-color: rgba(30,41,40,.9); }
     html[data-theme="dark"] .nav-logo { color: var(--dark); }
-    html[data-theme="dark"] .nav-links a { color: rgba(136,146,164,.8); }
+    html[data-theme="dark"] .nav-links a { color: rgba(141,158,156,.8); }
     html[data-theme="dark"] .nav-links a:hover,
     html[data-theme="dark"] .nav-links a.active { color: var(--dark); }
-    html[data-theme="dark"] .nav-cta { background: var(--accent); }
-    html[data-theme="dark"] .nav-cta:hover { background: #6464D8; }
-    html[data-theme="dark"] .theme-toggle { background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.1); color: rgba(238,238,255,.55); }
+    html[data-theme="dark"] .nav-cta { background: var(--accent); color: #fff; }
+    html[data-theme="dark"] .nav-cta:hover { background: #0D9488; }
+    html[data-theme="dark"] .theme-toggle { background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.08); color: rgba(141,158,156,.7); }
     html[data-theme="dark"] .theme-toggle:hover { background: var(--accent-lt); border-color: var(--accent-md); color: var(--accent); }
-    html[data-theme="dark"] .hero { background: radial-gradient(ellipse 80% 60% at 50% 0%, #1A1A38 0%, #121228 40%, #0D0D1A 100%); }
+    html[data-theme="dark"] .hero { background: var(--bg); }
     html[data-theme="dark"] .hero-avail { background: #0D2818; border-color: #14532D; color: #4ADE80; }
     html[data-theme="dark"] .hero-tag:nth-child(1) { background: rgba(109,40,217,.2); color: #C4B5FD; }
     html[data-theme="dark"] .hero-tag:nth-child(2) { background: rgba(29,78,216,.2); color: #93C5FD; }
@@ -317,23 +347,23 @@
     html[data-theme="dark"] .hero-stats { background: var(--surface); border-color: var(--border); }
     html[data-theme="dark"] .hero-stat { border-right-color: var(--border); }
     html[data-theme="dark"] .btn-primary { background: var(--accent); }
-    html[data-theme="dark"] .btn-primary:hover { background: #6464D8; }
+    html[data-theme="dark"] .btn-primary:hover { background: #0D9488; }
     html[data-theme="dark"] .btn-ghost { border-color: var(--border); color: var(--dark); }
     html[data-theme="dark"] .btn-ghost:hover { border-color: var(--accent); background: var(--accent-lt); color: var(--accent); }
     html[data-theme="dark"] .companies { background: var(--surface); border-color: var(--border); }
     html[data-theme="dark"] .htl-company { color: var(--dark); }
     html[data-theme="dark"] .htl-role { color: var(--muted); }
     html[data-theme="dark"] .htl-logo { filter: brightness(0) invert(1); opacity: 0.8; }
-    html[data-theme="dark"] .htl-item:nth-child(5) .htl-logo,
-    html[data-theme="dark"] .htl-item:nth-child(6) .htl-logo { filter: invert(1) brightness(1.4); opacity: 0.85; }
-    html[data-theme="dark"] .htl::before { background: linear-gradient(90deg, rgba(126,126,255,.4) 0%, rgba(126,126,255,.15) 100%); }
+    html[data-theme="dark"] .htl-item:nth-child(1) .htl-logo,
+    html[data-theme="dark"] .htl-item:nth-child(3) .htl-logo { filter: invert(1) brightness(1.4); opacity: 0.85; }
+    html[data-theme="dark"] .htl::before { background: linear-gradient(90deg, rgba(20,184,166,.4) 0%, rgba(20,184,166,.15) 100%); }
     html[data-theme="dark"] .section { background: var(--bg) !important; }
     html[data-theme="dark"] .project-card-inner { background: var(--surface); border-color: var(--border); }
     html[data-theme="dark"] .project-card-body { background: var(--surface); }
     html[data-theme="dark"] .project-tag { background: var(--accent-lt); color: var(--accent); border-color: var(--accent-md); }
     html[data-theme="dark"] .project-card-desc { color: var(--muted); }
     html[data-theme="dark"] .project-card-metrics li { color: var(--muted); }
-    html[data-theme="dark"] .project-card-metrics strong { background: rgba(91,91,214,.15); color: #A5B4FC; border-color: rgba(91,91,214,.3); }
+    html[data-theme="dark"] .project-card-metrics strong { background: rgba(20,184,166,.12); color: #5EEAD4; border-color: rgba(20,184,166,.25); }
     html[data-theme="dark"] .project-role-badge { background: var(--bg); color: var(--muted); }
     html[data-theme="dark"] .project-card-cta { color: var(--accent); }
     html[data-theme="dark"] .section-tag { color: var(--accent); }
@@ -342,7 +372,7 @@
     html[data-theme="dark"] .achievement-card-meta { color: var(--muted); }
     html[data-theme="dark"] .shot-item { border-color: var(--border); }
     html[data-theme="dark"] .cta-section { background: var(--surface); border-top-color: var(--border); }
-    .testimonials-section { background: #0D0D1A; padding: 96px 40px; }
+    .testimonials-section { background: #0C0F0E; padding: 96px 40px; }
     .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-top: 52px; max-width: 1180px; margin-left: auto; margin-right: auto; }
     .testimonial-card { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.09); border-radius: 18px; padding: 30px; display: flex; flex-direction: column; }
     .testimonial-stars { display: flex; gap: 3px; margin-bottom: 16px; }
@@ -352,10 +382,10 @@
     .testimonial-author img { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(255,255,255,.12); }
     .testimonial-name { font-family: "IBM Plex Sans", sans-serif; font-size: 14px; font-weight: 700; color: #fff; }
     .testimonial-role { font-size: 11px; color: rgba(255,255,255,.42); margin-top: 2px; }
-    html[data-theme="dark"] footer { background: #07070F; }
+    html[data-theme="dark"] footer { background: #080B0A; }
     html[data-theme="dark"] .footer-links a { color: var(--muted); }
     html[data-theme="dark"] .back-to-top { background: var(--accent); }
-    html[data-theme="dark"] .back-to-top:hover { background: #6464D8; }
+    html[data-theme="dark"] .back-to-top:hover { background: #0D9488; }
   </style>
 </head>
 <body>
@@ -382,7 +412,12 @@
     <span class="hero-sticker-label">Currently at</span>
     <span class="hero-sticker-role">Sr. Product Designer</span>
     <span class="hero-sticker-divider"></span>
-    <a class="hero-sticker-co" href="https://www.intuit.com" target="_blank" rel="noopener">Intuit</a>
+    <a class="hero-sticker-co" href="https://www.intuit.com" target="_blank" rel="noopener"><img src="dist/images/company/intuit.png" alt="Intuit" style="height:24px;width:auto;display:inline-block;vertical-align:middle;"> <span style="font-size:11px;opacity:.6;">↗</span></a>
+  </div>
+  <div class="hero-sticker-alaska">
+    <img src="dist/images/alaska.jpeg" alt="Alaska">
+    <span class="hero-sticker-alaska-caption"><i class="bi bi-award-fill" style="color:#D97706;"></i> Awarded as my<br>favorite vacation spot</span>
+    <span class="hero-sticker-alaska-sub">📍 Alaska, USA</span>
   </div>
   <div class="hero-inner">
     <div>
@@ -395,12 +430,12 @@
         <a href="about.html" class="btn-ghost"><i class="bi bi-person"></i> About Me</a>
       </div>
       <div class="hero-tags">
-        <span class="hero-tag">✦ AI-Driven</span>
-        <span class="hero-tag">🧩 Design Systems</span>
-        <span class="hero-tag">📊 Data-Driven</span>
-        <span class="hero-tag">🗺️ User Journey</span>
-        <span class="hero-tag">🔍 UX Research</span>
-        <span class="hero-tag">⚡ Prototyping</span>
+        <span class="hero-tag"><i class="bi bi-stars"></i> AI-Driven</span>
+        <span class="hero-tag"><i class="bi bi-grid-1x2"></i> Design Systems</span>
+        <span class="hero-tag"><i class="bi bi-bar-chart-line"></i> Data-Driven</span>
+        <span class="hero-tag"><i class="bi bi-signpost-split"></i> User Journey</span>
+        <span class="hero-tag"><i class="bi bi-search"></i> UX Research</span>
+        <span class="hero-tag"><i class="bi bi-lightning-charge"></i> Prototyping</span>
       </div>
       <div class="hero-stats">
         <div class="hero-stat"><div class="hero-stat-num">5+</div><div class="hero-stat-lbl">Years Exp.</div></div>
@@ -413,50 +448,53 @@
 </section>
 
 
-<!-- ── CAREER TIMELINE ────────────────────────────────── -->
-<div class="companies">
-  <div class="companies-inner">
-    <div class="companies-label">Career Timeline</div>
-    <div class="htl">
-      <a class="htl-item" href="https://www.fitpeo.com" target="_blank" rel="noopener">
-        <img class="htl-logo" src="dist/images/company/fitpeo1.png" alt="FitPeo">
-        <div class="htl-dates">Jan 2021 – Dec 2022</div>
-        <div class="htl-company">FitPeo</div>
-        <div class="htl-role">Product Designer</div>
-      </a>
-      <a class="htl-item" href="https://agrinovus.com" target="_blank" rel="noopener">
-        <img class="htl-logo" src="dist/images/company/agri.png" alt="AgriNovus">
-        <div class="htl-dates">Jan 2021 – Dec 2021</div>
-        <div class="htl-company">AgriNovus</div>
-        <div class="htl-role">UX Designer</div>
-      </a>
-      <a class="htl-item" href="https://www.ey.com" target="_blank" rel="noopener">
-        <img class="htl-logo" src="dist/images/company/eyo.png" alt="EY">
-        <div class="htl-dates">Jan 2022 – Dec 2022</div>
-        <div class="htl-company">EY</div>
-        <div class="htl-role">UX Consultant</div>
-      </a>
-      <a class="htl-item" href="portfolio-details-enovationcontrols.html">
-        <img class="htl-logo" src="dist/images/company/enovation.png" alt="Enovation Controls">
-        <div class="htl-dates">May 2023 – Aug 2023</div>
-        <div class="htl-company">Enovation Controls</div>
-        <div class="htl-role">UX Design Intern</div>
-      </a>
-      <a class="htl-item" href="portfolio-details-johnson.html">
-        <img class="htl-logo" src="dist/images/company/jnj.png" alt="J&J">
-        <div class="htl-dates">Jan 2024 – Jan 2025</div>
-        <div class="htl-company">J&amp;J MedTech</div>
-        <div class="htl-role">Sr. UX Designer</div>
-      </a>
-      <a class="htl-item" href="portfolio-details-intuit.html">
-        <img class="htl-logo" src="dist/images/company/intuit.png" alt="Intuit">
-        <div class="htl-dates">Jan 2024 – Present</div>
-        <div class="htl-company">Intuit</div>
-        <div class="htl-role">Sr. Product Designer</div>
-      </a>
+<!-- ── ACHIEVEMENTS ────────────────────────────────────── -->
+<section class="section" id="achievements" style="background:var(--surface);border-top:1px solid var(--border);">
+  <div class="section-inner">
+    <span class="section-tag">Recognition</span>
+    <h2 class="section-title">Milestones That Matter</h2>
+    <p class="section-sub">"My journey is meaningful when hard work results in unforgettable achievements."</p>
+
+    <div class="achievements-grid" style="margin-top:48px;">
+      <div class="achievement-card">
+        <a href="https://tapiaconference.cmd-it.org/attend/presentation/?id=psub131&sess=sess330" target="_blank">
+          <div class="achievement-card-img"><img src="dist/images/tapia.png" alt="TAPIA Conference"></div>
+          <div class="achievement-card-body">
+            <div class="achievement-card-label">Conference Speaker</div>
+            <div class="achievement-card-title">CMD-IT/ACM Richard Tapia '23 Conference</div>
+          </div>
+        </a>
+      </div>
+      <div class="achievement-card">
+        <a href="https://journals.plos.org/digitalhealth/article?id=10.1371/journal.pdig.0000216" target="_blank">
+          <div class="achievement-card-img"><img src="dist/images/paper.PNG" alt="PLOS Publication"></div>
+          <div class="achievement-card-body">
+            <div class="achievement-card-label">Co-Author</div>
+            <div class="achievement-card-title">Research Paper: PLOS Digital Health Publication</div>
+          </div>
+        </a>
+      </div>
+      <div class="achievement-card">
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7177031788211429376/" target="_blank">
+          <div class="achievement-card-img"><img src="dist/images/JJCertificate.jpg.jfif" alt="J&J Award"></div>
+          <div class="achievement-card-body">
+            <div class="achievement-card-label">Leadership Award</div>
+            <div class="achievement-card-title">Inspire GROW Award: Johnson &amp; Johnson</div>
+          </div>
+        </a>
+      </div>
+      <div class="achievement-card">
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7112243537710104576/" target="_blank">
+          <div class="achievement-card-img"><img src="dist/images/GSOC Mentor.png" alt="GSOC Mentor"></div>
+          <div class="achievement-card-body">
+            <div class="achievement-card-label">Open Source Mentor</div>
+            <div class="achievement-card-title">Google Summer of Code 2023: LibreHealth</div>
+          </div>
+        </a>
+      </div>
     </div>
   </div>
-</div>
+</section>
 
 
 <!-- ── SELECTED WORK ──────────────────────────────────── -->
@@ -667,74 +705,50 @@
 </section>
 
 
-<!-- ── ACHIEVEMENTS ────────────────────────────────────── -->
-<section class="section" id="achievements" style="background:var(--surface);border-top:1px solid var(--border);">
-  <div class="section-inner">
-    <span class="section-tag">Recognition</span>
-    <h2 class="section-title">Milestones That Matter</h2>
-    <p class="section-sub">"My journey is meaningful when hard work results in unforgettable achievements."</p>
-
-    <div class="achievements-grid" style="margin-top:48px;">
-      <div class="achievement-card">
-        <a href="https://tapiaconference.cmd-it.org/attend/presentation/?id=psub131&sess=sess330" target="_blank">
-          <div class="achievement-card-img"><img src="dist/images/tapia.png" alt="TAPIA Conference"></div>
-          <div class="achievement-card-body">
-            <div class="achievement-card-label">Conference Speaker</div>
-            <div class="achievement-card-title">CMD-IT/ACM Richard Tapia '23 Conference</div>
-          </div>
-        </a>
-      </div>
-      <div class="achievement-card">
-        <a href="https://journals.plos.org/digitalhealth/article?id=10.1371/journal.pdig.0000216" target="_blank">
-          <div class="achievement-card-img"><img src="dist/images/paper.PNG" alt="PLOS Publication"></div>
-          <div class="achievement-card-body">
-            <div class="achievement-card-label">Co-Author</div>
-            <div class="achievement-card-title">Research Paper: PLOS Digital Health Publication</div>
-          </div>
-        </a>
-      </div>
-      <div class="achievement-card">
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7177031788211429376/" target="_blank">
-          <div class="achievement-card-img"><img src="dist/images/JJCertificate.jpg.jfif" alt="J&J Award"></div>
-          <div class="achievement-card-body">
-            <div class="achievement-card-label">Leadership Award</div>
-            <div class="achievement-card-title">Inspire GROW Award: Johnson &amp; Johnson</div>
-          </div>
-        </a>
-      </div>
-      <div class="achievement-card">
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7112243537710104576/" target="_blank">
-          <div class="achievement-card-img"><img src="dist/images/GSOC Mentor.png" alt="GSOC Mentor"></div>
-          <div class="achievement-card-body">
-            <div class="achievement-card-label">Open Source Mentor</div>
-            <div class="achievement-card-title">Google Summer of Code 2023: LibreHealth</div>
-          </div>
-        </a>
-      </div>
+<!-- ── CAREER TIMELINE ────────────────────────────────── -->
+<div class="companies">
+  <div class="companies-inner">
+    <div class="companies-label">Career Timeline</div>
+    <div class="htl">
+      <a class="htl-item" href="https://www.fitpeo.com" target="_blank" rel="noopener">
+        <img class="htl-logo" src="dist/images/company/fitpeo1.png" alt="FitPeo">
+        <div class="htl-dates">Jan 2021 – Dec 2022</div>
+        <div class="htl-company">FitPeo</div>
+        <div class="htl-role">Product Designer</div>
+      </a>
+      <a class="htl-item" href="https://agrinovus.com" target="_blank" rel="noopener">
+        <img class="htl-logo" src="dist/images/company/agri.png" alt="AgriNovus">
+        <div class="htl-dates">Jan 2021 – Dec 2021</div>
+        <div class="htl-company">AgriNovus</div>
+        <div class="htl-role">UX Designer</div>
+      </a>
+      <a class="htl-item" href="https://www.ey.com" target="_blank" rel="noopener">
+        <img class="htl-logo" src="dist/images/company/eyo.png" alt="EY">
+        <div class="htl-dates">Jan 2022 – Dec 2022</div>
+        <div class="htl-company">EY</div>
+        <div class="htl-role">UX Consultant</div>
+      </a>
+      <a class="htl-item" href="portfolio-details-enovationcontrols.html">
+        <img class="htl-logo" src="dist/images/company/enovation.png" alt="Enovation Controls">
+        <div class="htl-dates">May 2023 – Aug 2023</div>
+        <div class="htl-company">Enovation Controls</div>
+        <div class="htl-role">UX Design Intern</div>
+      </a>
+      <a class="htl-item" href="portfolio-details-johnson.html">
+        <img class="htl-logo" src="dist/images/company/jnj.png" alt="J&J">
+        <div class="htl-dates">Jan 2024 – Jan 2025</div>
+        <div class="htl-company">J&amp;J MedTech</div>
+        <div class="htl-role">Sr. UX Designer</div>
+      </a>
+      <a class="htl-item" href="portfolio-details-intuit.html">
+        <img class="htl-logo" src="dist/images/company/intuit.png" alt="Intuit">
+        <div class="htl-dates">Jan 2024 – Present</div>
+        <div class="htl-company">Intuit</div>
+        <div class="htl-role">Sr. Product Designer</div>
+      </a>
     </div>
   </div>
-</section>
-
-
-<!-- ── DESIGN SHOTS ────────────────────────────────────── -->
-<section class="section" style="background:var(--bg);border-top:1px solid var(--border);">
-  <div class="section-inner">
-    <span class="section-tag">Design Gallery</span>
-    <h2 class="section-title">Design Shots</h2>
-    <p class="section-sub">Self-initiated design explorations across dashboards, apps, and visual concepts.</p>
-    <div class="shots-grid" style="margin-top:48px;">
-      <div class="shot-item"><a href="dist/images/covid19.png" data-gallery="shots" class="glightbox"><img src="dist/images/covid19.png" alt="COVID-19 Dashboard"><div class="shot-overlay"><span class="shot-title">COVID-19 Dashboard</span></div></a></div>
-      <div class="shot-item"><a href="dist/images/travel.png" data-gallery="shots" class="glightbox"><img src="dist/images/travel.png" alt="Travello"><div class="shot-overlay"><span class="shot-title">Travello: Travel Booking</span></div></a></div>
-      <div class="shot-item"><a href="dist/images/dating.png" data-gallery="shots" class="glightbox"><img src="dist/images/dating.png" alt="Dating App"><div class="shot-overlay"><span class="shot-title">Dating App</span></div></a></div>
-      <div class="shot-item"><a href="dist/images/ecommerce.png" data-gallery="shots" class="glightbox"><img src="dist/images/ecommerce.png" alt="Ecommerce"><div class="shot-overlay"><span class="shot-title">E-commerce Website</span></div></a></div>
-      <div class="shot-item"><a href="dist/images/mcq.png" data-gallery="shots" class="glightbox"><img src="dist/images/mcq.png" alt="MCQ App"><div class="shot-overlay"><span class="shot-title">MCQ App</span></div></a></div>
-      <div class="shot-item"><a href="dist/images/todo.png" data-gallery="shots" class="glightbox"><img src="dist/images/todo.png" alt="ToDo App"><div class="shot-overlay"><span class="shot-title">ToDo App</span></div></a></div>
-      <div class="shot-item"><a href="dist/images/photo_gallery.png" data-gallery="shots" class="glightbox"><img src="dist/images/photo_gallery.png" alt="Photo Gallery"><div class="shot-overlay"><span class="shot-title">Photo Gallery App</span></div></a></div>
-      <div class="shot-item"><a href="dist/images/job.png" data-gallery="shots" class="glightbox"><img src="dist/images/job.png" alt="Job App"><div class="shot-overlay"><span class="shot-title">Job App</span></div></a></div>
-      <div class="shot-item"><a href="dist/images/Jordan.jpg" data-gallery="shots" class="glightbox"><img src="dist/images/Jordan.jpg" alt="Jordan Poster"><div class="shot-overlay"><span class="shot-title">Jordan Poster</span></div></a></div>
-    </div>
-  </div>
-</section>
+</div>
 
 
 
