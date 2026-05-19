@@ -823,7 +823,7 @@
     position: fixed; bottom: 28px; right: 28px; z-index: 8000;
     width: 54px; height: 54px; border-radius: 50%;
     background: var(--accent); color: #fff; border: none; cursor: pointer;
-    display: flex; align-items: center; justify-content: center; font-size: 22px;
+    display: flex; align-items: center; justify-content: center; 
     box-shadow: 0 4px 20px rgba(15,118,110,.4);
     transition: transform .2s, box-shadow .2s;
   }
@@ -848,7 +848,8 @@
     padding: 14px 18px; display: flex; align-items: center; gap: 12px;
     background: var(--accent); border-radius: 19px 19px 0 0;
   }
-  .cb-avatar { width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,.2); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+  .cb-avatar { width: 36px; height: 36px; border-radius: 50%; overflow: hidden; flex-shrink: 0; }
+  .cb-avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center 15%; display: block; }
   .cb-header-info { flex: 1; }
   .cb-header-name { font-family: "IBM Plex Sans", sans-serif; font-size: 14px; font-weight: 700; color: #fff; }
   .cb-header-sub { font-size: 11px; color: rgba(255,255,255,.75); display: flex; align-items: center; gap: 5px; margin-top: 2px; }
@@ -900,13 +901,13 @@
 </style>
 
 <button class="cb-btn" id="cb-toggle" aria-label="Chat with KC">
-  <i class="bi bi-chat-dots-fill"></i>
+  <img src="dist/images/funny.jpeg" style="width:54px;height:54px;border-radius:50%;object-fit:cover;object-position:center 15%;display:block;">
   <span class="cb-badge" id="cb-badge">1</span>
 </button>
 
 <div class="cb-window" id="cb-window">
   <div class="cb-header">
-    <div class="cb-avatar">🎨</div>
+    <div class="cb-avatar"><img src="dist/images/funny.jpeg" alt="KC"></div>
     <div class="cb-header-info">
       <div class="cb-header-name">Ask KC</div>
       <div class="cb-header-sub">Ask me anything about KC</div>
@@ -989,7 +990,7 @@
     row.className = 'cb-msg' + (isUser ? ' user' : '');
     const av = document.createElement('div');
     av.className = 'cb-msg-av' + (isUser ? ' u' : '');
-    av.innerHTML = isUser ? '<i class="bi bi-person-fill"></i>' : '🎨';
+    av.innerHTML = isUser ? '<i class="bi bi-person-fill"></i>' : '<img src="dist/images/funny.jpeg" style="width:100%;height:100%;object-fit:cover;object-position:center 15%;border-radius:50%;display:block;">';
     const bub = document.createElement('div');
     bub.className = 'cb-bubble';
     bub.textContent = text;
@@ -1002,7 +1003,7 @@
     const row = document.createElement('div');
     row.className = 'cb-msg'; row.id = 'cb-typing';
     const av = document.createElement('div');
-    av.className = 'cb-msg-av'; av.innerHTML = '🎨';
+    av.className = 'cb-msg-av'; av.innerHTML = '<img src="dist/images/funny.jpeg" style="width:100%;height:100%;object-fit:cover;object-position:center 15%;border-radius:50%;display:block;">';
     const bub = document.createElement('div');
     bub.className = 'cb-bubble';
     bub.innerHTML = '<div class="cb-typing-dots"><span></span><span></span><span></span></div>';
