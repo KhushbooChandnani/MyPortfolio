@@ -1021,11 +1021,11 @@
 
 <!-- ── CHATBOT ──────────────────────────────────────────── -->
 <style>
-  .cb-btn { position:fixed;bottom:28px;right:28px;z-index:8000;width:58px;height:58px;border-radius:50%;background:none;border:none;cursor:pointer;overflow:hidden;padding:0;box-shadow:0 8px 28px rgba(20,184,166,.38),0 2px 8px rgba(0,0,0,.18);transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .25s; }
+  .cb-btn { position:fixed;bottom:90px;right:28px;z-index:8000;width:58px;height:58px;border-radius:50%;background:none;border:none;cursor:pointer;overflow:hidden;padding:0;box-shadow:0 8px 28px rgba(20,184,166,.38),0 2px 8px rgba(0,0,0,.18);transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .25s; }
   .cb-btn:hover { transform:scale(1.1);box-shadow:0 12px 36px rgba(20,184,166,.48),0 4px 12px rgba(0,0,0,.2); }
   .cb-btn img { width:58px;height:58px;border-radius:50%;object-fit:cover;object-position:center 12%;display:block; }
   .cb-badge { position:absolute;top:-3px;right:-3px;width:12px;height:12px;background:#22C55E;border-radius:50%;border:2px solid #0C0F0E;display:none; }
-  .cb-window { position:fixed;bottom:98px;right:28px;z-index:8000;width:380px;background:#141918;border:1px solid rgba(255,255,255,.07);border-radius:20px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,.32),0 8px 24px rgba(0,0,0,.18);display:flex;flex-direction:column;transform:translateY(20px) scale(.96);opacity:0;pointer-events:none;transition:transform .35s cubic-bezier(.34,1.56,.64,1),opacity .25s; }
+  .cb-window { position:fixed;bottom:160px;right:28px;z-index:8000;width:380px;background:#141918;border:1px solid rgba(255,255,255,.07);border-radius:20px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,.32),0 8px 24px rgba(0,0,0,.18);display:flex;flex-direction:column;transform:translateY(20px) scale(.96);opacity:0;pointer-events:none;transition:transform .35s cubic-bezier(.34,1.56,.64,1),opacity .25s; }
   .cb-window.open { transform:translateY(0) scale(1);opacity:1;pointer-events:all; }
   .cb-header { padding:14px 16px;display:flex;align-items:center;gap:12px;background:#141918;border-bottom:1px solid #1E2928;position:relative; }
   .cb-header::before { content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#0F766E,#0891B2,#0EA5E9); }
@@ -1060,7 +1060,7 @@
   .cb-input::placeholder { color:#8892A4; }
   .cb-send { width:36px;height:36px;border-radius:10px;background:#14B8A6;color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;transition:background .2s,transform .15s;flex-shrink:0; }
   .cb-send:hover { background:#0D9488;transform:scale(1.05); }
-  @media(max-width:480px){ .cb-window{width:calc(100vw - 32px);right:16px;bottom:86px;} .cb-btn{right:16px;bottom:16px;} }
+  @media(max-width:480px){ .cb-window{width:calc(100vw - 32px);right:16px;bottom:150px;} .cb-btn{right:16px;bottom:82px;} }
 </style>
 <button class="cb-btn" id="cb-toggle" aria-label="Chat with KC"><img src="dist/images/funny.jpeg" alt="KC"><span class="cb-badge" id="cb-badge"></span></button>
 <div class="cb-window" id="cb-window">
