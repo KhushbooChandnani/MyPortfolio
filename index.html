@@ -816,5 +816,230 @@
     });
   })();
 </script>
+
+<!-- ── CHATBOT ──────────────────────────────────────────── -->
+<style>
+  .cb-btn {
+    position: fixed; bottom: 28px; right: 28px; z-index: 8000;
+    width: 54px; height: 54px; border-radius: 50%;
+    background: var(--accent); color: #fff; border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; font-size: 22px;
+    box-shadow: 0 4px 20px rgba(15,118,110,.4);
+    transition: transform .2s, box-shadow .2s;
+  }
+  .cb-btn:hover { transform: scale(1.08); box-shadow: 0 8px 28px rgba(15,118,110,.5); }
+  .cb-badge {
+    position: absolute; top: -4px; right: -4px;
+    width: 18px; height: 18px; background: #EF4444; border-radius: 50%;
+    font-size: 10px; font-weight: 700; color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    border: 2px solid var(--bg);
+  }
+  .cb-window {
+    position: fixed; bottom: 94px; right: 28px; z-index: 8000;
+    width: 360px; background: var(--surface); border: 1px solid var(--border);
+    border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,.18);
+    display: flex; flex-direction: column;
+    transform: scale(.95) translateY(10px); opacity: 0; pointer-events: none;
+    transition: all .25s cubic-bezier(.34,1.56,.64,1);
+  }
+  .cb-window.open { transform: scale(1) translateY(0); opacity: 1; pointer-events: all; }
+  .cb-header {
+    padding: 14px 18px; display: flex; align-items: center; gap: 12px;
+    background: var(--accent); border-radius: 19px 19px 0 0;
+  }
+  .cb-avatar { width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,.2); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+  .cb-header-info { flex: 1; }
+  .cb-header-name { font-family: "IBM Plex Sans", sans-serif; font-size: 14px; font-weight: 700; color: #fff; }
+  .cb-header-sub { font-size: 11px; color: rgba(255,255,255,.75); display: flex; align-items: center; gap: 5px; margin-top: 2px; }
+  .cb-header-sub::before { content: ''; width: 6px; height: 6px; background: #4ADE80; border-radius: 50%; display: inline-block; animation: cbPulse 2s infinite; }
+  @keyframes cbPulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+  .cb-close { background: none; border: none; color: rgba(255,255,255,.75); font-size: 16px; cursor: pointer; padding: 4px; transition: color .2s; line-height: 1; }
+  .cb-close:hover { color: #fff; }
+  .cb-messages {
+    flex: 1; overflow-y: auto; padding: 16px 14px;
+    display: flex; flex-direction: column; gap: 12px;
+    min-height: 220px; max-height: 300px;
+    scrollbar-width: thin; scrollbar-color: var(--border) transparent;
+  }
+  .cb-msg { display: flex; gap: 8px; align-items: flex-end; }
+  .cb-msg.user { flex-direction: row-reverse; }
+  .cb-msg-av { width: 28px; height: 28px; border-radius: 50%; background: var(--accent-lt); border: 1px solid var(--accent-md); display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+  .cb-msg-av.u { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .cb-bubble {
+    max-width: 250px; padding: 10px 14px;
+    font-family: "IBM Plex Sans", sans-serif; font-size: 13px; line-height: 1.6; white-space: pre-line;
+    border-radius: 16px 16px 16px 4px;
+    background: var(--bg); border: 1px solid var(--border); color: var(--dark);
+  }
+  .cb-msg.user .cb-bubble { background: var(--accent); color: #fff; border-color: var(--accent); border-radius: 16px 16px 4px 16px; }
+  .cb-typing-dots { display: flex; gap: 4px; align-items: center; padding: 2px 4px; }
+  .cb-typing-dots span { width: 7px; height: 7px; background: var(--muted); border-radius: 50%; animation: cbDot 1.2s infinite; }
+  .cb-typing-dots span:nth-child(2) { animation-delay: .2s; }
+  .cb-typing-dots span:nth-child(3) { animation-delay: .4s; }
+  @keyframes cbDot { 0%,60%,100%{transform:translateY(0);opacity:.35} 30%{transform:translateY(-5px);opacity:1} }
+  .cb-qr-wrap { display: flex; flex-wrap: wrap; gap: 6px; padding: 4px 14px 10px; }
+  .cb-qr {
+    font-family: "IBM Plex Sans", sans-serif; font-size: 11px; font-weight: 600;
+    padding: 5px 12px; border-radius: 20px;
+    background: var(--accent-lt); color: var(--accent); border: 1px solid var(--accent-md);
+    cursor: pointer; transition: all .18s; white-space: nowrap;
+  }
+  .cb-qr:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .cb-input-row { padding: 10px 12px; border-top: 1px solid var(--border); display: flex; gap: 8px; align-items: center; border-radius: 0 0 20px 20px; background: var(--surface); }
+  .cb-input {
+    flex: 1; border: 1px solid var(--border); border-radius: 10px;
+    padding: 9px 13px; font-family: "IBM Plex Sans", sans-serif; font-size: 13px;
+    background: var(--bg); color: var(--dark); outline: none; transition: border-color .2s;
+  }
+  .cb-input:focus { border-color: var(--accent); }
+  .cb-input::placeholder { color: var(--muted); }
+  .cb-send { width: 36px; height: 36px; border-radius: 10px; background: var(--accent); color: #fff; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; transition: background .2s, transform .15s; flex-shrink: 0; }
+  .cb-send:hover { background: #0D9488; transform: scale(1.05); }
+  @media (max-width: 480px) { .cb-window { width: calc(100vw - 32px); right: 16px; bottom: 82px; } .cb-btn { right: 16px; bottom: 16px; } }
+</style>
+
+<button class="cb-btn" id="cb-toggle" aria-label="Chat with KC">
+  <i class="bi bi-chat-dots-fill"></i>
+  <span class="cb-badge" id="cb-badge">1</span>
+</button>
+
+<div class="cb-window" id="cb-window">
+  <div class="cb-header">
+    <div class="cb-avatar">🎨</div>
+    <div class="cb-header-info">
+      <div class="cb-header-name">Ask KC</div>
+      <div class="cb-header-sub">Ask me anything about KC</div>
+    </div>
+    <button class="cb-close" id="cb-close" aria-label="Close chat"><i class="bi bi-x-lg"></i></button>
+  </div>
+  <div class="cb-messages" id="cb-messages"></div>
+  <div class="cb-qr-wrap" id="cb-qr">
+    <button class="cb-qr" data-q="Who is KC?">Who is KC?</button>
+    <button class="cb-qr" data-q="What are your skills?">Skills</button>
+    <button class="cb-qr" data-q="Tell me about the Intuit case study">Intuit Case Study</button>
+    <button class="cb-qr" data-q="Are you open to work?">Open to work?</button>
+    <button class="cb-qr" data-q="How can I contact KC?">Contact</button>
+  </div>
+  <div class="cb-input-row">
+    <input class="cb-input" id="cb-input" type="text" placeholder="Ask me anything about KC…" autocomplete="off">
+    <button class="cb-send" id="cb-send" aria-label="Send"><i class="bi bi-send-fill"></i></button>
+  </div>
+</div>
+
+<script>
+(function(){
+  const KB = [
+    { p:['who are you','who is kc','about kc','tell me about','introduce','yourself','about you','what\'s your story'],
+      a:"I'm Khushboo Chandnani — KC for short! 👋 I'm a Senior Product Designer with 5+ years of experience designing AI-powered products that simplify complex workflows. I specialize in design systems, UX research, and data-driven design. Currently at Intuit!" },
+    { p:['what do you do','your role','job title','product design','ux design','what kind of designer'],
+      a:"KC is a UX/Product Designer who bridges research and execution — designing AI-driven products, building scalable design systems, and leading end-to-end design from discovery through delivery. 🎨" },
+    { p:['experience','work history','companies','where have you worked','career','background','worked at'],
+      a:"KC has worked at 6 companies: Intuit, EY, FitPeo, AgriNovus, Enovation Controls, and Johnson & Johnson — 5+ years of experience and 15+ projects shipped! 🚀" },
+    { p:['intuit','pet','pet 2.0','prioritization','execution tool','nda','intuit case','resource planning','workstream'],
+      a:"The Intuit PET 2.0 case study is NDA-protected 🔒. It covers a full redesign of Intuit's internal Prioritization & Execution Tool — focused on resource planning and workstream management for engineering teams. Request access by emailing kcdesigner21@gmail.com!" },
+    { p:['fitpeo','ey','agrinovus','enovation','johnson','other case','other project','portfolio work','all projects'],
+      a:"KC's portfolio includes projects at FitPeo (healthcare UX), EY (enterprise design), AgriNovus (agri-tech), Enovation Controls (industrial UI), and J&J (medical UX). Scroll to the Work section to explore them all! 👇" },
+    { p:['skill','tool','figma','design tool','expertise','specializ','what can you do'],
+      a:"KC's core skills:\n✦ AI-Driven Design\n✦ Design Systems\n✦ UX Research\n✦ Prototyping\n✦ User Journey Mapping\n✦ Data-Driven Design\n\nTools: Figma, FigJam, Maze, Dovetail & more." },
+    { p:['contact','email','reach','get in touch','message','hire','collaborate','work together','work with'],
+      a:"Reach KC at kcdesigner21@gmail.com 📬 — or hit \"Let's Talk\" in the nav. She's always happy to connect and hear about new projects!" },
+    { p:['available','open to work','hiring','opportunit','freelance','full-time','contract','looking for work'],
+      a:"Yes! KC is currently open to new opportunities 🎉 — full-time, contract, or freelance. Drop her a line at kcdesigner21@gmail.com!" },
+    { p:['process','design process','how do you work','methodology','approach','how do you design'],
+      a:"KC's design process is research-first:\n1. Discover — user research & stakeholder alignment\n2. Define — problem framing & success metrics\n3. Ideate — sketching & concepts\n4. Prototype — high-fidelity Figma builds\n5. Test — usability testing & iteration 🔍" },
+    { p:['resume','cv','download','pdf','view resume'],
+      a:"You can view KC's resume right here — click \"View Resume\" in the navigation bar! 📄" },
+    { p:['publication','research paper','tapia','conference','speaker','award','achievement','recognition'],
+      a:"KC spoke at the CMD-IT/ACM Richard Tapia 2023 Conference and has 2 publications on UX research & accessibility. Check the Milestones section for all her achievements! 🏆" },
+    { p:['alaska','vacation','travel','hobby','chess','fun','personal','outside work','interests'],
+      a:"Alaska is KC's all-time favorite vacation spot 🏔️ — hence the polaroid! Outside of design, she loves travel and chess. ♟️" },
+    { p:['education','degree','university','school','study','college'],
+      a:"KC combines a strong academic foundation with industry practice, publications, and conference speaking. Visit the About page for her full story!" },
+    { p:['about page','more about','learn more','full story'],
+      a:"Head to the About page for KC's full story — her background, values, and what drives her as a designer! Click \"About Me\" in the nav. 👤" },
+    { p:['hello','hi','hey','howdy','hola','sup','greetings','good morning','good afternoon'],
+      a:"Hey there! 👋 I'm KC's virtual assistant. Ask me about her work, skills, case studies, or how to get in touch. What would you like to know?" },
+    { p:['thank','thanks','awesome','great','cool','nice','love it','perfect','amazing'],
+      a:"Thank you! 🙏 KC puts a lot of heart into her work. Feel free to ask anything else — or reach out directly at kcdesigner21@gmail.com!" },
+    { p:['password','unlock','access','view case','open case'],
+      a:"The Intuit case study is password-protected 🔒. If you don't have the password, email kcdesigner21@gmail.com to request access. KC will get back to you shortly!" },
+  ];
+
+  function respond(q) {
+    const lower = q.toLowerCase();
+    for (const item of KB) {
+      if (item.p.some(p => lower.includes(p))) return item.a;
+    }
+    return "That's a great question! 🤔 For a detailed answer, reach out to KC directly at kcdesigner21@gmail.com — she'd love to chat!";
+  }
+
+  const toggle   = document.getElementById('cb-toggle');
+  const win      = document.getElementById('cb-window');
+  const closeBtn = document.getElementById('cb-close');
+  const msgs     = document.getElementById('cb-messages');
+  const inputEl  = document.getElementById('cb-input');
+  const sendBtn  = document.getElementById('cb-send');
+  const qrWrap   = document.getElementById('cb-qr');
+  const badge    = document.getElementById('cb-badge');
+
+  function addMsg(text, from) {
+    const isUser = from === 'user';
+    const row  = document.createElement('div');
+    row.className = 'cb-msg' + (isUser ? ' user' : '');
+    const av = document.createElement('div');
+    av.className = 'cb-msg-av' + (isUser ? ' u' : '');
+    av.innerHTML = isUser ? '<i class="bi bi-person-fill"></i>' : '🎨';
+    const bub = document.createElement('div');
+    bub.className = 'cb-bubble';
+    bub.textContent = text;
+    row.appendChild(av); row.appendChild(bub);
+    msgs.appendChild(row);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  function showTyping() {
+    const row = document.createElement('div');
+    row.className = 'cb-msg'; row.id = 'cb-typing';
+    const av = document.createElement('div');
+    av.className = 'cb-msg-av'; av.innerHTML = '🎨';
+    const bub = document.createElement('div');
+    bub.className = 'cb-bubble';
+    bub.innerHTML = '<div class="cb-typing-dots"><span></span><span></span><span></span></div>';
+    row.appendChild(av); row.appendChild(bub);
+    msgs.appendChild(row);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  function send(text) {
+    if (!text.trim()) return;
+    addMsg(text, 'user');
+    inputEl.value = '';
+    qrWrap.style.display = 'none';
+    showTyping();
+    setTimeout(() => {
+      const t = document.getElementById('cb-typing');
+      if (t) t.remove();
+      addMsg(respond(text), 'kc');
+    }, 650 + Math.random() * 350);
+  }
+
+  toggle.addEventListener('click', () => {
+    win.classList.toggle('open');
+    if (win.classList.contains('open')) {
+      badge.style.display = 'none';
+      if (!msgs.children.length) {
+        setTimeout(() => addMsg("Hi there! 👋 I'm KC's virtual assistant. Ask me anything about her work, skills, or case studies!", 'kc'), 280);
+      }
+      inputEl.focus();
+    }
+  });
+
+  closeBtn.addEventListener('click', () => win.classList.remove('open'));
+  sendBtn.addEventListener('click', () => send(inputEl.value));
+  inputEl.addEventListener('keydown', e => { if (e.key === 'Enter') send(inputEl.value); });
+  qrWrap.querySelectorAll('.cb-qr').forEach(b => b.addEventListener('click', () => send(b.dataset.q)));
+})();
+</script>
 </body>
 </html>
