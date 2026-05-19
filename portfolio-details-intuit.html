@@ -1021,47 +1021,52 @@
 
 <!-- ── CHATBOT ──────────────────────────────────────────── -->
 <style>
-  .cb-btn { position:fixed;bottom:28px;right:28px;z-index:8000;width:54px;height:54px;border-radius:50%;background:none;border:3px solid #0F766E;cursor:pointer;overflow:hidden;box-shadow:0 4px 20px rgba(15,118,110,.4);transition:transform .2s,box-shadow .2s;padding:0; }
-  .cb-btn:hover { transform:scale(1.08);box-shadow:0 8px 28px rgba(15,118,110,.5); }
-  .cb-badge { position:absolute;top:-4px;right:-4px;width:18px;height:18px;background:#EF4444;border-radius:50%;font-size:10px;font-weight:700;color:#fff;display:flex;align-items:center;justify-content:center;border:2px solid #fff; }
-  .cb-window { position:fixed;bottom:94px;right:28px;z-index:8000;width:360px;background:#fff;border:1px solid #E2E8F0;border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,.18);display:flex;flex-direction:column;transform:scale(.95) translateY(10px);opacity:0;pointer-events:none;transition:all .25s cubic-bezier(.34,1.56,.64,1); }
-  .cb-window.open { transform:scale(1) translateY(0);opacity:1;pointer-events:all; }
-  .cb-header { padding:14px 18px;display:flex;align-items:center;gap:12px;background:#0F766E;border-radius:19px 19px 0 0; }
-  .cb-avatar { width:36px;height:36px;border-radius:50%;overflow:hidden;flex-shrink:0; } .cb-avatar img { width:100%;height:100%;object-fit:cover;object-position:center 15%;display:block; }
-  .cb-header-info { flex:1; }
-  .cb-header-name { font-family:"IBM Plex Sans",sans-serif;font-size:14px;font-weight:700;color:#fff; }
-  .cb-header-sub { font-size:11px;color:rgba(255,255,255,.75);display:flex;align-items:center;gap:5px;margin-top:2px; }
-  .cb-header-sub::before { content:'';width:6px;height:6px;background:#4ADE80;border-radius:50%;display:inline-block;animation:cbPulse 2s infinite; }
-  @keyframes cbPulse { 0%,100%{opacity:1}50%{opacity:.4} }
-  .cb-close { background:none;border:none;color:rgba(255,255,255,.75);font-size:16px;cursor:pointer;padding:4px;transition:color .2s;line-height:1; }
-  .cb-close:hover { color:#fff; }
-  .cb-messages { flex:1;overflow-y:auto;padding:16px 14px;display:flex;flex-direction:column;gap:12px;min-height:220px;max-height:300px;scrollbar-width:thin; }
+  .cb-btn { position:fixed;bottom:28px;right:28px;z-index:8000;width:58px;height:58px;border-radius:50%;background:none;border:none;cursor:pointer;overflow:hidden;padding:0;box-shadow:0 8px 28px rgba(20,184,166,.38),0 2px 8px rgba(0,0,0,.18);transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .25s; }
+  .cb-btn:hover { transform:scale(1.1);box-shadow:0 12px 36px rgba(20,184,166,.48),0 4px 12px rgba(0,0,0,.2); }
+  .cb-btn img { width:58px;height:58px;border-radius:50%;object-fit:cover;object-position:center 12%;display:block; }
+  .cb-badge { position:absolute;top:-3px;right:-3px;width:12px;height:12px;background:#22C55E;border-radius:50%;border:2px solid #0C0F0E;display:none; }
+  .cb-window { position:fixed;bottom:98px;right:28px;z-index:8000;width:380px;background:#141918;border:1px solid rgba(255,255,255,.07);border-radius:20px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,.32),0 8px 24px rgba(0,0,0,.18);display:flex;flex-direction:column;transform:translateY(20px) scale(.96);opacity:0;pointer-events:none;transition:transform .35s cubic-bezier(.34,1.56,.64,1),opacity .25s; }
+  .cb-window.open { transform:translateY(0) scale(1);opacity:1;pointer-events:all; }
+  .cb-header { padding:14px 16px;display:flex;align-items:center;gap:12px;background:#141918;border-bottom:1px solid #1E2928;position:relative; }
+  .cb-header::before { content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#0F766E,#0891B2,#0EA5E9); }
+  .cb-avatar { width:44px;height:44px;border-radius:50%;overflow:hidden;flex-shrink:0;position:relative; }
+  .cb-avatar img { width:100%;height:100%;object-fit:cover;object-position:center 12%;display:block; }
+  .cb-avatar::after { content:'';position:absolute;bottom:-1px;right:-1px;width:13px;height:13px;background:#22C55E;border-radius:50%;border:2.5px solid #141918; }
+  .cb-header-info { flex:1;min-width:0; }
+  .cb-header-name { font-family:"IBM Plex Sans",sans-serif;font-size:14px;font-weight:700;color:#F0F5F4;line-height:1.2; }
+  .cb-header-sub { font-size:11px;color:#8892A4;margin-top:2px; }
+  .cb-close { width:32px;height:32px;border-radius:50%;background:#0C0F0E;border:none;color:#8892A4;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:color .2s,transform .25s;flex-shrink:0; }
+  .cb-close:hover { color:#F0F5F4;transform:rotate(90deg); }
+  .cb-messages { flex:1;overflow-y:auto;padding:16px 14px;display:flex;flex-direction:column;gap:12px;min-height:250px;max-height:340px;background:#0C0F0E;scrollbar-width:thin;scrollbar-color:#1E2928 transparent; }
   .cb-msg { display:flex;gap:8px;align-items:flex-end; }
   .cb-msg.user { flex-direction:row-reverse; }
-  .cb-msg-av { width:28px;height:28px;border-radius:50%;background:#F0FDFA;border:1px solid #99F6E4;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0; }
-  .cb-msg-av.u { background:#0F766E;color:#fff;border-color:#0F766E; }
-  .cb-bubble { max-width:250px;padding:10px 14px;font-family:"IBM Plex Sans",sans-serif;font-size:13px;line-height:1.6;white-space:pre-line;border-radius:16px 16px 16px 4px;background:#F7F9FC;border:1px solid #E2E8F0;color:#0D1117; }
-  .cb-msg.user .cb-bubble { background:#0F766E;color:#fff;border-color:#0F766E;border-radius:16px 16px 4px 16px; }
+  .cb-msg-av { width:28px;height:28px;border-radius:50%;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center; }
+  .cb-msg-av img { width:100%;height:100%;object-fit:cover;object-position:center 12%;display:block; }
+  .cb-msg-av.u { background:#14B8A6;color:#fff;font-size:13px; }
+  .cb-bubble { max-width:260px;padding:10px 14px;font-family:"IBM Plex Sans",sans-serif;font-size:13px;line-height:1.65;white-space:pre-line;color:#F0F5F4;background:#141918;box-shadow:0 1px 3px rgba(0,0,0,.18);border-radius:18px 18px 18px 5px; }
+  .cb-msg.user .cb-bubble { background:#0F766E;color:#fff;border-radius:18px 18px 5px 18px; }
   .cb-typing-dots { display:flex;gap:4px;align-items:center;padding:2px 4px; }
-  .cb-typing-dots span { width:7px;height:7px;background:#9CA3AF;border-radius:50%;animation:cbDot 1.2s infinite; }
+  .cb-typing-dots span { width:7px;height:7px;background:#8892A4;border-radius:50%;animation:cbDot 1.2s infinite; }
   .cb-typing-dots span:nth-child(2){animation-delay:.2s} .cb-typing-dots span:nth-child(3){animation-delay:.4s}
   @keyframes cbDot { 0%,60%,100%{transform:translateY(0);opacity:.35}30%{transform:translateY(-5px);opacity:1} }
-  .cb-qr-wrap { display:flex;flex-wrap:wrap;gap:6px;padding:4px 14px 10px; }
-  .cb-qr { font-family:"IBM Plex Sans",sans-serif;font-size:11px;font-weight:600;padding:5px 12px;border-radius:20px;background:#F0FDFA;color:#0F766E;border:1px solid #99F6E4;cursor:pointer;transition:all .18s;white-space:nowrap; }
-  .cb-qr:hover { background:#0F766E;color:#fff;border-color:#0F766E; }
-  .cb-input-row { padding:10px 12px;border-top:1px solid #E2E8F0;display:flex;gap:8px;align-items:center;border-radius:0 0 20px 20px;background:#fff; }
-  .cb-input { flex:1;border:1px solid #E2E8F0;border-radius:10px;padding:9px 13px;font-family:"IBM Plex Sans",sans-serif;font-size:13px;background:#F7F9FC;color:#0D1117;outline:none;transition:border-color .2s; }
-  .cb-input:focus { border-color:#0F766E; }
-  .cb-input::placeholder { color:#9CA3AF; }
-  .cb-send { width:36px;height:36px;border-radius:10px;background:#0F766E;color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;transition:background .2s,transform .15s;flex-shrink:0; }
+  @keyframes cbPulse { 0%,100%{opacity:1}50%{opacity:.4} }
+  .cb-qr-wrap { display:flex;flex-wrap:wrap;gap:6px;padding:8px 14px 10px;background:#0C0F0E; }
+  .cb-qr { font-family:"IBM Plex Sans",sans-serif;font-size:11px;font-weight:600;padding:5px 12px;border-radius:20px;background:#0C0F0E;color:#F0F5F4;border:1.5px solid #1E2928;cursor:pointer;transition:all .18s;white-space:nowrap; }
+  .cb-qr:hover { background:#14B8A6;color:#fff;border-color:#14B8A6;transform:translateY(-1px); }
+  .cb-input-row { padding:12px 14px;border-top:1px solid #1E2928;background:#141918; }
+  .cb-input-wrap { display:flex;align-items:center;background:#0C0F0E;border:1.5px solid #1E2928;border-radius:14px;padding:4px 4px 4px 14px;transition:border-color .2s,box-shadow .2s; }
+  .cb-input-wrap:focus-within { border-color:#14B8A6;box-shadow:0 0 0 3px rgba(20,184,166,.1); }
+  .cb-input { flex:1;border:none;background:transparent;padding:7px 0;font-family:"IBM Plex Sans",sans-serif;font-size:13px;color:#F0F5F4;outline:none; }
+  .cb-input::placeholder { color:#8892A4; }
+  .cb-send { width:36px;height:36px;border-radius:10px;background:#14B8A6;color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;transition:background .2s,transform .15s;flex-shrink:0; }
   .cb-send:hover { background:#0D9488;transform:scale(1.05); }
-  @media(max-width:480px){ .cb-window{width:calc(100vw - 32px);right:16px;bottom:82px;} .cb-btn{right:16px;bottom:16px;} }
+  @media(max-width:480px){ .cb-window{width:calc(100vw - 32px);right:16px;bottom:86px;} .cb-btn{right:16px;bottom:16px;} }
 </style>
-<button class="cb-btn" id="cb-toggle" aria-label="Chat with KC"><img src="dist/images/funny.jpeg" style="width:54px;height:54px;border-radius:50%;object-fit:cover;object-position:center 15%;display:block;"><span class="cb-badge" id="cb-badge">1</span></button>
+<button class="cb-btn" id="cb-toggle" aria-label="Chat with KC"><img src="dist/images/funny.jpeg" alt="KC"><span class="cb-badge" id="cb-badge"></span></button>
 <div class="cb-window" id="cb-window">
   <div class="cb-header">
     <div class="cb-avatar"><img src="dist/images/funny.jpeg" alt="KC"></div>
-    <div class="cb-header-info"><div class="cb-header-name">Ask KC</div><div class="cb-header-sub">Ask me anything about KC</div></div>
+    <div class="cb-header-info"><div class="cb-header-name">Khushboo (KC)</div><div class="cb-header-sub">Sr. Product Designer · Intuit</div></div>
     <button class="cb-close" id="cb-close"><i class="bi bi-x-lg"></i></button>
   </div>
   <div class="cb-messages" id="cb-messages"></div>
@@ -1073,8 +1078,10 @@
     <button class="cb-qr" data-q="How can I contact KC?">Contact</button>
   </div>
   <div class="cb-input-row">
-    <input class="cb-input" id="cb-input" type="text" placeholder="Ask me anything about KC…" autocomplete="off">
-    <button class="cb-send" id="cb-send"><i class="bi bi-send-fill"></i></button>
+    <div class="cb-input-wrap">
+      <input class="cb-input" id="cb-input" type="text" placeholder="Ask me anything about KC…" autocomplete="off">
+      <button class="cb-send" id="cb-send"><i class="bi bi-send-fill"></i></button>
+    </div>
   </div>
 </div>
 <script>
@@ -1097,8 +1104,8 @@
   ];
   function respond(q){const l=q.toLowerCase();for(const i of KB){if(i.p.some(p=>l.includes(p)))return i.a;}return"Great question! 🤔 For a detailed answer, reach out to KC at kcdesigner21@gmail.com — she'd love to chat!";}
   const toggle=document.getElementById('cb-toggle'),win=document.getElementById('cb-window'),closeBtn=document.getElementById('cb-close'),msgs=document.getElementById('cb-messages'),inputEl=document.getElementById('cb-input'),sendBtn=document.getElementById('cb-send'),qrWrap=document.getElementById('cb-qr'),badge=document.getElementById('cb-badge');
-  function addMsg(text,from){const isUser=from==='user';const row=document.createElement('div');row.className='cb-msg'+(isUser?' user':'');const av=document.createElement('div');av.className='cb-msg-av'+(isUser?' u':'');av.innerHTML=isUser?'<i class="bi bi-person-fill"></i>':'🎨';const bub=document.createElement('div');bub.className='cb-bubble';bub.textContent=text;row.appendChild(av);row.appendChild(bub);msgs.appendChild(row);msgs.scrollTop=msgs.scrollHeight;}
-  function showTyping(){const row=document.createElement('div');row.className='cb-msg';row.id='cb-typing';const av=document.createElement('div');av.className='cb-msg-av';av.innerHTML='🎨';const bub=document.createElement('div');bub.className='cb-bubble';bub.innerHTML='<div class="cb-typing-dots"><span></span><span></span><span></span></div>';row.appendChild(av);row.appendChild(bub);msgs.appendChild(row);msgs.scrollTop=msgs.scrollHeight;}
+  function addMsg(text,from){const isUser=from==='user';const row=document.createElement('div');row.className='cb-msg'+(isUser?' user':'');const av=document.createElement('div');av.className='cb-msg-av'+(isUser?' u':'');av.innerHTML=isUser?'<i class="bi bi-person-fill"></i>':'<img src="dist/images/funny.jpeg" alt="KC">';const bub=document.createElement('div');bub.className='cb-bubble';bub.textContent=text;row.appendChild(av);row.appendChild(bub);msgs.appendChild(row);msgs.scrollTop=msgs.scrollHeight;}
+  function showTyping(){const row=document.createElement('div');row.className='cb-msg';row.id='cb-typing';const av=document.createElement('div');av.className='cb-msg-av';av.innerHTML='<img src="dist/images/funny.jpeg" alt="KC">';const bub=document.createElement('div');bub.className='cb-bubble';bub.innerHTML='<div class="cb-typing-dots"><span></span><span></span><span></span></div>';row.appendChild(av);row.appendChild(bub);msgs.appendChild(row);msgs.scrollTop=msgs.scrollHeight;}
   function send(text){if(!text.trim())return;addMsg(text,'user');inputEl.value='';qrWrap.style.display='none';showTyping();setTimeout(()=>{const t=document.getElementById('cb-typing');if(t)t.remove();addMsg(respond(text),'kc');},650+Math.random()*350);}
   toggle.addEventListener('click',()=>{win.classList.toggle('open');if(win.classList.contains('open')){badge.style.display='none';if(!msgs.children.length){setTimeout(()=>addMsg("Hi there! 👋 I'm KC's virtual assistant. Ask me anything about this case study or KC's work!",'kc'),280);}inputEl.focus();}});
   closeBtn.addEventListener('click',()=>win.classList.remove('open'));
