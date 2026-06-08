@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Designer + Developer · KC Portfolio</title>
+  <meta name="description" content="KC ships production-ready code. Active GitHub contributions, merged PRs, dev dependencies, and released features.">
+  <link href="dist/images/favicon.svg" rel="icon" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --green:    #0F766E;
+      --green-lt: #F0FDFA;
+      --green-md: #99F6E4;
+      --dark:     #0D1117;
+      --dark2:    #2D3748;
+      --body-clr: #5A6272;
+      --border:   #E2E8F0;
+      --surface:  #F7F9FC;
+      --gh-green:    #1a7f37;
+      --gh-green-lt: #dafbe1;
+      --gh-green-md: #aceebb;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    html, body { overflow-x: hidden; }
+    body { font-family: "Inter", sans-serif; color: var(--body-clr); background: #fff; line-height: 1.6; }
+    h1,h2,h3,h4,h5 { font-family: "IBM Plex Sans", sans-serif; color: var(--dark); line-height: 1.15; }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+
+    #progress { position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--green),#14B8A6);z-index:9999;transition:width .1s; }
+
+    /* ── NAV ──────────────────────────────────────── */
+    .site-nav { position:fixed;top:0;left:0;right:0;z-index:9000;background:rgba(255,255,255,.96);backdrop-filter:blur(18px);border-bottom:1px solid rgba(229,231,235,.8);padding:0 40px;height:64px;display:flex;align-items:center;justify-content:space-between; }
+    .site-nav-logo { font-family:"IBM Plex Sans",sans-serif;font-weight:700;font-size:15px;color:#0D0D18; }
+    .site-nav-links { display:flex;align-items:center;gap:28px; }
+    .site-nav-links a { font-size:14px;font-weight:500;color:#6B7280;transition:color .2s; }
+    .site-nav-links a:hover { color:#0D0D18;font-weight:600; }
+    .site-nav-back { background:#0D0D18;color:#fff;font-family:"IBM Plex Sans",sans-serif;font-weight:600;font-size:13px;padding:8px 18px;border-radius:8px;display:inline-flex;align-items:center;gap:7px;transition:all .2s; }
+    .site-nav-back:hover { background:var(--green);transform:translateY(-1px); }
+    @media(max-width:640px){ .site-nav { padding:0 20px; } .site-nav-links { display:none; } }
+
+    /* ── HERO ─────────────────────────────────────── */
+    .hero { min-height:100vh;padding-top:64px;background:#fff;display:flex;align-items:center;position:relative;overflow:hidden;border-bottom:3px solid var(--green); }
+    .hero::before { content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--green),#14B8A6); }
+    .hero-inner { max-width:1200px;margin:0 auto;padding:80px 40px;display:grid;grid-template-columns:1fr 1.1fr;gap:60px;align-items:center; }
+    .eyebrow { display:inline-flex;align-items:center;gap:8px;background:var(--green-lt);border:1px solid var(--green-md);color:var(--green);font-family:"IBM Plex Sans",sans-serif;font-size:12px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;padding:5px 14px;border-radius:4px;margin-bottom:18px; }
+    .hero h1 { font-size:clamp(30px,4vw,52px);font-weight:700;line-height:1.1;color:var(--dark);margin:0 0 20px; }
+    .hero h1 span { color:var(--green); }
+    .hero-desc { font-size:16px;line-height:1.8;color:var(--body-clr);margin:0 0 32px;max-width:520px; }
+    .hero-tags { display:flex;flex-wrap:wrap;gap:9px;margin-bottom:36px; }
+    .hero-tag { font-family:"IBM Plex Sans",sans-serif;font-size:12px;font-weight:600;padding:5px 13px;border-radius:20px;background:var(--green-lt);border:1px solid var(--green-md);color:var(--green);display:inline-flex;align-items:center;gap:5px; }
+    .hero-meta { display:flex;gap:32px;flex-wrap:wrap;border-top:1px solid var(--border);padding-top:32px; }
+    .meta-lbl { font-size:10px;text-transform:uppercase;letter-spacing:1.3px;color:#aaa;font-family:"IBM Plex Sans",sans-serif;font-weight:700;margin-bottom:3px; }
+    .meta-val { font-size:14px;color:var(--dark);font-family:"IBM Plex Sans",sans-serif;font-weight:600; }
+    .hero-img-wrap { border-radius:16px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.12);border:1px solid var(--border); }
+    .hero-img-wrap img { width:100%;display:block; }
+    @media(max-width:900px){ .hero-inner { grid-template-columns:1fr; } .hero-img-wrap { display:none; } }
+
+    /* ── STATS STRIP ──────────────────────────────── */
+    .strip { background:var(--dark);border-top:4px solid var(--green); }
+    .strip-grid { display:grid;grid-template-columns:repeat(4,1fr);max-width:1200px;margin:0 auto; }
+    .strip-item { padding:30px 28px;border-right:1px solid rgba(255,255,255,.07); }
+    .strip-item:last-child { border-right:none; }
+    .strip-icon { width:38px;height:38px;background:rgba(15,118,110,.15);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:17px;color:#5EEAD4;margin-bottom:10px; }
+    .strip-lbl { font-size:10px;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.38);font-family:"IBM Plex Sans",sans-serif;font-weight:700;margin-bottom:4px; }
+    .strip-val { font-family:"IBM Plex Sans",sans-serif;font-size:22px;font-weight:700;color:#fff; }
+    .strip-sub { font-size:12px;color:rgba(255,255,255,.45);margin-top:2px; }
+    @media(max-width:640px){ .strip-grid { grid-template-columns:1fr 1fr; } }
+
+    /* ── SECTION ──────────────────────────────────── */
+    .in-section { padding:80px 40px; }
+    .in-inner { max-width:1200px;margin:0 auto; }
+    .in-bg { background:var(--surface); }
+    .in-label { font-family:"IBM Plex Sans",sans-serif;font-size:11px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:var(--green);display:block;margin-bottom:10px; }
+    .in-title { font-size:clamp(24px,3vw,36px);font-weight:700;color:var(--dark);margin:0 0 12px; }
+    .in-sub { font-size:15px;color:var(--body-clr);line-height:1.8;max-width:560px; }
+    @media(max-width:768px){ .in-section { padding:60px 20px; } }
+
+    /* ── PR CARD ──────────────────────────────────── */
+    .pr-showcase { margin-top:48px; }
+    .pr-card { background:#fff;border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,.06);transition:box-shadow .3s,border-color .3s; }
+    .pr-card:hover { box-shadow:0 20px 56px rgba(0,0,0,.1);border-color:var(--green-md); }
+    .pr-img-wrap { overflow:hidden;background:var(--surface);cursor:zoom-in;position:relative; }
+    .pr-img-wrap img { width:100%;display:block;transition:transform .5s; }
+    .pr-card:hover .pr-img-wrap img { transform:scale(1.01); }
+    .pr-img-overlay { position:absolute;inset:0;background:rgba(13,17,23,0);display:flex;align-items:center;justify-content:center;opacity:0;transition:all .3s; }
+    .pr-card:hover .pr-img-overlay { opacity:1;background:rgba(13,17,23,.28); }
+    .pr-zoom { font-size:26px;color:#fff; }
+    .pr-body { padding:28px 30px 30px;display:grid;grid-template-columns:1fr 1fr;gap:32px; }
+    .pr-detail-label { font-family:"IBM Plex Sans",sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.3px;color:var(--green);margin-bottom:8px; }
+    .pr-detail-title { font-size:20px;font-weight:700;color:var(--dark);margin-bottom:10px; }
+    .pr-detail-desc { font-size:14px;color:var(--body-clr);line-height:1.75; }
+    .pr-stats { display:flex;flex-direction:column;gap:14px;justify-content:center; }
+    .pr-stat-row { display:flex;align-items:center;gap:12px; }
+    .pr-stat-icon { width:36px;height:36px;border-radius:9px;background:var(--green-lt);border:1px solid var(--green-md);display:flex;align-items:center;justify-content:center;font-size:15px;color:var(--green);flex-shrink:0; }
+    .pr-stat-text { font-size:13px;color:var(--body-clr);line-height:1.5; }
+    .pr-stat-text strong { display:block;font-family:"IBM Plex Sans",sans-serif;font-size:15px;font-weight:700;color:var(--dark); }
+    .merged-badge { display:inline-flex;align-items:center;gap:6px;background:#8250DF;color:#fff;font-family:"IBM Plex Sans",sans-serif;font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px;margin-bottom:14px; }
+    .additions { color:#1a7f37;font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:600; }
+    .deletions { color:#cf222e;font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:600; }
+    @media(max-width:760px){ .pr-body { grid-template-columns:1fr; } }
+
+    /* ── CONTRIBUTION GRAPH ───────────────────────── */
+    .graph-card { background:#fff;border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,.06);margin-top:24px;cursor:zoom-in;transition:box-shadow .3s,border-color .3s;position:relative; }
+    .graph-card:hover { box-shadow:0 20px 56px rgba(0,0,0,.1);border-color:var(--green-md); }
+    .graph-card img { width:100%;display:block;transition:transform .5s; }
+    .graph-card:hover img { transform:scale(1.01); }
+    .graph-card-overlay { position:absolute;inset:0;background:rgba(13,17,23,0);display:flex;align-items:center;justify-content:center;opacity:0;transition:all .3s; }
+    .graph-card:hover .graph-card-overlay { opacity:1;background:rgba(13,17,23,.25); }
+    .graph-caption { padding:18px 22px;border-top:1px solid var(--border); }
+    .graph-caption-label { font-family:"IBM Plex Sans",sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.3px;color:var(--green);margin-bottom:5px; }
+    .graph-caption-text { font-size:13px;color:var(--body-clr);line-height:1.6; }
+
+    /* ── SKILLS GRID ──────────────────────────────── */
+    .skills-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px; }
+    .skill-card { background:#fff;border:1px solid var(--border);border-radius:14px;padding:24px 22px;transition:border-color .25s,box-shadow .25s,transform .25s; }
+    .skill-card:hover { border-color:var(--green-md);box-shadow:0 10px 32px rgba(15,118,110,.08);transform:translateY(-4px); }
+    .skill-icon { width:42px;height:42px;border-radius:10px;background:var(--green-lt);border:1px solid var(--green-md);display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--green);margin-bottom:14px; }
+    .skill-title { font-family:"IBM Plex Sans",sans-serif;font-size:15px;font-weight:700;color:var(--dark);margin-bottom:7px; }
+    .skill-desc { font-size:13px;color:var(--body-clr);line-height:1.7; }
+    @media(max-width:900px){ .skills-grid { grid-template-columns:1fr 1fr; } }
+    @media(max-width:560px){ .skills-grid { grid-template-columns:1fr; } }
+
+    /* ── LIGHTBOX ─────────────────────────────────── */
+    .lb-overlay { position:fixed;inset:0;z-index:9900;background:rgba(0,0,0,.82);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;padding:24px;cursor:zoom-out;opacity:0;pointer-events:none;transition:opacity .3s; }
+    .lb-overlay.open { opacity:1;pointer-events:all; }
+    .lb-overlay img { max-width:90vw;max-height:88vh;border-radius:10px;box-shadow:0 32px 80px rgba(0,0,0,.5);object-fit:contain; }
+    .lb-close { position:absolute;top:20px;right:24px;color:#fff;font-size:26px;cursor:pointer;opacity:.7;transition:opacity .2s;background:none;border:none; }
+    .lb-close:hover { opacity:1; }
+
+    /* ── CTA ──────────────────────────────────────── */
+    .cta-strip { background:var(--dark);padding:80px 40px;text-align:center;border-top:4px solid var(--green); }
+    .cta-strip h2 { font-size:clamp(24px,3vw,36px);font-weight:700;color:#fff;margin-bottom:12px; }
+    .cta-strip p { font-size:15px;color:rgba(255,255,255,.55);margin-bottom:34px;line-height:1.75;max-width:520px;margin-left:auto;margin-right:auto; }
+    .cta-btns { display:flex;gap:12px;justify-content:center;flex-wrap:wrap; }
+    .btn-primary { background:var(--green);color:#fff;font-family:"IBM Plex Sans",sans-serif;font-weight:700;font-size:14px;padding:12px 26px;border-radius:9px;display:inline-flex;align-items:center;gap:8px;transition:all .22s; }
+    .btn-primary:hover { background:#0D5F58;transform:translateY(-2px);box-shadow:0 8px 28px rgba(15,118,110,.38); }
+    .btn-ghost { background:transparent;color:rgba(255,255,255,.7);font-family:"IBM Plex Sans",sans-serif;font-weight:600;font-size:14px;padding:12px 26px;border-radius:9px;border:1.5px solid rgba(255,255,255,.15);display:inline-flex;align-items:center;gap:8px;transition:all .22s; }
+    .btn-ghost:hover { border-color:var(--green-md);color:#fff;background:rgba(15,118,110,.12); }
+
+    /* ── FOOTER ───────────────────────────────────── */
+    footer { background:var(--dark);padding:24px 40px;border-top:1px solid rgba(255,255,255,.06); }
+    .footer-inner { max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between; }
+    .footer-left { font-size:12px;color:rgba(255,255,255,.3);font-family:"IBM Plex Sans",sans-serif; }
+    .footer-left strong { color:rgba(255,255,255,.55); }
+    .footer-links { display:flex;gap:20px; }
+    .footer-links a { font-size:12px;color:rgba(255,255,255,.35);transition:color .2s;display:flex;align-items:center;gap:5px; }
+    .footer-links a:hover { color:#fff; }
+    @media(max-width:560px){ .footer-inner { flex-direction:column;gap:14px;text-align:center; } }
+  </style>
+</head>
+<body>
+<div id="progress"></div>
+
+<!-- ── NAV ───────────────────────────────────────────── -->
+<nav class="site-nav">
+  <a href="index.html" class="site-nav-logo">KC</a>
+  <div class="site-nav-links">
+    <a href="index.html">Home</a>
+    <a href="index.html#work">Work</a>
+    <a href="index.html#ai">AI Work</a>
+    <a href="about.html">About</a>
+  </div>
+  <a href="index.html#ai" class="site-nav-back"><i class="bi bi-arrow-left"></i> Back to AI Work</a>
+</nav>
+
+
+<!-- ── HERO ──────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="eyebrow"><i class="bi bi-github"></i> Designer + Developer</div>
+      <h1>No longer just <span>handing off specs.</span></h1>
+      <p class="hero-desc">Actively contributing to production codebases: installing dev dependencies, writing real code, and merging PRs with hundreds of lines changed. The lines between design and development are thinning.</p>
+      <div class="hero-tags">
+        <span class="hero-tag"><i class="bi bi-git"></i> Git + GitHub</span>
+        <span class="hero-tag"><i class="bi bi-code-slash"></i> Prod-Ready Code</span>
+        <span class="hero-tag"><i class="bi bi-box-arrow-in-down"></i> Dev Dependencies</span>
+        <span class="hero-tag"><i class="bi bi-check2-circle"></i> Merged PRs</span>
+        <span class="hero-tag"><i class="bi bi-rocket-takeoff"></i> Released Features</span>
+      </div>
+      <div class="hero-meta">
+        <div><div class="meta-lbl">Contributions (3 months)</div><div class="meta-val">16 and growing</div></div>
+        <div><div class="meta-lbl">Lines changed</div><div class="meta-val">+759 / -124</div></div>
+        <div><div class="meta-lbl">Files changed</div><div class="meta-val">36 files</div></div>
+        <div><div class="meta-lbl">Started</div><div class="meta-val">Recently, 2026</div></div>
+      </div>
+    </div>
+    <div class="hero-img-wrap">
+      <img src="dist/images/contributions.png" alt="GitHub contribution graph">
+    </div>
+  </div>
+</section>
+
+
+<!-- ── STATS STRIP ────────────────────────────────────── -->
+<div class="strip">
+  <div class="strip-grid">
+    <div class="strip-item">
+      <div class="strip-icon"><i class="bi bi-git"></i></div>
+      <div class="strip-lbl">Status</div>
+      <div class="strip-val">Merged</div>
+      <div class="strip-sub">PR into master, 3 commits</div>
+    </div>
+    <div class="strip-item">
+      <div class="strip-icon"><i class="bi bi-file-earmark-code"></i></div>
+      <div class="strip-lbl">Files changed</div>
+      <div class="strip-val">36</div>
+      <div class="strip-sub">Across layouts, components, styles</div>
+    </div>
+    <div class="strip-item">
+      <div class="strip-icon"><i class="bi bi-plus-lg"></i></div>
+      <div class="strip-lbl">Lines added</div>
+      <div class="strip-val">+759</div>
+      <div class="strip-sub">Prod-ready, reviewed, shipped</div>
+    </div>
+    <div class="strip-item">
+      <div class="strip-icon"><i class="bi bi-graph-up-arrow"></i></div>
+      <div class="strip-lbl">Contributions</div>
+      <div class="strip-val">16</div>
+      <div class="strip-sub">In just 3 months, ramping up</div></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ── PR SHOWCASE ────────────────────────────────────── -->
+<section class="in-section">
+  <div class="in-inner">
+    <span class="in-label">Recent Work</span>
+    <h2 class="in-title">First Merged Pull Request</h2>
+    <p class="in-sub">Real code. Real review. Real release. This PR touched 36 files, added 759 lines, and shipped to production.</p>
+
+    <div class="pr-showcase">
+      <div class="pr-card">
+        <div class="pr-img-wrap" onclick="openLightbox('dist/images/github.png')">
+          <img src="dist/images/github.png" alt="Merged pull request: feat: update create page">
+          <div class="pr-img-overlay"><i class="bi bi-zoom-in pr-zoom"></i></div>
+        </div>
+        <div class="pr-body">
+          <div>
+            <div class="pr-detail-label">Pull Request</div>
+            <div class="merged-badge"><i class="bi bi-git"></i> Merged</div>
+            <div class="pr-detail-title">feat: update create page</div>
+            <p class="pr-detail-desc">
+              Updated the Create Decision page end to end: two-column card layout with full-width rows and a delete icon, updated typography grid, two-state driver section cards with selected state and NEWBETA badges, driver section label alignment fixes, and solid purple primary/tertiary buttons built via CreateV2ActionButtons styles.
+            </p>
+          </div>
+          <div class="pr-stats">
+            <div class="pr-stat-row">
+              <div class="pr-stat-icon"><i class="bi bi-file-earmark-diff"></i></div>
+              <div class="pr-stat-text">
+                <strong>36 files changed</strong>
+                Layouts, components, and styles updated across the board
+              </div>
+            </div>
+            <div class="pr-stat-row">
+              <div class="pr-stat-icon"><i class="bi bi-code"></i></div>
+              <div class="pr-stat-text">
+                <strong><span class="additions">+759</span> &nbsp;<span class="deletions">-124</span></strong>
+                Net additions merged into master
+              </div>
+            </div>
+            <div class="pr-stat-row">
+              <div class="pr-stat-icon"><i class="bi bi-person-check"></i></div>
+              <div class="pr-stat-text">
+                <strong>Reviewed and approved</strong>
+                Passed compliance checks, code review, and release gate
+              </div>
+            </div>
+            <div class="pr-stat-row">
+              <div class="pr-stat-icon"><i class="bi bi-rocket-takeoff"></i></div>
+              <div class="pr-stat-text">
+                <strong>Released to production</strong>
+                Tagged and live, not just a prototype
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── CONTRIBUTION GRAPH ─────────────────────────────── -->
+<section class="in-section in-bg" style="border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="in-inner">
+    <span class="in-label">GitHub Activity</span>
+    <h2 class="in-title">16 Contributions. 3 Months. Just Getting Started.</h2>
+    <p class="in-sub">The graph is young because the journey is new. Started in early 2026 and already shipping consistently into production.</p>
+
+    <div class="graph-card" onclick="openLightbox('dist/images/contributions.png')">
+      <img src="dist/images/contributions.png" alt="GitHub contribution graph showing 16 contributions in 3 months">
+      <div class="graph-card-overlay"><i class="bi bi-zoom-in" style="font-size:26px;color:#fff;"></i></div>
+      <div class="graph-caption">
+        <div class="graph-caption-label">GitHub Contribution Graph</div>
+        <div class="graph-caption-text">16 contributions in just 3 months. Activity picks up sharply from March 2026 onward. The lines between design and development are thinning with every commit.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── WHAT THIS MEANS ────────────────────────────────── -->
+<section class="in-section">
+  <div class="in-inner">
+    <span class="in-label">The Shift</span>
+    <h2 class="in-title">What This Actually Changes</h2>
+    <p class="in-sub">When a designer can also push code, the whole team moves faster. The lines between design and development thin with every PR.</p>
+
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-icon"><i class="bi bi-arrow-left-right"></i></div>
+        <div class="skill-title">No More Handoff Gap</div>
+        <p class="skill-desc">Writing code directly means designs are built exactly as intended. No translation layer, no "this can't be done in dev" back-and-forth.</p>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon"><i class="bi bi-box-arrow-in-down"></i></div>
+        <div class="skill-title">Real Dev Setup</div>
+        <p class="skill-desc">Installing dev dependencies, running local builds, reading error logs. The full engineering environment, not just a Figma file handed over Slack.</p>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon"><i class="bi bi-check2-all"></i></div>
+        <div class="skill-title">Code That Gets Reviewed</div>
+        <p class="skill-desc">PRs go through the same review process as any engineer. Compliance checks, code review, approval, release gate. No shortcuts.</p>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon"><i class="bi bi-speedometer2"></i></div>
+        <div class="skill-title">Faster Iteration</div>
+        <p class="skill-desc">Spotting a spacing issue or a broken state? Fix it directly in the branch instead of filing a ticket and waiting. Iteration velocity goes up immediately.</p>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon"><i class="bi bi-people"></i></div>
+        <div class="skill-title">Better Engineering Conversations</div>
+        <p class="skill-desc">Understanding the codebase means design decisions are grounded in what's actually feasible. No more guessing what's expensive to build.</p>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon"><i class="bi bi-trophy"></i></div>
+        <div class="skill-title">Shipped, Not Just Specced</div>
+        <p class="skill-desc">The work doesn't stop at handoff. It ships to production, gets tagged in a release, and goes live for real users. That's the standard now.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── CTA ────────────────────────────────────────────── -->
+<section class="cta-strip">
+  <h2>Designer. Developer. Both.</h2>
+  <p>This is just the beginning. If you want someone who can own the full stack from research to release, let's talk.</p>
+  <div class="cta-btns">
+    <a href="mailto:kcdesigner21@gmail.com" class="btn-primary"><i class="bi bi-envelope-fill"></i> Get in Touch</a>
+    <a href="index.html#ai" class="btn-ghost"><i class="bi bi-arrow-left"></i> Back to AI Work</a>
+  </div>
+</section>
+
+
+<!-- ── FOOTER ─────────────────────────────────────────── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-left">Made with ❤ by <strong>Khushboo Chandnani</strong> · © 2025</div>
+    <div class="footer-links">
+      <a href="about.html"><i class="bi bi-person"></i> About</a>
+      <a href="https://www.linkedin.com/in/khushboo-chandnani" target="_blank"><i class="bi bi-linkedin"></i> LinkedIn</a>
+      <a href="mailto:kcdesigner21@gmail.com"><i class="bi bi-envelope"></i> Email</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ── LIGHTBOX ───────────────────────────────────────── -->
+<div class="lb-overlay" id="lb-overlay" onclick="closeLightbox()">
+  <button class="lb-close" onclick="closeLightbox()"><i class="bi bi-x-lg"></i></button>
+  <img id="lb-img" src="" alt="">
+</div>
+
+<script>
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement.scrollHeight - window.innerHeight;
+    document.getElementById('progress').style.width = (window.scrollY / h * 100) + '%';
+  });
+  function openLightbox(src) {
+    document.getElementById('lb-img').src = src;
+    document.getElementById('lb-overlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lb-overlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+</script>
+</body>
+</html>
