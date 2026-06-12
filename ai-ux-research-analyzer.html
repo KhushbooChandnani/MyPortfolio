@@ -39,6 +39,9 @@
     .site-nav-links a:hover { color:#0D0D18;font-weight:600; }
     .site-nav-back { background:#0D0D18;color:#fff;font-family:"IBM Plex Sans",sans-serif;font-weight:600;font-size:13px;padding:8px 18px;border-radius:8px;text-decoration:none;transition:all .2s;display:inline-flex;align-items:center;gap:7px; }
     .site-nav-back:hover { background:var(--green);transform:translateY(-1px); }
+    .site-nav-right { display:flex;align-items:center;gap:10px; }
+    .site-theme-toggle { background:none;border:1px solid rgba(0,0,0,.12);border-radius:8px;width:36px;height:36px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;color:#6B7280;transition:all .2s; }
+    .site-theme-toggle:hover { border-color:#0D0D18;color:#0D0D18; }
     @media(max-width:640px){ .site-nav { padding:0 20px; } .site-nav-links { display:none; } }
 
     /* ── HERO ─────────────────────────────────────── */
@@ -186,10 +189,13 @@
   <div class="site-nav-links">
     <a href="index.html">Home</a>
     <a href="index.html#work">Work</a>
-    <a href="index.html#ai">AI Work</a>
     <a href="about.html">About</a>
+    <a href="https://www.linkedin.com/in/khushboo-chandnani" target="_blank">LinkedIn</a>
   </div>
-  <a href="index.html#ai" class="site-nav-back"><i class="bi bi-arrow-left"></i> Back to AI Work</a>
+  <div class="site-nav-right">
+    <button class="site-theme-toggle" id="themeToggle" title="Toggle dark mode" aria-label="Toggle dark mode"><i class="bi bi-moon-stars"></i></button>
+    <a href="mailto:kcdesigner21@gmail.com" class="site-nav-back">Let's Talk</a>
+  </div>
 </nav>
 
 
@@ -483,7 +489,7 @@
   <p>I'm exploring how AI can eliminate the tedious parts of UX research so designers can spend more time on insight and less on formatting.</p>
   <div class="cta-btns">
     <a href="mailto:kcdesigner21@gmail.com" class="btn-primary"><i class="bi bi-envelope-fill"></i> Get the Skill File</a>
-    <a href="index.html#ai" class="btn-ghost"><i class="bi bi-arrow-left"></i> Back to AI Work</a>
+    <a href="index.html" class="btn-ghost"><i class="bi bi-arrow-left"></i> Back to Portfolio</a>
   </div>
 </section>
 
@@ -521,6 +527,10 @@
     document.body.style.overflow = '';
   }
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+  const toggle = document.getElementById('themeToggle');
+  const setTheme = t => { document.documentElement.setAttribute('data-theme', t); localStorage.setItem('theme', t); toggle.querySelector('i').className = t === 'dark' ? 'bi bi-sun' : 'bi bi-moon-stars'; };
+  setTheme(localStorage.getItem('theme') || 'light');
+  toggle.addEventListener('click', () => setTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'));
 </script>
 </body>
 </html>
