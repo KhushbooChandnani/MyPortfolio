@@ -853,7 +853,6 @@
   .cb-btn { position:fixed;bottom:90px;right:28px;z-index:8000;width:58px;height:58px;border-radius:50%;border:none;padding:0;cursor:pointer;overflow:hidden;box-shadow:0 8px 28px rgba(15,118,110,.38),0 2px 8px rgba(0,0,0,.1);transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .25s; }
   .cb-btn img { width:100%;height:100%;object-fit:cover;object-position:center 12%;display:block; }
   .cb-btn:hover { transform:scale(1.1);box-shadow:0 12px 36px rgba(15,118,110,.45); }
-  .cb-badge { position:absolute;top:1px;right:1px;width:15px;height:15px;background:#EF4444;border-radius:50%;border:2px solid white; }
   .cb-window { position:fixed;bottom:160px;right:28px;z-index:8000;width:380px;background:var(--surface);border-radius:20px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,.14),0 8px 24px rgba(0,0,0,.06);border:1px solid rgba(0,0,0,.07);display:flex;flex-direction:column;transform:translateY(20px) scale(.96);opacity:0;pointer-events:none;transition:all .3s cubic-bezier(.34,1.56,.64,1); }
   .cb-window.open { transform:translateY(0) scale(1);opacity:1;pointer-events:all; }
   .cb-header { padding:16px 18px 15px;display:flex;align-items:center;gap:12px;background:var(--surface);border-bottom:1px solid var(--border);position:relative; }
@@ -890,7 +889,7 @@
   .cb-send:hover { background:#0D9488;transform:scale(1.08); }
   @media(max-width:480px){ .cb-window{width:calc(100vw - 24px);right:12px;bottom:150px;} .cb-btn{right:16px;bottom:82px;} }
 </style>
-<button class="cb-btn" id="cb-toggle" aria-label="Chat with KC"><img src="dist/images/funny.jpeg" alt="KC"><span class="cb-badge" id="cb-badge"></span></button>
+<button class="cb-btn" id="cb-toggle" aria-label="Chat with KC"><img src="dist/images/funny.jpeg" alt="KC"></button>
 <div class="cb-window" id="cb-window">
   <div class="cb-header">
     <div class="cb-avatar"><img src="dist/images/funny.jpeg" alt="KC"></div>
@@ -940,11 +939,11 @@
     {p:['thank','thanks','awesome','great','cool','nice','love','perfect','amazing','helpful','wow'],a:"Thank you! 🙏 Feel free to ask anything else about KC — or reach out at kcdesigner21@gmail.com!"},
   ];
   function respond(q){const l=q.toLowerCase();for(const i of KB){if(i.p.some(p=>l.includes(p)))return i.a;}return"Great question! 🤔 For a detailed answer, reach out to KC at kcdesigner21@gmail.com — she'd love to chat!";}
-  const toggle=document.getElementById('cb-toggle'),win=document.getElementById('cb-window'),closeBtn=document.getElementById('cb-close'),msgs=document.getElementById('cb-messages'),inputEl=document.getElementById('cb-input'),sendBtn=document.getElementById('cb-send'),qrWrap=document.getElementById('cb-qr'),badge=document.getElementById('cb-badge');
+  const toggle=document.getElementById('cb-toggle'),win=document.getElementById('cb-window'),closeBtn=document.getElementById('cb-close'),msgs=document.getElementById('cb-messages'),inputEl=document.getElementById('cb-input'),sendBtn=document.getElementById('cb-send'),qrWrap=document.getElementById('cb-qr');
   function addMsg(text,from){const isUser=from==='user';const row=document.createElement('div');row.className='cb-msg'+(isUser?' user':'');const av=document.createElement('div');av.className='cb-msg-av'+(isUser?' u':'');av.innerHTML=isUser?'<i class="bi bi-person-fill"></i>':'🎨';const bub=document.createElement('div');bub.className='cb-bubble';bub.textContent=text;row.appendChild(av);row.appendChild(bub);msgs.appendChild(row);msgs.scrollTop=msgs.scrollHeight;}
   function showTyping(){const row=document.createElement('div');row.className='cb-msg';row.id='cb-typing';const av=document.createElement('div');av.className='cb-msg-av';av.innerHTML='🎨';const bub=document.createElement('div');bub.className='cb-bubble';bub.innerHTML='<div class="cb-typing-dots"><span></span><span></span><span></span></div>';row.appendChild(av);row.appendChild(bub);msgs.appendChild(row);msgs.scrollTop=msgs.scrollHeight;}
   function send(text){if(!text.trim())return;addMsg(text,'user');inputEl.value='';qrWrap.style.display='none';showTyping();setTimeout(()=>{const t=document.getElementById('cb-typing');if(t)t.remove();addMsg(respond(text),'kc');},650+Math.random()*350);}
-  toggle.addEventListener('click',()=>{win.classList.toggle('open');if(win.classList.contains('open')){badge.style.display='none';if(!msgs.children.length){setTimeout(()=>addMsg("Hi there! 👋 I'm KC's virtual assistant. Ask me anything about her work, skills, or case studies!",'kc'),280);}inputEl.focus();}});
+  toggle.addEventListener('click',()=>{win.classList.toggle('open');if(win.classList.contains('open')){if(!msgs.children.length){setTimeout(()=>addMsg("Hi there! 👋 I'm KC's virtual assistant. Ask me anything about her work, skills, or case studies!",'kc'),280);}inputEl.focus();}});
   closeBtn.addEventListener('click',()=>win.classList.remove('open'));
   sendBtn.addEventListener('click',()=>send(inputEl.value));
   inputEl.addEventListener('keydown',e=>{if(e.key==='Enter')send(inputEl.value);});
